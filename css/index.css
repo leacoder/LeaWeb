@@ -97,19 +97,19 @@
 	width: 132px;
 	min-height: 15px;
 	padding-left: 24px;
-	margin-right: -10000px;
 	margin-top: 1px;
+	float: left;
 }
 
 #u97-4
 {
 	z-index: 783;
-	width: 153px;
+	width: 210px;
 	min-height: 15px;
 	padding-left: 30px;
-	margin-right: -10000px;
+	/*margin-right: -10000px;*/
 	margin-top: 1px;
-	left: 179px;
+	float: right;
 }
 
 #u162-4
@@ -230,10 +230,15 @@
 #u291
 {
 	z-index: 825;
+	/*
 	width: 170px;
 	height: 34px;
+	*/
 	top: 17px;
 	left: 413px;
+	/*added*/
+	width: 169px;
+	height: 60px;
 }
 
 #menuu166
@@ -850,7 +855,7 @@
 #u1217
 {
 	z-index: 105;
-	width: 223px;
+	width: 446px;
 	position: fixed;
 	top: 1142px;
 	left: 0px;
@@ -859,12 +864,13 @@
 #u1197
 {
 	z-index: 121;
-	width: 152px;
-	height: 152px;
+	width: 630px;
+	height: 331px;
 	border-color: #000000;
-	margin-left: 36px;
+	/* margin-left: 36px; */
 	position: relative;
-	background: transparent url("../images/daniel.jpg") no-repeat left top;
+	background: transparent url("../images/Lgdesign.png") no-repeat left center;
+	background-size: 619px;
 }
 
 #u1204-4
@@ -1188,7 +1194,7 @@
 	border-color: #000000;
 	margin-left: 36px;
 	position: relative;
-	background: transparent url("../images/isabella.jpg") no-repeat left top;
+	background: transparent url("../images/leandro.jpg") no-repeat left top;
 }
 
 #u1275-4
