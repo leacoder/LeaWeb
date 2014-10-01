@@ -1,0 +1,98 @@
+<manifest alg="2" build="314" opt="false" iceEnabled="true">
+  <folder name="css">
+    <file name="site_global.css" crc="70125343"/>
+    <file name="master_master-page.css" crc="3880855993" ref="index"/>
+    <file name="index.css" crc="3864709821" ref="index"/>
+    <file name="iefonts_index.css" crc="4034980407" ref="index"/>
+  </folder>
+  <folder name="scripts">
+    <file name="jquery-1.8.3.min.js" crc="209076791" ref="tablet>index:index"/>
+    <file name="museutils.js" crc="3865766194" ref="tablet>index:index"/>
+    <file name="jquery.scrolleffects.js" crc="3937082470" ref="tablet>index:index"/>
+    <file name="jquery.tobrowserwidth.js" crc="3842421675" ref="tablet>index:index"/>
+    <file name="webpro.js" crc="3903299128" ref="tablet>index:index"/>
+    <file name="musewpslideshow.js" crc="138381373" ref="tablet>index:index"/>
+    <file name="jquery.museoverlay.js" crc="4250894771" ref="tablet>index:index"/>
+    <file name="touchswipe.js" crc="4156838003" ref="tablet>index:index"/>
+    <file name="jquery.musemenu.js" crc="3788803530" ref="tablet>index:index"/>
+    <file name="pie.js" crc="3827607177" ref="tablet>index:index"/>
+    <file name="form_check.php" crc="4257733307" ref="tablet>index:index"/>
+    <file name="form_throttle.php" crc="3966014863" ref="tablet>index:index"/>
+    <file name="form-u3146.php" crc="525006096" ref="tablet>index"/>
+    <file name="jquery.watch.js" crc="4068933136" ref="tablet>index:index"/>
+    <file name="museredirect.js" crc="236897542" ref="index"/>
+    <file name="form-u2288.php" crc="358758783" ref="index"/>
+  </folder>
+  <folder name="images">
+    <file name="master-page-favicon.ico" crc="4268627446" ref="tablet>index"/>
+    <file name="dots.png" crc="261840914" ref="tablet>index:index"/>
+    <file name="1.jpg" crc="3879484260" ref="tablet>index:index"/>
+    <file name="blank.gif" crc="4208392903" ref="tablet>index:index"/>
+    <file name="2.jpg" crc="4062086247" ref="tablet>index:index"/>
+    <file name="loading.gif" crc="3815509949" ref="tablet>index:index"/>
+    <file name="pattern.png" crc="211335079" ref="tablet>index:index"/>
+    <file name="phone.png" crc="3771974962" ref="tablet>index:index"/>
+    <file name="envelope.png" crc="3918732802" ref="tablet>index:index"/>
+    <file name="facebook.png" crc="4213828330" ref="tablet>index:index"/>
+    <file name="twitter.png" crc="429107349" ref="tablet>index:index"/>
+    <file name="google-.png" crc="504736599" ref="tablet>index:index"/>
+    <file name="dribbble.png" crc="3798882567" ref="tablet>index:index"/>
+    <file name="pinterest.png" crc="4269286179" ref="tablet>index:index"/>
+    <file name="youtube.png" crc="3934081944" ref="tablet>index:index"/>
+    <file name="instagram.png" crc="133526154" ref="tablet>index:index"/>
+    <file name="logo.png" crc="380556514" ref="tablet>index:index"/>
+    <file name="skills.png" crc="242987818" ref="tablet>index:index"/>
+    <file name="daniel.jpg" crc="452300534" ref="tablet>index:index"/>
+    <file name="andrew.jpg" crc="228824157" ref="tablet>index:index"/>
+    <file name="jessica.jpg" crc="4172227580" ref="tablet>index:index"/>
+    <file name="isabella.jpg" crc="4152851896" ref="tablet>index:index"/>
+    <file name="12.jpg" crc="55132642" ref="tablet>index:index"/>
+    <file name="planning.png" crc="4197363922" ref="tablet>index:index"/>
+    <file name="frontend.png" crc="459844233" ref="tablet>index:index"/>
+    <file name="design.png" crc="4080930822" ref="tablet>index:index"/>
+    <file name="backend.png" crc="3991618155" ref="tablet>index:index"/>
+    <file name="22.jpg" crc="331153764" ref="tablet>index:index"/>
+    <file name="pattern_brown.png" crc="430379549" ref="tablet>index:index"/>
+    <file name="1_th.jpg" crc="507298309" ref="tablet>index:index"/>
+    <file name="plus.png" crc="523423963" ref="tablet>index:index"/>
+    <file name="2_th.jpg" crc="3771390958" ref="tablet>index:index"/>
+    <file name="4_th.jpg" crc="428877060" ref="tablet>index:index"/>
+    <file name="5_th.jpg" crc="408691597" ref="tablet>index:index"/>
+    <file name="13.jpg" crc="4105469187" ref="tablet>index:index"/>
+    <file name="23.jpg" crc="519307204" ref="tablet>index:index"/>
+    <file name="4.jpg" crc="236324754" ref="tablet>index:index"/>
+    <file name="5.jpg" crc="59383324" ref="tablet>index:index"/>
+    <file name="prev.png" crc="501193969" ref="tablet>index:index"/>
+    <file name="prev_active.png" crc="3788752274" ref="tablet>index:index"/>
+    <file name="next.png" crc="3855011319" ref="tablet>index:index"/>
+    <file name="next_active.png" crc="4231564256" ref="tablet>index:index"/>
+    <file name="close.png" crc="4058423188" ref="tablet>index:index"/>
+    <file name="close_active.png" crc="3927838307" ref="tablet>index:index"/>
+    <file name="6_th.jpg" crc="3870289545" ref="tablet>index:index"/>
+    <file name="6.jpg" crc="3972177506" ref="tablet>index:index"/>
+    <file name="3_th.jpg" crc="529701302" ref="tablet>index:index"/>
+    <file name="3.jpg" crc="3791078041" ref="tablet>index:index"/>
+    <file name="u3147-17.png" crc="4219075224" ref="tablet>index"/>
+    <file name="u3147-17-r.png" crc="24669689" ref="tablet>index"/>
+    <file name="u3147-17-m.png" crc="24669689" ref="tablet>index"/>
+    <file name="u3147-17-fs.png" crc="24669689" ref="tablet>index"/>
+    <file name="map_marker.png" crc="3968405845" ref="tablet>index:index"/>
+    <file name="phone_dark.png" crc="3931965172" ref="tablet>index:index"/>
+    <file name="envelope_dark.png" crc="369690372" ref="tablet>index:index"/>
+    <file name="skype.png" crc="4258534196" ref="tablet>index:index"/>
+    <file name="up_btn.png" crc="4179307715" ref="tablet>index:index"/>
+    <file name="u2311-17.png" crc="4219075224" ref="index"/>
+    <file name="u2311-17-r.png" crc="24669689" ref="index"/>
+    <file name="u2311-17-m.png" crc="24669689" ref="index"/>
+    <file name="u2311-17-fs.png" crc="24669689" ref="index"/>
+  </folder>
+  <folder name="tablet">
+    <folder name="css">
+      <file name="master_master-page.css" crc="4162799208" ref="tablet>index"/>
+      <file name="index.css" crc="221852487" ref="tablet>index"/>
+      <file name="iefonts_index.css" crc="213823479" ref="tablet>index"/>
+    </folder>
+    <file name="index.html" crc="4094802310" mt="1384976043331" redirect="true"/>
+  </folder>
+  <file name="index.html" crc="4260703949" mt="1384976047286" redirect="true"/>
+</manifest>

@@ -1,0 +1,369 @@
+#u82
+{
+	-pie-box-shadow: none;
+	-moz-box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.35);
+	-webkit-box-shadow: 0px 1px 5px -1px rgba(0, 0, 0, 0.35);
+	box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.35);
+	border-color: #000000;
+	background-color: #FFFFFF;
+	opacity: 0.95;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=95)";
+	filter: alpha(opacity=95);
+	position: fixed;
+}
+
+#u75
+{
+	border-color: #000000;
+	position: fixed;
+	background: transparent url("../images/pattern.png") repeat left top;
+}
+
+#u88-4
+{
+	line-height: 22px;
+	color: #A3B1BE;
+	font-size: 18px;
+	font-family: source-sans-pro, sans-serif;
+	font-weight: 400;
+	position: relative;
+	background: transparent url("../images/phone.png") no-repeat left center;
+}
+
+#u97-4
+{
+	line-height: 22px;
+	color: #A3B1BE;
+	font-size: 18px;
+	font-family: source-sans-pro, sans-serif;
+	font-weight: 400;
+	position: relative;
+	background: transparent url("../images/envelope.png") no-repeat left center;
+}
+
+#u162-4
+{
+	line-height: 22px;
+	color: #A3B1BE;
+	font-size: 18px;
+	font-family: source-sans-pro, sans-serif;
+	font-weight: 400;
+	position: relative;
+}
+
+#u105
+{
+	border-color: #000000;
+	position: relative;
+	background: #A3B1BE url("../images/facebook.png") no-repeat center center;
+}
+
+#u105:hover
+{
+	background: #3B5998 url("../images/facebook.png") no-repeat center center;
+}
+
+#u105.MuseLinkActive
+{
+	background: #3B5998 url("../images/facebook.png") no-repeat center center;
+}
+
+#u113
+{
+	border-color: #000000;
+	position: relative;
+	background: #A3B1BE url("../images/twitter.png") no-repeat center center;
+}
+
+#u113:hover
+{
+	background: #00ACED url("../images/twitter.png") no-repeat center center;
+}
+
+#u113.MuseLinkActive
+{
+	background: #00ACED url("../images/twitter.png") no-repeat center center;
+}
+
+#u121
+{
+	border-color: #000000;
+	position: relative;
+	background: #A3B1BE url("../images/google-.png") no-repeat center center;
+}
+
+#u121:hover
+{
+	background: #DD4B39 url("../images/google-.png") no-repeat center center;
+}
+
+#u121.MuseLinkActive
+{
+	background: #DD4B39 url("../images/google-.png") no-repeat center center;
+}
+
+#u129
+{
+	border-color: #000000;
+	position: relative;
+	background: #A3B1BE url("../images/dribbble.png") no-repeat center center;
+}
+
+#u129:hover
+{
+	background: #C73B6F url("../images/dribbble.png") no-repeat center center;
+}
+
+#u129.MuseLinkActive
+{
+	background: #C73B6F url("../images/dribbble.png") no-repeat center center;
+}
+
+#u137
+{
+	border-color: #000000;
+	position: relative;
+	background: #A3B1BE url("../images/pinterest.png") no-repeat center center;
+}
+
+#u137:hover
+{
+	background: #CB2027 url("../images/pinterest.png") no-repeat center center;
+}
+
+#u137.MuseLinkActive
+{
+	background: #CB2027 url("../images/pinterest.png") no-repeat center center;
+}
+
+#u145
+{
+	border-color: #000000;
+	position: relative;
+	background: #A3B1BE url("../images/youtube.png") no-repeat center center;
+}
+
+#u145:hover
+{
+	background: #BB0000 url("../images/youtube.png") no-repeat center center;
+}
+
+#u145.MuseLinkActive
+{
+	background: #BB0000 url("../images/youtube.png") no-repeat center center;
+}
+
+#u153
+{
+	border-color: #000000;
+	position: relative;
+	background: #A3B1BE url("../images/instagram.png") no-repeat center center;
+}
+
+#u153:hover
+{
+	background: #517FA4 url("../images/instagram.png") no-repeat center center;
+}
+
+#u153.MuseLinkActive
+{
+	background: #517FA4 url("../images/instagram.png") no-repeat center center;
+}
+
+#u291
+{
+	border-color: #000000;
+	position: fixed;
+	background: transparent url("../images/webdesignideas.png") no-repeat center center;
+}
+
+#u209
+{
+	background-color: transparent;
+	position: relative;
+}
+
+#u209:hover
+{
+	background: #A3B1BE url("../images/pattern.png") repeat left top;
+	background-size: auto !important;
+}
+
+#u211-4
+{
+	border-style: none;
+	border-color: transparent;
+	background-color: transparent;
+	text-align: center;
+	font-size: 18px;
+	line-height: 22px;
+	color: #595959;
+	font-family: source-sans-pro, sans-serif;
+	font-weight: 400;
+	position: relative;
+}
+
+#u209:hover #u211-4 p
+{
+	color: #FFFFFF;
+	visibility: inherit;
+}
+
+#u220
+{
+	background-color: transparent;
+	position: relative;
+}
+
+#u209.MuseMenuActive,#u220:hover
+{
+	background: #A3B1BE url("../images/pattern.png") repeat left top;
+	background-size: auto !important;
+}
+
+#u221-4
+{
+	border-style: none;
+	border-color: transparent;
+	background-color: transparent;
+	text-align: center;
+	font-size: 18px;
+	line-height: 22px;
+	color: #595959;
+	font-family: source-sans-pro, sans-serif;
+	font-weight: 400;
+	position: relative;
+}
+
+#u209.MuseMenuActive #u211-4 p,#u220:hover #u221-4 p
+{
+	color: #FFFFFF;
+	visibility: inherit;
+}
+
+.MenuItem /* unifiedNavBar */
+{
+	cursor: pointer;
+}
+
+#menuu166,#menuu249
+{
+	position: fixed;
+}
+
+#u265
+{
+	background-color: transparent;
+	position: relative;
+}
+
+#u220.MuseMenuActive,#u265:hover
+{
+	background: #A3B1BE url("../images/pattern.png") repeat left top;
+	background-size: auto !important;
+}
+
+#u267-4
+{
+	border-style: none;
+	border-color: transparent;
+	background-color: transparent;
+	text-align: center;
+	font-size: 18px;
+	line-height: 22px;
+	color: #595959;
+	font-family: source-sans-pro, sans-serif;
+	font-weight: 400;
+	position: relative;
+}
+
+#u220.MuseMenuActive #u221-4 p,#u265:hover #u267-4 p
+{
+	color: #FFFFFF;
+	visibility: inherit;
+}
+
+#u251
+{
+	background-color: transparent;
+	position: relative;
+}
+
+#u265.MuseMenuActive,#u251:hover
+{
+	background: #A3B1BE url("../images/pattern.png") repeat left top;
+	background-size: auto !important;
+}
+
+#u251.MuseMenuActive
+{
+	background: #A3B1BE url("../images/pattern.png") repeat left top;
+	background-size: auto !important;
+}
+
+#u253-4
+{
+	border-style: none;
+	border-color: transparent;
+	background-color: transparent;
+	text-align: center;
+	font-size: 18px;
+	line-height: 22px;
+	color: #595959;
+	font-family: source-sans-pro, sans-serif;
+	font-weight: 400;
+	position: relative;
+}
+
+#u265.MuseMenuActive #u267-4 p,#u251:hover #u253-4 p
+{
+	color: #FFFFFF;
+	visibility: inherit;
+}
+
+#u251.MuseMenuActive #u253-4 p
+{
+	color: #FFFFFF;
+	visibility: inherit;
+}
+
+#u2357
+{
+	border-color: #000000;
+	background-color: #A3B1BE;
+	position: relative;
+}
+
+#home,#u247,#u160,#u208,#u217,#u264,#u250,#u2357_align_to_page
+{
+	position: relative;
+}
+
+#u2360
+{
+	border-color: #000000;
+	position: relative;
+	background: transparent url("../images/up_btn.png") no-repeat center center;
+}
+
+#u2360:hover
+{
+	background: #98A6B4 url("../images/up_btn.png") no-repeat center center;
+}
+
+#u2358-4
+{
+	text-align: left;
+	font-size: 13px;
+	line-height: 16px;
+	color: #FFFFFF;
+	font-family: source-sans-pro, sans-serif;
+	font-weight: 400;
+	position: relative;
+}
+
+#u2358
+{
+	color: #FFFFFF;
+}
+
