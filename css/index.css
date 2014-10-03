@@ -258,7 +258,7 @@
 
 #u209
 {
-	width: 86px;
+	width: 101px;
 	padding-bottom: 8px;
 }
 
@@ -269,11 +269,11 @@
 
 #u211-4
 {
-	width: 56px;
+	width: 74px;
 	min-height: 22px;
 	margin-right: -10000px;
 	top: 4px;
-	left: 15px;
+	left: 12px;
 }
 
 #u209:hover #u211-4
@@ -289,7 +289,7 @@
 	width: 106px;
 	min-height: 30px;
 	margin-right: -10000px;
-	left: 88px;
+	left: 97px;
 }
 
 #u220
@@ -309,7 +309,7 @@
 	min-height: 22px;
 	margin-right: -10000px;
 	top: 4px;
-	left: 15px;
+	left: 13px;
 }
 
 #u209.MuseMenuActive #u211-4,#u220:hover #u221-4
@@ -330,14 +330,14 @@
 
 #u264
 {
-	width: 88px;
+	width: 106px;
 	min-height: 30px;
 	margin-right: -10000px;
 }
 
 #u265
 {
-	width: 88px;
+	width: 109px;
 	padding-bottom: 8px;
 }
 
@@ -368,7 +368,7 @@
 	width: 113px;
 	min-height: 30px;
 	margin-right: -10000px;
-	left: 90px;
+	left: 112px;
 }
 
 #u251
@@ -389,11 +389,11 @@
 
 #u253-4
 {
-	width: 83px;
+	width: 91px;
 	min-height: 22px;
 	margin-right: -10000px;
 	top: 4px;
-	left: 15px;
+	left: 13px;
 }
 
 #u265.MuseMenuActive #u267-4,#u251:hover #u253-4
@@ -417,7 +417,7 @@
 	z-index: 8;
 	width: 0.01px;
 	height: 256px;
-	margin-top: 255px;
+	margin-top: 378px;
 	position: relative;
 }
 
@@ -1184,6 +1184,8 @@
 	position: fixed;
 	top: 1142px;
 	left: 777px;
+	margin-top: 51px;
+	margin-left: -56px
 }
 
 #u1279
@@ -1473,7 +1475,7 @@
 	border-color: #000000;
 	margin-left: 60px;
 	position: relative;
-	background: transparent url("../images/planning.png") no-repeat center center;
+	background: transparent url("../images/domain.png") no-repeat center center;
 }
 
 #u1334-4
@@ -1488,6 +1490,7 @@
 
 #u1336-4
 {
+	font-size: 18px;
 	z-index: 173;
 	width: 223px;
 	text-align: center;
@@ -1540,6 +1543,7 @@
 	font-weight: 400;
 	margin-top: 8px;
 	position: relative;
+	font-size: 18px;
 }
 
 #u1356
@@ -1574,6 +1578,7 @@
 
 #u1358-4
 {
+	font-size: 18px;
 	z-index: 193;
 	width: 223px;
 	text-align: center;
@@ -1608,7 +1613,7 @@
 #u1372-4
 {
 	z-index: 199;
-	width: 223px;
+	width: 236px;
 	min-height: 20px;
 	line-height: 18px;
 	margin-top: 17px;
@@ -1616,7 +1621,8 @@
 }
 
 #u1374-4
-{
+{ 
+	font-size: 18px;
 	z-index: 203;
 	width: 223px;
 	text-align: center;
@@ -1916,7 +1922,8 @@
 #u1581-4
 {
 	z-index: 249;
-	width: 80px;
+	width: 100px;
+	margin-left: -10px;
 	min-height: 5px;
 	border-width: 1px;
 	border-style: solid;
@@ -1942,8 +1949,8 @@
 	padding-top: 7px;
 	padding-bottom: 7px;
 	min-height: 5px;
-	width: 80px;
-	margin: 1px -10000px 0px 0px;
+	width: 100px;
+	margin: 1px -10000px 0px -10px;
 }
 
 #u1554:active #u1581-4
@@ -1953,8 +1960,8 @@
 	padding-top: 7px;
 	padding-bottom: 7px;
 	min-height: 5px;
-	width: 80px;
-	margin: 1px -10000px 0px 0px;
+	width: 100px;
+	margin: 1px -10000px 0px -10px;
 }
 
 #u1554.PamphletThumbSelected #u1581-4
@@ -1964,8 +1971,8 @@
 	padding-top: 7px;
 	padding-bottom: 7px;
 	min-height: 5px;
-	width: 80px;
-	margin: 1px -10000px 0px 0px;
+	width: 100px;
+	margin: 1px -10000px 0px -10px;
 }
 
 #u1554:hover #u1581-4 p
@@ -2534,7 +2541,7 @@
 	height: 563px;
 	border-style: none;
 	border-color: transparent;
-	background-color: #FFFFFF;
+	background-color: #BAB7B7;
 	padding-bottom: 22px;
 	margin-right: -10000px;
 	position: relative;
