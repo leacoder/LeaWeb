@@ -729,7 +729,7 @@
 #about
 {
 	left: -100px;
-	top: -63px;
+	top: -164px;
 	margin-bottom: -18px;
 	position: relative;
 }
@@ -864,13 +864,13 @@
 #u1197
 {
 	z-index: 121;
-	width: 630px;
-	height: 331px;
+	width: 614px;
+	height: 337px;
 	border-color: #000000;
 	/* margin-left: 36px; */
 	position: relative;
 	background: transparent url("../images/Lgdesign.png") no-repeat left center;
-	background-size: 619px;
+	background-size: 518px;
 }
 
 #u1204-4
@@ -1184,8 +1184,8 @@
 	position: fixed;
 	top: 1142px;
 	left: 777px;
-	margin-top: 51px;
-	margin-left: -56px
+margin-top: 61px;
+margin-left: -106px;
 }
 
 #u1279
@@ -1196,7 +1196,7 @@
 	border-color: #000000;
 	margin-left: 36px;
 	position: relative;
-	background: transparent url("../images/leandro.jpg") no-repeat left top;
+	background: transparent url("../images/leandro2.jpg") no-repeat left top;
 }
 
 #u1275-4
@@ -1465,6 +1465,7 @@
 	position: fixed;
 	top: 2103px;
 	left: 0px;
+	margin-top: -20px;
 }
 
 #u1327
@@ -1504,6 +1505,7 @@
 
 #u1342
 {
+margin-top: -20px;
 	z-index: 177;
 	width: 223px;
 	position: fixed;
@@ -1548,6 +1550,7 @@
 
 #u1356
 {
+	margin-top: -20px;
 	z-index: 187;
 	width: 223px;
 	position: fixed;
@@ -1592,6 +1595,7 @@
 
 #u1371
 {
+	margin-top: -20px;
 	z-index: 197;
 	width: 223px;
 	position: fixed;
@@ -1766,6 +1770,7 @@
 	position: fixed;
 	top: 2817px;
 	left: 0px;
+	padding-top: 20px;
 }
 
 #u2248
@@ -1798,7 +1803,7 @@
 	width: 0.01px;
 	height: 42px;
 	padding-bottom: 530px;
-	margin-top: 26px;
+margin-top: 0px;
 	position: relative;
 }
 
@@ -5232,7 +5237,7 @@
 	z-index: 731;
 	min-height: 37px;
 	width: 131px;
-	background: url("../images/u2311-17.png") no-repeat 0px 0px;
+	background: url("../images/enviar.png") no-repeat 0px 0px;
 	margin-bottom: -1px;
 	position: relative;
 	margin-right: -10000px;
@@ -5241,7 +5246,7 @@
 
 #u2311-17:hover
 {
-	background: url("../images/u2311-17-r.png") no-repeat 0px 0px;
+	background: url("../images/enviar_h.png") no-repeat 0px 0px;
 }
 
 #u2311-17:active
@@ -5456,6 +5461,7 @@
 	position: fixed;
 	top: 4075px;
 	left: 518px;
+	padding-bottom: 16px;
 }
 
 #pu1991,#pu2048,#pu2127,#pu2253-4
@@ -5464,10 +5470,23 @@
 	position: relative;
 }
 
+.contactP{
+	line-height: 26px;
+	font-size: 20px;
+	width: 350px;
+}
+.contactF{
+	line-height: 26px;
+	font-size: 20px;
+	width: 350px;
+}
+
+
 #u2253-4
 {
+	padding-bottom: 20px;
 	z-index: 691;
-	width: 222px;
+	width: 480px;
 	min-height: 27px;
 	line-height: 24px;
 	position: relative;
@@ -5730,7 +5749,7 @@
 #pu2275
 {
 	width: 0.01px;
-	margin-top: 26px;
+	margin-top: 18px;
 	position: relative;
 }
 
@@ -5764,7 +5783,7 @@
 #pu2332
 {
 	width: 0.01px;
-	margin-top: 29px;
+	margin-top: 18px;
 	position: relative;
 }
 

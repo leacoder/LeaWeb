@@ -121,12 +121,10 @@
 #u2595-4
 {
 	z-index: 694;
-	width: 153px;
+	width: 233px;
 	min-height: 15px;
 	padding-left: 30px;
-	margin-right: -10000px;
 	margin-top: 16px;
-	left: 243px;
 }
 
 #u2596
@@ -245,9 +243,9 @@
 #u2663
 {
 	z-index: 698;
-	width: 142px;
-	height: 34px;
-	top: 71px;
+width: 145px;
+height: 46px;
+	top: 63px;
 	left: 20px;
 }
 
@@ -279,11 +277,11 @@
 
 #u2631-4
 {
-	width: 56px;
+	width: 80px;
 	min-height: 22px;
 	margin-right: -10000px;
 	top: 4px;
-	left: 15px;
+	left: 3px;
 }
 
 #u2628:hover #u2631-4
@@ -340,7 +338,7 @@
 
 #u2688
 {
-	width: 88px;
+	width: 93px;
 	padding-bottom: 8px;
 }
 
@@ -351,11 +349,11 @@
 
 #u2689-4
 {
-	width: 58px;
+	width: 85px;
 	min-height: 22px;
 	margin-right: -10000px;
 	top: 4px;
-	left: 15px;
+	left: 4px;
 }
 
 #u2621.MuseMenuActive #u2623-4,#u2688:hover #u2689-4
@@ -376,7 +374,8 @@
 
 #u2695
 {
-	width: 113px;
+width: 106px;
+
 	padding-bottom: 8px;
 }
 
@@ -396,7 +395,8 @@
 	min-height: 22px;
 	margin-right: -10000px;
 	top: 4px;
-	left: 15px;
+left: 10px;
+
 }
 
 #u2688.MuseMenuActive #u2689-4,#u2695:hover #u2696-4
@@ -785,6 +785,7 @@
 
 #u2813
 {
+	margin-top: -50px;
 	z-index: 135;
 	width: 336px;
 	position: fixed;
@@ -817,6 +818,7 @@
 
 #u2809
 {
+	margin-top: -50px;
 	z-index: 128;
 	width: 364px;
 	padding-bottom: 0px;
@@ -856,10 +858,12 @@
 	position: fixed;
 	top: 1096px;
 	left: 20px;
+	margin-top: -15px;
 }
 
 #u2849
 {
+	margin-top: -30px;
 	z-index: 93;
 	width: 223px;
 	position: fixed;
@@ -876,13 +880,14 @@
 
 #u2803
 {
-	z-index: 127;
-	width: 152px;
-	height: 152px;
-	border-color: #000000;
-	margin-left: 36px;
-	position: relative;
-	background: transparent url("../../images/daniel.jpg") no-repeat left top;
+z-index: 127;
+width: 372px;
+height: 182px;
+border-color: #000000;
+margin-left: 58px;
+position: relative;
+background: transparent url("../../images/Lgdesign.png") no-repeat left top;
+background-size: 380px;
 }
 
 #u2802-4
@@ -989,7 +994,7 @@
 	border-color: #000000;
 	margin-left: 36px;
 	position: relative;
-	background: transparent url("../../images/andrew.jpg") no-repeat left top;
+	background: transparent url("../../images/leandro2.jpg") no-repeat left top;
 }
 
 #u2790-4
@@ -1087,6 +1092,8 @@
 	position: fixed;
 	top: 1168px;
 	left: 402px;
+margin-top: 160px;
+margin-left: -120px;
 }
 
 #u2792
@@ -1212,7 +1219,7 @@
 	border-color: #000000;
 	margin-left: 36px;
 	position: relative;
-	background: transparent url("../../images/isabella.jpg") no-repeat left top;
+	background: transparent url("../../images/leandro2.jpg") no-repeat left top;
 }
 
 #u2783-4
@@ -1463,6 +1470,7 @@
 	position: fixed;
 	top: 2500px;
 	left: 134px;
+	margin-top: -40px;
 }
 
 #u2828
@@ -1480,7 +1488,7 @@
 	border-color: #000000;
 	margin-left: 60px;
 	position: relative;
-	background: transparent url("../../images/planning.png") no-repeat center center;
+	background: transparent url("../../images/domain.png") no-repeat center center;
 }
 
 #u2830-4
@@ -1555,6 +1563,7 @@
 	position: fixed;
 	top: 2500px;
 	left: 393px;
+	margin-top: -40px;
 }
 
 #u2832
@@ -4760,7 +4769,7 @@
 #u3135-4
 {
 	z-index: 574;
-	width: 222px;
+width: 272px;
 	min-height: 27px;
 	line-height: 24px;
 	position: relative;
@@ -4837,7 +4846,7 @@
 #pu3136
 {
 	width: 0.01px;
-	margin-top: 26px;
+	margin-top: 20px;
 	position: relative;
 }
 
@@ -4871,7 +4880,7 @@
 #pu3142
 {
 	width: 0.01px;
-	margin-top: 29px;
+	margin-top: 14px;
 	position: relative;
 }
 

@@ -32,6 +32,7 @@
 
 #u2595-4
 {
+	float: right;
 	line-height: 22px;
 	color: #A3B1BE;
 	font-size: 18px;
@@ -164,7 +165,8 @@
 {
 	border-color: #000000;
 	position: fixed;
-	background: transparent url("../../images/logo.png") no-repeat center center;
+	background: transparent url("../../images/lgdesigntitle.png") no-repeat center center;
+	background-size: 120px;
 }
 
 #menuu2605
