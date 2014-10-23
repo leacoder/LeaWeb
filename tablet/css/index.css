@@ -32,7 +32,7 @@
 {
 	z-index: 1;
 	width: 768px;
-	min-height: 5020.700000000001px;
+	min-height: 5411px;
 	background-image: none;
 	border-style: none;
 	border-color: #000000;
@@ -110,7 +110,7 @@
 #u2594-4
 {
 	z-index: 690;
-	width: 132px;
+	width: 150px;
 	min-height: 15px;
 	padding-left: 24px;
 	margin-right: -10000px;
@@ -808,8 +808,8 @@ left: 10px;
 	width: 336px;
 	min-height: 167px;
 	text-align: justify;
-	line-height: 26px;
-	font-size: 18px;
+line-height: 28px;
+font-size: 19px;
 	font-family: source-sans-pro, sans-serif;
 	font-weight: 300;
 	margin-top: 8px;
@@ -858,12 +858,12 @@ left: 10px;
 	position: fixed;
 	top: 1096px;
 	left: 20px;
-	margin-top: -15px;
+margin-top: 35px;
 }
 
 #u2849
 {
-	margin-top: -30px;
+margin-top: 20px;
 	z-index: 93;
 	width: 223px;
 	position: fixed;
@@ -881,13 +881,13 @@ left: 10px;
 #u2803
 {
 z-index: 127;
-width: 372px;
-height: 182px;
+width: 444px;
+height: 229px;
 border-color: #000000;
-margin-left: 58px;
+margin-left: 0px;
 position: relative;
 background: transparent url("../../images/Lgdesign.png") no-repeat left top;
-background-size: 380px;
+background-size: 450px;
 }
 
 #u2802-4
@@ -1092,7 +1092,7 @@ background-size: 380px;
 	position: fixed;
 	top: 1168px;
 	left: 402px;
-margin-top: 160px;
+margin-top: 282px;
 margin-left: -120px;
 }
 
@@ -4029,7 +4029,7 @@ margin-left: -120px;
 #contacts
 {
 	margin-left: 19px;
-	top: -1055px;
+	top: -355px;
 	margin-bottom: -18px;
 	position: relative;
 }
@@ -4051,7 +4051,7 @@ margin-left: -120px;
 {
 	z-index: 539;
 	width: 768px;
-	height: 588px;
+	height: 862px;
 	border-style: solid;
 	border-color: #A9A49A;
 	position: fixed;
@@ -4070,6 +4070,7 @@ margin-left: -120px;
 	position: fixed;
 	top: 4576px;
 	left: 20px;
+	margin-top: 9px;
 }
 
 #u3173-4
@@ -4086,6 +4087,7 @@ margin-left: -120px;
 	position: fixed;
 	top: 4635px;
 	left: 20px;
+	margin-top: 50px;
 }
 
 #u3145
@@ -4096,6 +4098,7 @@ margin-left: -120px;
 	position: fixed;
 	top: 4692px;
 	left: 20px;
+	margin-top: 130px;
 }
 
 #u3172-4
@@ -4764,6 +4767,7 @@ margin-left: -120px;
 	position: fixed;
 	top: 4692px;
 	left: 444px;
+	margin-top: 130px;
 }
 
 #u3135-4
@@ -5073,6 +5077,7 @@ width: 272px;
 	width: 768px;
 	top: -40px;
 	margin-bottom: -40px;
+	margin-top: 238px;
 }
 
 #u2702-4
