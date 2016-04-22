@@ -20,8 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 function emailFormSubmission()
 {
-	$to = '';
-	$subject = 'Urban Form Submission';
+	$to = 'lgdesign@lgdesign.com.ar';
+	$subject = 'MAIL FROM WEBPAGE BY MOBILE';
 	
 	$message = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><title>' . htmlentities($subject,ENT_COMPAT,'UTF-8') . '</title></head>';
 	$message .= '<body style="background-color: #ffffff; color: #000000; font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; line-height: 18px; font-family: helvetica, arial, verdana, sans-serif;">';
@@ -37,7 +37,7 @@ function emailFormSubmission()
 	$message = cleanupMessage($message);
 	
 	$formEmail = cleanupEmail($_REQUEST['Email']);
-	$headers = 'From:  ' . "\r\n" . 'Reply-To: ' . $formEmail .  "\r\n" .'X-Mailer: Adobe Muse 7.0.314 with PHP/' . phpversion() . "\r\n" . 'Content-type: text/html; charset=utf-8' . "\r\n";
+	$headers = 'From:  lgdesign@lgdesign.com.ar' . "\r\n" . 'Reply-To: ' . $formEmail .  "\r\n" .'X-Mailer: Adobe Muse 7.0.314 with PHP/' . phpversion() . "\r\n" . 'Content-type: text/html; charset=utf-8' . "\r\n";
 	
 	$sent = @mail($to, $subject, $message, $headers);
 	
