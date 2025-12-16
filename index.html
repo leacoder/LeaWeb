@@ -25,8 +25,9 @@
 
   <main>
     <section class="hero" id="home">
+      <div class="hero__halo"></div>
       <div class="hero__content">
-        <p class="eyebrow">Programador & Diseñador web</p>
+        <div class="hero__pill">Programador &amp; Diseñador web</div>
         <h1>Hola, soy <span>Leandro García</span>.</h1>
         <p class="lead">Imagen profesional para tu negocio a través de un sitio web moderno y funcional, disponible para tus clientes las 24&nbsp;hs.</p>
         <div class="hero__actions">
@@ -43,17 +44,48 @@
             <p class="meta__body">Diferenciate con una presencia online clara.</p>
           </div>
         </div>
+        <div class="hero__stats">
+          <div class="stat">
+            <p class="stat__value">+10</p>
+            <p class="stat__label">Clientes acompañados</p>
+          </div>
+          <div class="stat">
+            <p class="stat__value">100%</p>
+            <p class="stat__label">Sitios activos 24/7</p>
+          </div>
+          <div class="stat">
+            <p class="stat__value">∞</p>
+            <p class="stat__label">Actualizaciones a demanda</p>
+          </div>
+        </div>
       </div>
       <div class="hero__visual" aria-hidden="true">
         <div class="visual-card">
-          <p class="visual-title">Servicios integrales</p>
-          <ul>
-            <li>Registro de dominios</li>
-            <li>Diseño de página web</li>
-            <li>Hosting confiable</li>
-            <li>Soporte y actualizaciones</li>
-          </ul>
-          <div class="visual-link">Disponibles en Argentina y dominios globales.</div>
+          <div class="visual-card__header">
+            <div>
+              <p class="eyebrow">Servicios integrales</p>
+              <p class="visual-title">Tu web lista de punta a punta</p>
+            </div>
+            <span class="chip">Disponibles en Argentina y dominios globales</span>
+          </div>
+          <div class="visual-tiles">
+            <div class="tile">
+              <h4>Registro de dominios</h4>
+              <p>Elegí extensiones .com.ar o globales.</p>
+            </div>
+            <div class="tile">
+              <h4>Diseño de página web</h4>
+              <p>Plantillas ajustadas a tu identidad.</p>
+            </div>
+            <div class="tile">
+              <h4>Hosting confiable</h4>
+              <p>Rendimiento estable y seguro.</p>
+            </div>
+            <div class="tile">
+              <h4>Soporte y actualizaciones</h4>
+              <p>Contenido siempre al día.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -225,5 +257,23 @@
     <a href="#home" class="back-to-top">Volver arriba</a>
     <p>2014 © LG Design &amp; Development</p>
   </footer>
+  <div class="page-transition" aria-hidden="true"></div>
+  <script>
+    const transitionLayer = document.querySelector('.page-transition');
+    const links = document.querySelectorAll('a[href^="#"]');
+    links.forEach(link => {
+      link.addEventListener('click', event => {
+        const targetId = link.getAttribute('href');
+        const target = targetId && document.querySelector(targetId);
+        if (!target) return;
+        event.preventDefault();
+        transitionLayer.classList.add('active');
+        setTimeout(() => {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          setTimeout(() => transitionLayer.classList.remove('active'), 450);
+        }, 120);
+      });
+    });
+  </script>
 </body>
 </html>
