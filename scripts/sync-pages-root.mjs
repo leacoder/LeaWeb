@@ -5,7 +5,8 @@ import { fileURLToPath } from 'node:url';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const dist = path.join(root, 'dist');
 const manifestPath = path.join(root, '.site-output.json');
-const allowed = new Set(['.nojekyll', '404.html', 'CNAME', 'favicon.svg', 'index.html', 'logo-dark.svg', 'logo-light.svg', 'og-image.png', 'og-image-v2.png', 'og-image.svg', 'robots.txt', 'sitemap-0.xml', 'sitemap-index.xml']);
+// Keep retired image names allowed so the previous manifest can remove them safely.
+const allowed = new Set(['.nojekyll', '404.html', 'CNAME', 'favicon.svg', 'index.html', 'logo-dark.svg', 'logo-light.svg', 'og-image.png', 'og-image-v2.png', 'og-logo-v3.png', 'og-image.svg', 'robots.txt', 'sitemap-0.xml', 'sitemap-index.xml']);
 function destination(relative) {
   const parts = relative.split('/');
   if (parts.some((part) => !part || part === '.' || part === '..') || relative.includes('\\')) throw new Error(`Ruta inválida: ${relative}`);

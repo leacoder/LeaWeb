@@ -119,6 +119,15 @@ for (const [file, html] of pageCache) {
     if (target.origin !== site.origin) continue;
     const targetFile = await resolveBuiltFile(target);
     assert(Boolean(targetFile), `${label}: enlace o recurso inexistente ${reference}.`);
+    if (targetFile && reference === metadata(html, 'og:image') && metadata(html, 'og:image:type') === 'image/png') {
+      const png = await readFile(targetFile);
+      const validPNG = png.length >= 24 && png.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]));
+      assert(validPNG, `${label}: la imagen social debe ser un PNG válido.`);
+      if (validPNG) {
+        assert(Number(metadata(html, 'og:image:width')) === png.readUInt32BE(16), `${label}: el ancho declarado no coincide con la imagen social.`);
+        assert(Number(metadata(html, 'og:image:height')) === png.readUInt32BE(20), `${label}: el alto declarado no coincide con la imagen social.`);
+      }
+    }
     if (targetFile && target.hash && targetFile.endsWith('.html')) {
       const targetHTML = pageCache.get(targetFile) ?? await readFile(targetFile, 'utf8');
       const ids = [...targetHTML.matchAll(/\bid=["']([^"']+)["']/g)].map((match) => match[1]);

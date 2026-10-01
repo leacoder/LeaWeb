@@ -20,7 +20,7 @@ interface Props {
   breadcrumbs?: { name: string; url: string }[];
   noindex?: boolean;
 }
-const { title, description, image = '/og-image-v2.png', breadcrumbs = [], noindex = false } = Astro.props;
+const { title, description, image = '/og-logo-v3.png', breadcrumbs = [], noindex = false } = Astro.props;
 const rawPath = Astro.props.path ?? Astro.url.pathname;
 const normalizedPath = rawPath === '/index.html' ? '/' : rawPath;
 const canonical = new URL(normalizedPath, site.url).href;
@@ -28,7 +28,7 @@ const pageTitle = `${title} | ${site.name}`;
 const socialTitle = Astro.props.socialTitle ?? pageTitle;
 const socialDescription = Astro.props.socialDescription ?? description;
 const socialImage = new URL(image, site.url).href;
-const brandImage = image === '/og-image-v2.png';
+const brandImage = image === '/og-logo-v3.png';
 const verification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 const gaId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID ?? '';
 const analyticsEnabled = /^G-[A-Z0-9]+$/.test(gaId);
@@ -65,8 +65,8 @@ const schema = {
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={socialImage} />
     <meta property="og:image:secure_url" content={socialImage} />
-    {brandImage && <><meta property="og:image:type" content="image/png" /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" /></>}
-    <meta property="og:image:alt" content="LG Design: diseño y desarrollo digital, del plano a la realidad" />
+    {brandImage && <><meta property="og:image:type" content="image/png" /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="1200" /></>}
+    <meta property="og:image:alt" content="Logo de LG Design, diseño y desarrollo digital" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={socialTitle} />
     <meta name="twitter:description" content={socialDescription} />
