@@ -86,6 +86,21 @@ for (const [file, html] of pageCache) {
       try {
         const structured = JSON.parse(script[2]);
         assert(structured && typeof structured === 'object', `${label}: datos estructurados vacíos.`);
+        const graph = structured['@graph'] ?? [];
+        const entity = (type) => graph.find((node) => node['@type'] === type);
+        assert(entity('WebPage')?.url === expectedCanonical, `${label}: WebPage debe identificar la URL canónica.`);
+        if (/^\/servicios\/[^/]+\/$/.test(route)) {
+          const service = entity('Service');
+          assert(service?.url === expectedCanonical && service?.provider?.['@id'] === `${site.origin}/#organization`, `${label}: el servicio debe identificar página y proveedor.`);
+        }
+        if (route === '/') {
+          const faq = entity('FAQPage');
+          assert(faq?.mainEntity?.length > 0, 'Home: faltan preguntas estructuradas.');
+          for (const question of faq?.mainEntity ?? []) {
+            const visibleText = decode(html.replace(/<[^>]+>/g, ' '));
+            assert(visibleText.includes(question.name) && visibleText.includes(question.acceptedAnswer?.text), 'Home: las preguntas y respuestas estructuradas deben ser visibles.');
+          }
+        }
       } catch { failures.push(`${label}: JSON-LD no es JSON válido.`); }
     }
   }
@@ -162,6 +177,7 @@ for (const sitemapFile of sitemapFiles) {
 }
 const robots = await readFile(path.join(dist, 'robots.txt'), 'utf8').catch(() => '');
 assert(robots.includes(`Sitemap: ${site.href}sitemap-index.xml`) && /Allow:\s*\//.test(robots), 'robots.txt debe permitir rastreo y apuntar al sitemap HTTPS.');
+assert(/User-agent:\s*OAI-SearchBot\s+Allow:\s*\//i.test(robots), 'robots.txt debe permitir el rastreador de búsqueda de ChatGPT.');
 assert((await readFile(path.join(dist, 'CNAME'), 'utf8').catch(() => '')).trim() === site.hostname, 'CNAME debe conservar lgdesign.com.ar.');
 assert(!files.some((file) => /\.(?:php|zip)$/i.test(file)), 'El build no debe publicar los formularios PHP ni archivos originales ZIP.');
 

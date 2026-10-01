@@ -2,7 +2,7 @@
 title: Mejorar y completar proyectos web existentes
 shortTitle: Mejora de proyectos
 ctaLabel: Hagamos avanzar tu proyecto
-description: Si ya tenés una web o un desarrollo en marcha, revisamos lo que existe y definimos cómo mejorarlo, corregirlo o llevarlo a su próxima entrega.
+description: Consultoría para mejorar o completar proyectos web en Argentina. Revisión de código, diseño responsive y funciones pendientes con un alcance acordado.
 number: "03"
 icon: upgrade
 deliverables:
@@ -18,7 +18,15 @@ Una web puede necesitar un mejor diseño, funcionar mejor en el celular o incorp
 
 Antes de estimar los cambios, necesito conocer el estado del sitio, el código o plataforma disponible y el objetivo que querés alcanzar. Esa revisión permite distinguir mejoras puntuales de un trabajo de reconstrucción.
 
-## Cómo trabajamos
+## ¿Buscás un programador para terminar tu proyecto?
+
+Si un desarrollo quedó incompleto, tiene errores o necesita una función pendiente, podemos evaluar cómo retomarlo. Para empezar, compartí el objetivo, el estado actual, la tecnología utilizada y los archivos o accesos disponibles. Si existe documentación de lo ya acordado, también ayuda a entender qué falta.
+
+La revisión inicial permite acordar si conviene una corrección puntual, continuar el desarrollo o reconstruir una parte. El alcance, los plazos y el presupuesto se definen después de esa evaluación. El trabajo se organiza de forma remota con PyMEs y emprendedores de Argentina.
+
+Para proyectos nuevos, consultá [diseño y desarrollo web](/servicios/diseno-desarrollo-web/) o [sistemas a medida e integraciones](/servicios/sistemas-integraciones/), según la necesidad.
+
+## Etapas de la intervención
 
 1. **Revisamos el punto de partida.** Vemos qué funciona, qué falta y qué materiales o accesos están disponibles.
 2. **Ordenamos las prioridades.** Identificamos los cambios que tienen más impacto para tu negocio y los riesgos técnicos.

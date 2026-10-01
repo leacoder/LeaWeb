@@ -45,6 +45,18 @@ El plano de la portada es un SVG editable en `src/components/Blueprint.astro`, c
 
 ## SEO y medición
 
+El posicionamiento se centra en necesidades reales: diseño web para PyMEs de Argentina, sistemas a medida e integración de sistemas, y ayuda de un programador para mejorar o terminar un proyecto. Cada servicio tiene una URL propia, explica cuándo contratarlo y enlaza alternativas relevantes. La home identifica a Leandro García como consultor, diseñador y desarrollador, con atención remota en Argentina.
+
+El JSON-LD vincula Organization, Person, WebSite y WebPage con identificadores estables. Cada servicio declara Service y su proveedor; los casos declaran CreativeWork sin atribuir autorías o resultados no confirmados. Las preguntas de la home generan FAQPage a partir de las mismas respuestas visibles: este marcado describe el contenido y no promete resultados enriquecidos para este tipo de negocio.
+
+`robots.txt` permite explícitamente OAI-SearchBot y conserva la regla general de acceso. La política de entrenamiento de otros rastreadores no se cambia con una regla específica. El HTML estático, los enlaces y los datos verificables son la base para búsquedas y respuestas con IA. No se agrega `llms.txt` como supuesto requisito: Google indica que no se necesitan archivos especiales ni un schema específico para aparecer en sus funciones de IA. Consultar [Google: funciones de IA y sitios web](https://developers.google.com/search/docs/appearance/ai-features) y [OpenAI: rastreadores](https://developers.openai.com/api/docs/bots).
+
+Después de publicar, comprobar también en Cloudflare que el firewall, los desafíos y las políticas de bots no impidan el acceso de buscadores y rastreadores verificados. Un Allow en robots.txt no anula restricciones de la infraestructura. No modificar esas políticas sin revisar primero las reglas y los registros de acceso.
+
+Para medir: enviar el sitemap a Google Search Console y Bing Webmaster Tools, inspeccionar las tres páginas de servicios y registrar consultas, impresiones, clics y contactos. Comparar los períodos de 30 y 90 días sin asumir que una búsqueda manual representa el ranking de todos los usuarios. La configuración externa y la publicación son pasos posteriores; el build no registra cuentas ni envía URLs a esos servicios.
+
+La siguiente mejora editorial es confirmar el aporte personal en MatchVybe y documentar intervenciones y resultados reales de cada proyecto. Agregar enlaces a perfiles profesionales de Leandro cuando estén disponibles y verificados; mantener nombre, marca y sitio consistentes. No inventar reseñas, clientes, dirección física, años de experiencia ni perfiles externos para completar el schema.
+
 Cada página tiene título, descripción, canonical, vista previa social y datos estructurados. `robots.txt` permite el rastreo y apunta a `/sitemap-index.xml`. Las páginas de servicios y casos están en el HTML generado y funcionan sin JavaScript.
 
 Para conectar servicios opcionales de Google, copiar `.env.example` a `.env` y completar:

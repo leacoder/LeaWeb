@@ -1,12 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
-  <defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0v40" fill="none" stroke="#8be2ef" stroke-opacity=".09" stroke-width=".5"/></pattern></defs>
+  <defs><pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M30 0H0v30" fill="none" stroke="#8be2ef" stroke-opacity=".12" stroke-width=".7"/></pattern></defs>
   <rect width="1200" height="630" fill="#071a2e"/><rect width="1200" height="630" fill="url(#grid)"/>
-  <g stroke="#8be2ef" fill="none"><path d="M62 60h90M72 50v90M62 130h90M142 50v90" stroke-width=".8" opacity=".6"/><path d="M82 69v49h18m32-40c-18-15-28 3-28 15v8c0 22 20 24 28 13V94h-16" stroke-width="5"/></g>
-  <text x="176" y="105" font-family="Arial,sans-serif" font-size="38" font-weight="700" fill="#edf3f8" letter-spacing="2">LG DESIGN</text>
-  <text x="74" y="203" font-family="monospace" font-size="14" fill="#8be2ef" letter-spacing="2">DISEÑO + DESARROLLO + CRITERIO</text>
-  <text x="70" y="292" font-family="Arial,sans-serif" font-size="68" font-weight="500" letter-spacing="-2" fill="#edf3f8">Tu proyecto digital,</text><text x="70" y="375" font-family="Arial,sans-serif" font-size="68" font-weight="500" letter-spacing="-2" fill="#8be2ef">del plano a la realidad.</text>
-  <text x="74" y="448" font-family="Arial,sans-serif" font-size="23" fill="#a8b9c8">Webs, sistemas e integraciones para PyMEs y emprendedores.</text>
-  <g stroke="#8be2ef" fill="none" opacity=".8"><path d="M973 167v290M959 167h29M959 457h29M849 512h237M849 498v28M1086 498v28" stroke-width=".8"/><rect x="911" y="223" width="200" height="157" rx="3" fill="#0b243c"/><path d="M911 245h200M926 271h74M926 286h55M926 314h48"/><rect x="1018" y="264" width="75" height="77"/><path d="m1018 264 75 77m0-77-75 77" opacity=".4"/><rect x="1040" y="331" width="69" height="127" rx="7" fill="#0b243c"/><path d="M1050 355h37M1050 366h28M1050 402h45M1062 449h20"/></g>
-  <path d="M74 538h1052" stroke="#8be2ef" stroke-opacity=".25"/>
-  <text x="74" y="577" font-family="monospace" font-size="15" fill="#a8b9c8">lgdesign.com.ar</text><text x="937" y="577" font-family="monospace" font-size="13" fill="#a8b9c8">ARGENTINA · REMOTO</text>
+  <g fill="none" stroke="#8be2ef" opacity=".35"><path d="M60 65h1080M60 565h1080M90 35v560M1110 35v560M265 90v450M935 90v450"/><path d="m82 65 8-8 8 8m-16 500 8 8 8-8m1004-500 8-8 8 8m-16 500 8 8 8-8"/><circle cx="165" cy="315" r="56"/><path d="M85 315h160M165 235v160M109 259l112 112M109 371l112-112"/><rect x="997" y="247" width="70" height="136" rx="8"/><path d="M1010 266h44M1010 283h30M1010 339h44M1023 369h18"/></g>
+  <g transform="translate(375 88) scale(4.5)" fill="#edf3f8"><path d="M12 14h10v32h27v10H12zM64 14h24v10H66q-8 0-8 8v6q0 8 8 8h12v-6H68V30h20v26H64q-16 0-16-17v-8q0-17 16-17z"/><g stroke="#8be2ef" stroke-width=".6" fill="none"><path d="M12 2v9M88 2v9M12 7h76M4 14h7M4 56h7M7 14v42M91 14h7M91 56h7M95 14v42M12 59v9M88 59v9M12 64h76"/></g><g fill="#8be2ef"><path d="m12 7 5-2v4zm76 0-5-2v4zM7 14l-2 5h4zm0 42-2-5h4zM95 14l-2 5h4zm0 42-2-5h4zM12 64l5-2v4zm76 0-5-2v4z"/></g></g>
+  <text x="600" y="435" text-anchor="middle" font-family="Arial,sans-serif" font-size="54" font-weight="400" fill="#edf3f8" letter-spacing="12">DESIGN</text>
+  <text x="600" y="483" text-anchor="middle" font-family="Arial,sans-serif" font-size="25" fill="#8be2ef">Diseño y desarrollo digital</text>
+  <text x="600" y="512" text-anchor="middle" font-family="monospace" font-size="17" fill="#a8b9c8">lgdesign.com.ar</text>
+  <text x="122" y="99" font-family="monospace" font-size="12" fill="#8be2ef" letter-spacing="1">DEL PLANO</text>
+  <text x="972" y="541" font-family="monospace" font-size="12" fill="#8be2ef" letter-spacing="1">A LA REALIDAD</text>
 </svg>
