@@ -4,7 +4,8 @@ import { fileURLToPath } from 'node:url';
 import { runInNewContext } from 'node:vm';
 
 const projectRoot = fileURLToPath(new URL('../', import.meta.url));
-const dist = path.join(projectRoot, 'dist');
+const rootMode = process.argv.includes('--root');
+const dist = rootMode ? path.resolve(projectRoot) : path.join(projectRoot, 'dist');
 const site = new URL('https://lgdesign.com.ar/');
 const failures = [];
 const assert = (condition, message) => { if (!condition) failures.push(message); };
@@ -38,7 +39,17 @@ async function resolveBuiltFile(url) {
 }
 
 let files;
-try { files = await filesIn(dist); } catch {
+try {
+  if (rootMode) {
+    const manifest = JSON.parse(await readFile(path.join(projectRoot, '.site-output.json'), 'utf8'));
+    files = manifest.files.map((relative) => {
+      const absolute = path.resolve(projectRoot, relative);
+      if (!absolute.startsWith(`${path.resolve(projectRoot)}${path.sep}`) || relative.includes('..')) throw new Error('Manifest inválido.');
+      return absolute;
+    });
+    assert(files.some((file) => path.basename(file) === '.nojekyll'), 'Falta .nojekyll para servir _astro en Pages.');
+  } else files = await filesIn(dist);
+} catch {
   console.error('No se encontró dist/. Ejecutá npm run build antes de npm run verify.');
   process.exit(1);
 }
