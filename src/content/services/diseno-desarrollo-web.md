@@ -2,7 +2,7 @@
 title: Diseño y desarrollo web para PyMEs y emprendimientos
 shortTitle: Diseño y desarrollo web
 ctaLabel: Exploremos la web que querés
-description: Una web clara, rápida y adaptable para presentar tu negocio y convertir visitas en consultas. Desde la idea inicial hasta la publicación.
+description: Diseño y desarrollo web para PyMEs y emprendedores de Argentina. Sitios responsive con SEO técnico, desde la idea y el diseño hasta la publicación.
 number: "01"
 icon: web
 deliverables:
@@ -18,7 +18,15 @@ Tu sitio tiene que ayudar a una persona a entender tu propuesta, conocer tu trab
 
 Podemos empezar desde una idea, un diseño que ya tengas o un sitio que necesita renovarse. Primero definimos qué tiene que resolver; después elegimos las páginas y funciones que hacen falta.
 
-## Cómo trabajamos
+## ¿Cuándo conviene este servicio?
+
+Si necesitás presentar tu negocio, mostrar servicios o recibir consultas desde una web, podemos definir una landing page o un sitio con varias páginas. El diseño responsive adapta el contenido a celulares, tablets y computadoras; la estructura de títulos, enlaces y metadatos ayuda a los buscadores a interpretar cada página.
+
+Antes de construir, acordamos qué acción debería realizar el visitante, qué contenidos tenés y quién actualizará el sitio. El hosting, el dominio y las funciones se eligen según ese alcance. La preparación SEO técnica forma parte de la base; la visibilidad se evalúa después de publicar y depende también del contenido y la competencia.
+
+Si necesitás gestionar procesos o conectar herramientas, mirá el servicio de [sistemas e integraciones](/servicios/sistemas-integraciones/). Si ya tenés una web y querés intervenir sobre ella, podemos [mejorar el proyecto existente](/servicios/mejora-proyectos/). En el portfolio podés ver [Librería 2001](/proyectos/libreria-2001/), una web para un comercio.
+
+## Etapas del proyecto
 
 1. **Entendemos el negocio.** Revisamos tus objetivos, a quién querés llegar y qué contenidos tenés disponibles.
 2. **Definimos el proyecto.** Acordamos alcance, prioridades y entregas antes de comenzar el desarrollo.

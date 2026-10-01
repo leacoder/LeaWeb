@@ -14,23 +14,32 @@ interface Props {
   description: string;
   path?: string;
   image?: string;
+  socialTitle?: string;
+  socialDescription?: string;
+  structuredData?: Record<string, unknown>[];
   breadcrumbs?: { name: string; url: string }[];
   noindex?: boolean;
 }
-const { title, description, image = '/og-image.png', breadcrumbs = [], noindex = false } = Astro.props;
+const { title, description, image = '/og-image-v2.png', breadcrumbs = [], noindex = false } = Astro.props;
 const rawPath = Astro.props.path ?? Astro.url.pathname;
 const normalizedPath = rawPath === '/index.html' ? '/' : rawPath;
 const canonical = new URL(normalizedPath, site.url).href;
 const pageTitle = `${title} | ${site.name}`;
+const socialTitle = Astro.props.socialTitle ?? pageTitle;
+const socialDescription = Astro.props.socialDescription ?? description;
+const socialImage = new URL(image, site.url).href;
+const brandImage = image === '/og-image-v2.png';
 const verification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 const gaId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID ?? '';
 const analyticsEnabled = /^G-[A-Z0-9]+$/.test(gaId);
 const schema = {
   '@context': 'https://schema.org',
   '@graph': [
-    { '@type': 'Organization', '@id': `${site.url}/#organization`, name: site.name, url: site.url, logo: `${site.url}/logo-dark.svg`, email: site.email, founder: { '@id': `${site.url}/#person` } },
-    { '@type': 'Person', '@id': `${site.url}/#person`, name: site.person, url: `${site.url}/#about`, jobTitle: 'Diseñador y desarrollador de soluciones digitales', worksFor: { '@id': `${site.url}/#organization` } },
+    { '@type': 'Organization', '@id': `${site.url}/#organization`, name: site.name, url: site.url, logo: `${site.url}/logo-dark.svg`, description: site.description, email: site.email, telephone: site.phone, areaServed: { '@type': 'Country', name: 'Argentina' }, contactPoint: { '@type': 'ContactPoint', contactType: 'Consultas sobre proyectos', email: site.email, telephone: site.phone, availableLanguage: 'es', areaServed: 'AR' }, founder: { '@id': `${site.url}/#person` } },
+    { '@type': 'Person', '@id': `${site.url}/#person`, name: site.person, url: `${site.url}/#about`, jobTitle: 'Consultor, diseñador y desarrollador de soluciones digitales', knowsAbout: ['Diseño y desarrollo web', 'Sistemas a medida', 'Integración de sistemas', 'Mejora y finalización de proyectos web'], worksFor: { '@id': `${site.url}/#organization` } },
     { '@type': 'WebSite', '@id': `${site.url}/#website`, url: `${site.url}/`, name: site.name, inLanguage: 'es-AR', publisher: { '@id': `${site.url}/#organization` } },
+    ...(!noindex ? [{ '@type': 'WebPage', '@id': `${canonical}#webpage`, url: canonical, name: pageTitle, description, inLanguage: 'es-AR', isPartOf: { '@id': `${site.url}/#website` }, about: { '@id': `${site.url}/#organization` } }] : []),
+    ...(Astro.props.structuredData ?? []),
     ...(breadcrumbs.length ? [{ '@type': 'BreadcrumbList', itemListElement: breadcrumbs.map((item, index) => ({ '@type': 'ListItem', position: index + 1, name: item.name, item: new URL(item.url, site.url).href })) }] : []),
   ],
 };
@@ -51,15 +60,17 @@ const schema = {
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="es_AR" />
     <meta property="og:site_name" content={site.name} />
-    <meta property="og:title" content={pageTitle} />
-    <meta property="og:description" content={description} />
+    <meta property="og:title" content={socialTitle} />
+    <meta property="og:description" content={socialDescription} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={new URL(image, site.url).href} />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:secure_url" content={socialImage} />
+    {brandImage && <><meta property="og:image:type" content="image/png" /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" /></>}
     <meta property="og:image:alt" content="LG Design: diseño y desarrollo digital, del plano a la realidad" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={pageTitle} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={new URL(image, site.url).href} />
+    <meta name="twitter:title" content={socialTitle} />
+    <meta name="twitter:description" content={socialDescription} />
+    <meta name="twitter:image" content={socialImage} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, '\\u003c')} />
   </head>

@@ -49,6 +49,8 @@
   .header-inner { display: flex; align-items: center; justify-content: space-between; height: 98px; gap: 32px; }
   .brand { display: inline-flex; align-items: center; gap: 11px; flex-shrink: 0; color: var(--text); }
   .brand svg { color: var(--accent); }
+  .brand > img { display: block; width: 200px; height: auto; }
+  .brand-footer > img { width: 160px; }
   .brand-type { font-size: 18px; letter-spacing: -.015em; font-weight: 650; line-height: 1.2; }
   .brand-caption { display: block; font-family: var(--mono); font-size: 7.5px; letter-spacing: .07em; color: var(--muted); margin-top: 7px; font-weight: 400; }
   .desktop-nav { display: flex; gap: 37px; font-size: 14px; }
@@ -240,6 +242,7 @@
     .eyebrow { font-size: 9px; margin-bottom: 20px; }
     .header-inner { height: 78px; gap: 12px; }
     .brand { gap: 8px; }
+    .brand > img { width: 140px; }
     .brand > svg { width: 37px; height: 36px; }
     .brand-type { font-size: 15px; }
     .brand-caption { font-size: 6px; margin-top: 6px; }

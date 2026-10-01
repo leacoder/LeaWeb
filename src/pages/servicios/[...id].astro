@@ -18,6 +18,7 @@ const otherServices = (await getCollection('services')).filter((entry) => entry.
   title={service.data.title}
   description={service.data.description}
   path={`/servicios/${service.id}/`}
+  structuredData={[{ '@type': 'Service', '@id': `${site.url}/servicios/${service.id}/#service`, name: service.data.title, serviceType: service.data.shortTitle, description: service.data.description, url: `${site.url}/servicios/${service.id}/`, provider: { '@id': `${site.url}/#organization` }, areaServed: { '@type': 'Country', name: 'Argentina' }, mainEntityOfPage: { '@id': `${site.url}/servicios/${service.id}/#webpage` } }]}
   breadcrumbs={[{ name: 'Inicio', url: '/' }, { name: 'Servicios', url: '/servicios/' }, { name: service.data.shortTitle, url: `/servicios/${service.id}/` }]}
 >
   <section class="section service-hero">

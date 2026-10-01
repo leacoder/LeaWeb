@@ -22,6 +22,7 @@ const nextProject = projects.length > 1 ? projects[(currentIndex + 1) % projects
   description={project.data.description}
   path={`/proyectos/${project.id}/`}
   image={project.data.image.src}
+  structuredData={[{ '@type': 'CreativeWork', '@id': `${site.url}/proyectos/${project.id}/#project`, name: project.data.title, description: project.data.description, url: `${site.url}/proyectos/${project.id}/`, image: new URL(project.data.image.src, site.url).href, inLanguage: 'es-AR', mainEntityOfPage: { '@id': `${site.url}/proyectos/${project.id}/#webpage` } }]}
   breadcrumbs={[{ name: 'Inicio', url: '/' }, { name: 'Proyectos', url: '/proyectos/' }, { name: project.data.title, url: `/proyectos/${project.id}/` }]}
 >
   <section class="section project-hero">

@@ -7,10 +7,13 @@ const inter = create(readFileSync(require.resolve('@fontsource/inter/files/inter
 const interSemibold = create(readFileSync(require.resolve('@fontsource/inter/files/inter-latin-600-normal.woff2')));
 const mono = create(readFileSync(require.resolve('@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2')));
 
-export function textPaths(text, { x = 0, y = 0, size = 16, weight = 400, fill = '#edf3f8', tracking = 0, monospace = false } = {}) {
+export function textPaths(text, { x = 0, y = 0, size = 16, weight = 400, fill = '#edf3f8', tracking = 0, monospace = false, anchor = 'start' } = {}) {
   const font = monospace ? mono : weight >= 500 ? interSemibold : inter;
   const scale = size / font.unitsPerEm;
   const run = font.layout(text);
+  const width = run.positions.reduce((sum, position) => sum + position.xAdvance * scale, 0) + Math.max(0, run.glyphs.length - 1) * tracking;
+  if (anchor === 'middle') x -= width / 2;
+  else if (anchor === 'end') x -= width;
   let cursor = 0;
   return `<g fill="${fill}">` + run.glyphs.map((glyph, index) => {
     const position = run.positions[index];
@@ -30,6 +33,7 @@ export function outlineSvg(svg) {
       size: Number(attribute('font-size', 16)), weight: Number(attribute('font-weight', 400)),
       tracking: Number(attribute('letter-spacing', 0)), fill: attribute('fill', '#edf3f8'),
       monospace: attribute('font-family', '').includes('monospace'),
+      anchor: attribute('text-anchor', 'start'),
     });
   });
 }

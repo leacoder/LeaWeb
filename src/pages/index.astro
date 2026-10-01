@@ -15,20 +15,21 @@ const steps = [
   { number: '04', title: 'Entregar', description: 'Pruebas, puesta en marcha y una base clara para que puedas seguir creciendo.' },
 ];
 const faqs = [
+  { question: '¿Qué es LG Design y quién realiza el trabajo?', answer: 'LG Design es la marca de Leandro García, consultor, diseñador y desarrollador de soluciones digitales. Trabajo de forma remota con PyMEs y emprendedores de Argentina para crear webs, desarrollar sistemas e integraciones o mejorar y completar proyectos existentes.' },
   { question: '¿Podés sumarte a un proyecto que ya empezó?', answer: 'Sí. Primero reviso el estado del proyecto y lo que necesitás resolver. A partir de ese diagnóstico definimos qué conviene mantener, mejorar o completar, y acordamos el alcance antes de avanzar.' },
   { question: '¿Trabajás con clientes de toda Argentina?', answer: 'Sí, trabajo de forma remota. Podemos coordinar reuniones, revisar avances y compartir el material del proyecto sin importar dónde esté tu negocio.' },
   { question: '¿Cómo se define el presupuesto?', answer: 'Depende del alcance y del punto de partida. Después de entender la necesidad, preparo una propuesta con entregables, etapas y condiciones. Si el proyecto es grande, podemos organizarlo por fases.' },
   { question: '¿Qué necesitás para empezar?', answer: 'Una conversación sobre qué querés lograr. Si ya tenés una web, un sistema, diseños o documentación, ese material ayuda. Si solo tenés una idea, podemos empezar por darle forma.' },
 ];
 ---
-<BaseLayout title="Diseño web y desarrollo de sistemas para PyMEs en Argentina" description={site.description}>
+<BaseLayout title="Diseño web y desarrollo de sistemas para PyMEs en Argentina" description={site.description} socialTitle="LG Design · Diseño y desarrollo digital" socialDescription="Webs, sistemas e integraciones. Creá tu proyecto o hacé avanzar uno que ya empezó." structuredData={[{ '@type': 'FAQPage', '@id': `${site.url}/#faq`, url: `${site.url}/`, inLanguage: 'es-AR', mainEntity: faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } })) }]}>
   <section class="hero container" id="home" aria-labelledby="hero-title">
     <div class="hero-copy">
       <p class="eyebrow"><span class="tiny-cross">+</span> DISEÑO, DESARROLLO Y CRITERIO</p>
       <h1 id="hero-title">Diseño y desarrollo digital para <span>hacer avanzar</span> tu proyecto<span class="title-period">.</span></h1>
       <p class="hero-description">Webs, sistemas e integraciones para PyMEs y emprendedores. Desde una idea en papel hasta ese proyecto que necesita el próximo paso.</p>
       <div class="hero-actions"><a class="button button-primary" href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-contact="whatsapp">Contame tu proyecto <Icon name="external" /></a><a class="button button-secondary" href="/#works">Ver proyectos <Icon name="arrow" /></a></div>
-      <div class="hero-note"><span class="status-dot"></span> Leandro García · Argentina · Trabajo remoto</div>
+      <div class="hero-note"><span class="status-dot"></span> Leandro García · Consultor digital · Argentina</div>
     </div>
     <Blueprint />
     <div class="hero-bottom"><span>IDEAS CLARAS. SOLUCIONES CONCRETAS.</span><a href="#services">EXPLORÁ LO QUE PODEMOS HACER <span>↓</span></a></div>
@@ -53,7 +54,7 @@ const faqs = [
 
   <section class="about-section section container" id="about" aria-labelledby="about-title">
     <div class="about-visual"><div class="about-frame"><div class="portrait-wrap"><Image src={portrait} alt="Retrato de Leandro García, detrás de LG Design" width={152} height={152} format="webp" loading="lazy" /></div><span class="about-monogram" aria-hidden="true">LG<span>+</span></span><div class="about-caption"><span>DISEÑO + TECNOLOGÍA</span><span>LG / 04</span></div></div><p class="about-signature">Una persona detrás de cada decisión.</p></div>
-    <div class="about-copy"><p class="eyebrow">04 / LA PERSONA DETRÁS DEL PLANO</p><h2 id="about-title">Soy Leandro.<br /><span>Diseño y construyo.</span></h2><p>LG Design es el espacio donde conecto el diseño con el desarrollo para convertir ideas en soluciones digitales.</p><p>Trabajo con PyMEs y emprendedores que necesitan una web, un sistema a medida o alguien que se sume para hacer avanzar un proyecto. Me interesa entender el problema, definir un camino claro y cuidar tanto lo que se ve como lo que lo hace funcionar.</p><a class="text-link" href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-contact="whatsapp">Conversemos sobre tu idea <Icon name="arrow" /></a></div>
+    <div class="about-copy"><p class="eyebrow">04 / LA PERSONA DETRÁS DEL PLANO</p><h2 id="about-title">Soy Leandro.<br /><span>Diseño y construyo.</span></h2><p>Soy Leandro García, consultor, diseñador y desarrollador detrás de LG Design. Conecto el diseño con el desarrollo para convertir ideas en soluciones digitales.</p><p>Trabajo de forma remota con PyMEs y emprendedores de Argentina que necesitan una web, un sistema a medida o alguien que se sume para hacer avanzar un proyecto. Me interesa entender el problema, definir un camino claro y cuidar tanto lo que se ve como lo que lo hace funcionar.</p><a class="text-link" href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-contact="whatsapp">Conversemos sobre tu idea <Icon name="arrow" /></a></div>
   </section>
 
   <section class="faq-section section" aria-labelledby="faq-title"><div class="container faq-grid"><div><p class="eyebrow">05 / ANTES DE EMPEZAR</p><h2 id="faq-title">Las primeras<br /><span>preguntas.</span></h2><p class="faq-intro">Cada proyecto es distinto.<br />Estas respuestas ayudan a dar el primer paso.</p></div><div class="faq-list">{faqs.map((faq) => <details class="faq-item"><summary>{faq.question}<span aria-hidden="true">+</span></summary><p>{faq.answer}</p></details>)}</div></div></section>
