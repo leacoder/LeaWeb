@@ -22,7 +22,7 @@ const projects = (await getCollection('projects', ({ data }) => data.published))
         {projects.map((project, index) => (
           <a class="project-row" href={`/proyectos/${project.id}/`}>
             <div class="project-image">
-              <Image src={project.data.image} alt={project.data.imageAlt} widths={[400, 640, 960]} sizes="(max-width: 700px) 92vw, 48vw" format="webp" quality={80} loading="lazy" />
+              <Image src={project.data.image} alt={project.data.imageAlt} widths={[400, 640, 960]} sizes="(max-width: 700px) 92vw, 48vw" format="webp" quality={85} loading="lazy" draggable="false" />
               <span class="image-corner corner-tl" aria-hidden="true"></span><span class="image-corner corner-br" aria-hidden="true"></span>
             </div>
             <div class="project-copy">
