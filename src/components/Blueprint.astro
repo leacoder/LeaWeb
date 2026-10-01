@@ -1,14 +1,14 @@
 ---
 const columns = Array.from({ length: 12 }, (_, index) => 84 + index * 27);
 ---
-<div class="blueprint" aria-hidden="true">
-  <div class="blueprint-top"><span>LG / INTERFAZ DIGITAL</span><span>PLANO 01</span></div>
+<div class="blueprint">
+  <div class="blueprint-top" aria-hidden="true"><span>LG / INTERFAZ DIGITAL</span><span>PLANO 01</span></div>
   <div class="blueprint-stage">
     <div class="blueprint-plane" data-blueprint-plane>
-      <svg class="blueprint-drawing" viewBox="0 0 560 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg id="blueprint-drawing" class="blueprint-drawing" viewBox="0 0 560 480" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <defs>
-          <pattern id="lg-plan-grid-fine" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M10 0H0V10" stroke="currentColor" stroke-width=".25" opacity=".13" /></pattern>
-          <pattern id="lg-plan-grid-major" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M50 0H0V50" stroke="currentColor" stroke-width=".5" opacity=".12" /></pattern>
+          <pattern id="lg-plan-grid-fine" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M10 0H0V10" stroke="currentColor" stroke-width=".25" opacity=".07" /></pattern>
+          <pattern id="lg-plan-grid-major" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M50 0H0V50" stroke="currentColor" stroke-width=".5" opacity=".09" /></pattern>
           <pattern id="lg-plan-hatch" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0V5" stroke="currentColor" stroke-width=".5" opacity=".2" /></pattern>
           <marker id="lg-plan-dimension" viewBox="0 0 8 8" refX="4" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M7 1 1 4l6 3" stroke="currentColor" stroke-width=".7" fill="none" /></marker>
           <clipPath id="lg-plan-viewport"><rect x="66" y="109" width="358" height="228" /></clipPath>
@@ -112,14 +112,67 @@ const columns = Array.from({ length: 12 }, (_, index) => 84 + index * 27);
       </svg>
     </div>
   </div>
-  <div class="blueprint-bottom"><span><i></i> DEL PLANO A LA REALIDAD</span><span>VISTA RESPONSIVE</span></div>
+  <div class="blueprint-controls" role="group" aria-label="Explorar las vistas del plano" hidden>
+    <button type="button" data-plan-view="full" aria-pressed="true" aria-controls="blueprint-drawing">Completo</button>
+    <button type="button" data-plan-view="desktop" aria-pressed="false" aria-controls="blueprint-drawing">Escritorio</button>
+    <button type="button" data-plan-view="mobile" aria-pressed="false" aria-controls="blueprint-drawing">Móvil</button>
+    <span class="blueprint-hint" aria-hidden="true">EXPLORÁ EL PLANO <span>↗</span></span>
+  </div>
+  <div class="blueprint-bottom" aria-hidden="true"><span><i></i> DEL PLANO A LA REALIDAD</span><span>VISTA RESPONSIVE</span></div>
 </div>
+<script>
+  const drawing = document.querySelector<SVGSVGElement>('#blueprint-drawing');
+  const controls = document.querySelector<HTMLElement>('.blueprint-controls');
+  if (drawing && controls) {
+    const views = {
+      full: [0, 0, 560, 480],
+      desktop: [22, 44, 425, 345],
+      mobile: [345, 177, 175, 267],
+    };
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let frame = 0;
+    let target = views.full;
+    const setView = (view: number[]) => drawing.setAttribute('viewBox', view.join(' '));
+    const finish = () => { cancelAnimationFrame(frame); frame = 0; setView(target); };
+    controls.querySelectorAll<HTMLButtonElement>('[data-plan-view]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const name = button.dataset.planView as keyof typeof views;
+        if (!(name in views)) return;
+        cancelAnimationFrame(frame);
+        target = views[name];
+        controls.querySelectorAll('button').forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+        if (reducedMotion.matches) { finish(); return; }
+        const box = drawing.viewBox.baseVal;
+        const start = [box.x, box.y, box.width, box.height];
+        const started = performance.now();
+        const animate = (now: number) => {
+          const progress = Math.min((now - started) / 520, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          setView(start.map((value, index) => value + (target[index] - value) * eased));
+          frame = progress < 1 ? requestAnimationFrame(animate) : 0;
+        };
+        frame = requestAnimationFrame(animate);
+      });
+    });
+    reducedMotion.addEventListener('change', () => { if (reducedMotion.matches) finish(); });
+    window.addEventListener('pagehide', finish);
+    controls.hidden = false;
+  }
+</script>
 <style>
-  .blueprint-stage { perspective: 1100px; }
+  .blueprint { -webkit-user-select: none; user-select: none; }
+  .blueprint-stage { perspective: 1100px; overflow: hidden; background: #082138; }
   .blueprint-plane { transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)); transform-origin: 50% 50%; transition: transform 420ms cubic-bezier(.2,.7,.2,1); }
-  .blueprint-drawing { width: 100%; height: auto; overflow: visible; }
-  .plan-reference { opacity: .45; }
-  .plan-projection { opacity: .32; }
+  .blueprint-drawing { width: 100%; height: auto; aspect-ratio: 7 / 6; overflow: hidden; pointer-events: none; }
+  .blueprint-controls { display: flex; align-items: center; gap: 3px; padding: 9px 0; border-top: 1px solid var(--line); }
+  .blueprint-controls button { min-height: 44px; border: 1px solid transparent; background: transparent; color: var(--muted); padding: 0 12px; font-family: var(--mono); font-size: 10px; transition: color .25s, background .25s, border-color .25s; }
+  .blueprint-controls button:hover { color: var(--text); background: rgba(139,226,239,.04); }
+  .blueprint-controls button[aria-pressed='true'] { border-color: rgba(139,226,239,.28); background: rgba(139,226,239,.07); color: var(--accent); }
+  .blueprint-controls button:focus-visible { outline-offset: -3px; }
+  .blueprint-hint { margin-left: auto; padding-right: 8px; color: var(--muted); font-family: var(--mono); font-size: 8px; letter-spacing: .05em; }
+  .blueprint-hint > span { color: var(--accent); padding-left: 5px; }
+  .plan-reference { opacity: .32; }
+  .plan-projection { opacity: .24; }
   .plan-label { font-family: var(--mono, 'IBM Plex Mono'), monospace; fill: currentColor; font-size: 8px; font-weight: 400; letter-spacing: .3px; }
   .plan-paper-label { font-size: 6.8px; letter-spacing: .7px; opacity: .65; }
   .plan-address { font-size: 6.5px; opacity: .75; }
@@ -140,6 +193,7 @@ const columns = Array.from({ length: 12 }, (_, index) => 84 + index * 27);
   @keyframes plan-scan { 0% { opacity: 0; transform: translateY(-4px); } 16% { opacity: .3; } 75% { opacity: .2; } 100% { opacity: 0; transform: translateY(180px); } }
   @media (hover: hover) and (pointer: fine) { .blueprint-plane:hover { will-change: transform; } }
   @media (hover: none), (pointer: coarse) { .blueprint-plane { transform: none; } }
+  @media (max-width: 1100px) and (min-width: 851px), (max-width: 420px) { .blueprint-hint { display: none; } .blueprint-controls { justify-content: center; } }
   @media (prefers-reduced-motion: reduce) {
     .blueprint-plane { transform: none; transition: none; }
     .plan-trace, .plan-copy, .plan-measurements, .plan-scan { animation: none; }

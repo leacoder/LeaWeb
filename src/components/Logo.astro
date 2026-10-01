@@ -2,6 +2,6 @@
 interface Props { footer?: boolean; }
 const { footer = false } = Astro.props;
 ---
-<a class:list={['brand', { 'brand-footer': footer }]} href="/" aria-label={footer ? 'LG Design, inicio' : 'LG Design diseño + desarrollo, inicio'}>
-  <img src="/logo-light.svg" width="200" height="60" alt="" />
+<a class:list={['brand', { 'brand-footer': footer }]} href="/" draggable="false" aria-label={footer ? 'LG Design, inicio' : 'LG Design diseño + desarrollo, inicio'}>
+  <img src="/logo-light.svg" width="200" height="60" alt="" draggable="false" />
 </a>
