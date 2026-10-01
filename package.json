@@ -15,6 +15,8 @@
     "preview": "node scripts/astro.mjs preview --host 127.0.0.1",
     "social": "node scripts/render-social.mjs",
     "verify": "node scripts/check-site.mjs",
+    "verify:root": "node scripts/check-site.mjs --root",
+    "prepare:pages": "npm run validate && node scripts/sync-pages-root.mjs && npm run verify:root",
     "verify:interactions": "node scripts/check-interactions.mjs",
     "validate": "npm run check && npm run verify:interactions && npm run build && npm run verify"
   },

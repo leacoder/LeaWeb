@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0v40" fill="none" stroke="#8be2ef" stroke-opacity=".09" stroke-width=".5"/></pattern></defs>
+  <rect width="1200" height="630" fill="#071a2e"/><rect width="1200" height="630" fill="url(#grid)"/>
+  <g stroke="#8be2ef" fill="none"><path d="M62 60h90M72 50v90M62 130h90M142 50v90" stroke-width=".8" opacity=".6"/><path d="M82 69v49h18m32-40c-18-15-28 3-28 15v8c0 22 20 24 28 13V94h-16" stroke-width="5"/></g>
+  <text x="176" y="105" font-family="Arial,sans-serif" font-size="38" font-weight="700" fill="#edf3f8" letter-spacing="2">LG DESIGN</text>
+  <text x="74" y="203" font-family="monospace" font-size="14" fill="#8be2ef" letter-spacing="2">DISEÑO + DESARROLLO + CRITERIO</text>
+  <text x="70" y="292" font-family="Arial,sans-serif" font-size="68" font-weight="500" letter-spacing="-2" fill="#edf3f8">Tu proyecto digital,</text><text x="70" y="375" font-family="Arial,sans-serif" font-size="68" font-weight="500" letter-spacing="-2" fill="#8be2ef">del plano a la realidad.</text>
+  <text x="74" y="448" font-family="Arial,sans-serif" font-size="23" fill="#a8b9c8">Webs, sistemas e integraciones para PyMEs y emprendedores.</text>
+  <g stroke="#8be2ef" fill="none" opacity=".8"><path d="M973 167v290M959 167h29M959 457h29M849 512h237M849 498v28M1086 498v28" stroke-width=".8"/><rect x="911" y="223" width="200" height="157" rx="3" fill="#0b243c"/><path d="M911 245h200M926 271h74M926 286h55M926 314h48"/><rect x="1018" y="264" width="75" height="77"/><path d="m1018 264 75 77m0-77-75 77" opacity=".4"/><rect x="1040" y="331" width="69" height="127" rx="7" fill="#0b243c"/><path d="M1050 355h37M1050 366h28M1050 402h45M1062 449h20"/></g>
+  <path d="M74 538h1052" stroke="#8be2ef" stroke-opacity=".25"/>
+  <text x="74" y="577" font-family="monospace" font-size="15" fill="#a8b9c8">lgdesign.com.ar</text><text x="937" y="577" font-family="monospace" font-size="13" fill="#a8b9c8">ARGENTINA · REMOTO</text>
+</svg>

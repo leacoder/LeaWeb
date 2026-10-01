@@ -52,26 +52,30 @@ Para conectar servicios opcionales de Google, copiar `.env.example` a `.env` y c
 - `PUBLIC_GOOGLE_SITE_VERIFICATION`: contenido del meta de verificación HTML de Search Console. Una propiedad de dominio también puede verificarse mediante un registro DNS de Cloudflare.
 - `PUBLIC_GA_MEASUREMENT_ID`: identificador de un flujo GA4, con formato `G-XXXXXXXXXX`. La integración registra `contact_click` con el canal de contacto.
 
-En GitHub Actions, definir estos valores como variables del repositorio con los mismos nombres. Son valores públicos incorporados al HTML; no usar claves privadas. Sin estos valores no se carga la integración correspondiente.
+Son valores públicos incorporados al HTML al ejecutar `npm run prepare:pages`; no usar claves privadas. Sin estos valores no se carga la integración correspondiente. El workflow de validación no modifica la salida ya guardada en la raíz.
 
 Después de publicar, verificar la propiedad en Search Console, enviar `https://lgdesign.com.ar/sitemap-index.xml` e inspeccionar la home y una página de servicio. Revisar indexación después del lanzamiento y comparar impresiones, consultas y clics a los 30 y 90 días. Confirmar en GA4 que un clic real en WhatsApp o correo dispara el evento configurado.
 
 ## Publicación en GitHub Pages
 
-El workflow `.github/workflows/deploy.yml` valida cada push y pull request. La publicación es manual y requiere tanto una ejecución `workflow_dispatch` desde la rama predeterminada como la variable del repositorio `LG_DESIGN_READY_TO_PUBLISH=true`. Sin ambas condiciones solo se construye y valida la web.
+El repositorio conserva el origen actual de Pages: rama `master`, carpeta `/(root)`. La versión publicada se guarda en la raíz y GitHub Pages la actualiza al mergear o hacer push a `master`. No se requiere cambiar Pages a GitHub Actions.
 
-Antes de habilitar la variable:
+Antes de preparar un cambio para el PR, ejecutar:
 
-1. Completar proyectos recientes y confirmar la biografía, capturas y aporte personal con Leandro.
-2. Aprobar la revisión visual y los checks de la versión final; probar WhatsApp y correo en dispositivos reales.
-3. Conservar un commit o etiqueta recuperable de la web anterior.
-4. En Settings → Pages, seleccionar **GitHub Actions** como origen. Confirmar el dominio personalizado `lgdesign.com.ar`, HTTPS y los registros vigentes de Cloudflare.
-5. Definir las variables opcionales de Google; recién entonces marcar `LG_DESIGN_READY_TO_PUBLISH=true` y ejecutar el workflow manualmente.
+```sh
+npm run prepare:pages
+```
 
-El workflow publica únicamente `dist/`. La configuración usa el dominio personalizado sin prefijo del repositorio, según la [guía oficial de Astro para GitHub Pages](https://docs.astro.build/en/guides/deploy/github/).
+Este comando valida Astro, construye `dist/`, copia únicamente la salida generada a la raíz y verifica sus páginas y recursos. Incluir en el mismo commit las fuentes y la salida de publicación. `.site-output.json` identifica los archivos generados; solo esos archivos pueden retirarse al preparar una nueva versión. `.nojekyll` permite servir correctamente la carpeta `_astro`.
+
+El workflow `.github/workflows/deploy.yml` comprueba los pull requests y los pushes a `master`; no escribe commits ni publica mediante otro origen. El deploy sigue a cargo de GitHub Pages desde la raíz de la rama.
+
+Las fuentes editables están en `src/`. El `index.html` de la raíz es la página construida que verá el visitante. `CNAME` conserva `lgdesign.com.ar`. Los archivos anteriores que se reemplazan permanecen recuperables en el historial de Git.
+
+Para incorporar medición o verificación de Google en la salida publicada, completar `.env` local y volver a ejecutar `npm run prepare:pages`; los identificadores públicos quedan incorporados al HTML. Los archivos `.env` nunca se incluyen en Git.
 
 ## Compatibilidad y recuperación
 
 La home se genera como `dist/index.html`; `/index.html` continúa disponible con canonical hacia `https://lgdesign.com.ar/`. Se conservan las anclas `#home`, `#about`, `#services`, `#works` y `#contacts`. `/tablet/index.html` redirige a la home conservando el fragmento y descartando parámetros antiguos como `devicelock`; ofrece además un enlace visible si JavaScript está desactivado. Esta página y la página 404 tienen `noindex` y no se incluyen en el sitemap.
 
-Los archivos originales de Adobe Muse, imágenes fuente y ZIP se preservan en el repositorio para recuperación. Astro toma la implementación nueva de `src/` y los archivos públicos de `public/`; los originales, scripts PHP y ZIP no se copian al sitio publicado. La configuración DNS y los servicios externos no se modifican al construir localmente. Para volver a una versión anterior, republicar el commit o etiqueta conservado mediante el origen de Pages correspondiente.
+Los archivos originales de Adobe Muse, imágenes fuente y ZIP se preservan en el repositorio para recuperación. Astro toma la implementación nueva de `src/` y los archivos públicos de `public/`; el build no agrega scripts PHP ni ZIP a la salida generada. Los archivos históricos que ya existían en la raíz permanecen en el repositorio y pueden seguir disponibles en el hosting actual. La configuración DNS y los servicios externos no se modifican al construir localmente. Para volver a una versión anterior, republicar el commit o etiqueta conservado mediante el origen de Pages correspondiente.
