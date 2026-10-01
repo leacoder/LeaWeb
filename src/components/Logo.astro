@@ -1,0 +1,12 @@
+---
+interface Props { footer?: boolean; }
+const { footer = false } = Astro.props;
+---
+<a class:list={['brand', { 'brand-footer': footer }]} href="/" aria-label={footer ? 'LG Design, inicio' : 'LG Design diseño + desarrollo, inicio'}>
+  <svg width="48" height="46" viewBox="0 0 48 46" fill="none" aria-hidden="true">
+    <path d="M1 5h46M5 1v44M1 41h46M43 1v44" stroke="currentColor" stroke-width=".65" opacity=".45" />
+    <path d="M10 11v24h11M37 15a9 9 0 0 0-15 7v5a9 9 0 0 0 15 7V23h-8" stroke="currentColor" stroke-width="3.5" stroke-linejoin="miter" />
+    <path d="M3 5h4M5 3v4M41 41h4M43 39v4" stroke="currentColor" />
+  </svg>
+  <span class="brand-type">LG DESIGN<span class="brand-caption">DISEÑO + DESARROLLO</span></span>
+</a>

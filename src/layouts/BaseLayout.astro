@@ -1,0 +1,113 @@
+---
+import '@fontsource-variable/inter/wght.css';
+import '@fontsource/ibm-plex-mono/latin-400.css';
+import interLatin from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
+import plexLatin from '@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2?url';
+import '../styles/global.css';
+import '../styles/motion.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Motion from '../components/Motion.astro';
+import { site } from '../lib/site';
+interface Props {
+  title: string;
+  description: string;
+  path?: string;
+  image?: string;
+  breadcrumbs?: { name: string; url: string }[];
+  noindex?: boolean;
+}
+const { title, description, image = '/og-image.png', breadcrumbs = [], noindex = false } = Astro.props;
+const rawPath = Astro.props.path ?? Astro.url.pathname;
+const normalizedPath = rawPath === '/index.html' ? '/' : rawPath;
+const canonical = new URL(normalizedPath, site.url).href;
+const pageTitle = `${title} | ${site.name}`;
+const verification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
+const gaId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID ?? '';
+const analyticsEnabled = /^G-[A-Z0-9]+$/.test(gaId);
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'Organization', '@id': `${site.url}/#organization`, name: site.name, url: site.url, logo: `${site.url}/logo-dark.svg`, email: site.email, founder: { '@id': `${site.url}/#person` } },
+    { '@type': 'Person', '@id': `${site.url}/#person`, name: site.person, url: `${site.url}/#about`, jobTitle: 'Diseñador y desarrollador de soluciones digitales', worksFor: { '@id': `${site.url}/#organization` } },
+    { '@type': 'WebSite', '@id': `${site.url}/#website`, url: `${site.url}/`, name: site.name, inLanguage: 'es-AR', publisher: { '@id': `${site.url}/#organization` } },
+    ...(breadcrumbs.length ? [{ '@type': 'BreadcrumbList', itemListElement: breadcrumbs.map((item, index) => ({ '@type': 'ListItem', position: index + 1, name: item.name, item: new URL(item.url, site.url).href })) }] : []),
+  ],
+};
+---
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#071a2e" />
+    <link rel="preload" href={interLatin} as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href={plexLatin} as="font" type="font/woff2" crossorigin="anonymous" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex,follow" />}
+    {verification && <meta name="google-site-verification" content={verification} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(image, site.url).href} />
+    <meta property="og:image:alt" content="LG Design: diseño y desarrollo digital, del plano a la realidad" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(image, site.url).href} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, '\\u003c')} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Saltar al contenido</a>
+    <Header />
+    <main id="main">
+      {breadcrumbs.length > 0 && <nav class="breadcrumbs container" aria-label="Ruta de navegación"><ol>{breadcrumbs.map((item, index) => <li>{index === breadcrumbs.length - 1 ? <span aria-current="page">{item.name}</span> : <a href={item.url}>{item.name}</a>}</li>)}</ol></nav>}
+      <slot />
+    </main>
+    <Footer analyticsEnabled={analyticsEnabled} />
+    <Motion />
+    {analyticsEnabled && <aside class="analytics-consent" id="analytics-consent" data-ga-id={gaId} hidden aria-label="Preferencias de privacidad"><p>¿Permitís medir las visitas para mejorar esta web? Podés cambiar tu elección desde el pie de página.</p><div><button type="button" data-consent="denied">Solo necesarias</button><button type="button" data-consent="granted">Aceptar</button></div></aside>}
+    <script>
+      const banner = document.querySelector<HTMLElement>('#analytics-consent');
+      if (banner) {
+        const measurementId = banner.dataset.gaId!;
+        const analyticsWindow = window as typeof window & { dataLayer?: unknown[]; gtag?: (...args: unknown[]) => void; [key: string]: unknown };
+        let activated = false;
+        const activate = () => {
+          analyticsWindow[`ga-disable-${measurementId}`] = false;
+          if (activated) return;
+          activated = true;
+          analyticsWindow.dataLayer = analyticsWindow.dataLayer || [];
+          analyticsWindow.gtag = function () { analyticsWindow.dataLayer!.push(arguments); };
+          analyticsWindow.gtag('js', new Date());
+          analyticsWindow.gtag('config', measurementId, { page_location: window.location.origin + window.location.pathname, allow_google_signals: false, allow_ad_personalization_signals: false });
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
+          document.head.appendChild(script);
+        };
+        let stored: string | null = null;
+        try { stored = localStorage.getItem('lg-analytics-consent'); } catch { /* Storage may be unavailable. */ }
+        if (stored === 'granted') activate();
+        else if (stored !== 'denied' && navigator.doNotTrack !== '1') banner.hidden = false;
+        banner.querySelectorAll<HTMLButtonElement>('[data-consent]').forEach((button) => button.addEventListener('click', () => {
+          const consent = button.dataset.consent!;
+          try { localStorage.setItem('lg-analytics-consent', consent); } catch { /* The preference still applies to this visit. */ }
+          banner.hidden = true;
+          if (consent === 'granted') activate();
+          else analyticsWindow[`ga-disable-${measurementId}`] = true;
+        }));
+        document.querySelector('[data-analytics-preferences]')?.addEventListener('click', () => { banner.hidden = false; banner.querySelector('button')?.focus(); });
+        document.querySelectorAll<HTMLAnchorElement>('[data-contact]').forEach((link) => link.addEventListener('click', () => {
+          if (activated && !analyticsWindow[`ga-disable-${measurementId}`]) analyticsWindow.gtag?.('event', 'contact_click', { contact_method: link.dataset.contact });
+        }));
+      }
+    </script>
+  </body>
+</html>

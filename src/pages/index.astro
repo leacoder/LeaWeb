@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Blueprint from '../components/Blueprint.astro';
+import Icon from '../components/Icon.astro';
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import portrait from '../assets/leandro.jpg';
+import { site } from '../lib/site';
+const services = (await getCollection('services')).sort((a, b) => a.data.number.localeCompare(b.data.number));
+const projects = (await getCollection('projects', ({ data }) => data.published)).filter((entry) => entry.data.featured).sort((a, b) => a.data.order - b.data.order);
+const steps = [
+  { number: '01', title: 'Entender', description: 'Tu idea, tu negocio y el punto de partida. Primero, las preguntas correctas.' },
+  { number: '02', title: 'Definir', description: 'Un alcance claro, prioridades y un plan que tenga sentido para tu proyecto.' },
+  { number: '03', title: 'Construir', description: 'Diseño y desarrollo con avances visibles. Decisiones que tomamos juntos.' },
+  { number: '04', title: 'Entregar', description: 'Pruebas, puesta en marcha y una base clara para que puedas seguir creciendo.' },
+];
+const faqs = [
+  { question: '¿Podés sumarte a un proyecto que ya empezó?', answer: 'Sí. Primero reviso el estado del proyecto y lo que necesitás resolver. A partir de ese diagnóstico definimos qué conviene mantener, mejorar o completar, y acordamos el alcance antes de avanzar.' },
+  { question: '¿Trabajás con clientes de toda Argentina?', answer: 'Sí, trabajo de forma remota. Podemos coordinar reuniones, revisar avances y compartir el material del proyecto sin importar dónde esté tu negocio.' },
+  { question: '¿Cómo se define el presupuesto?', answer: 'Depende del alcance y del punto de partida. Después de entender la necesidad, preparo una propuesta con entregables, etapas y condiciones. Si el proyecto es grande, podemos organizarlo por fases.' },
+  { question: '¿Qué necesitás para empezar?', answer: 'Una conversación sobre qué querés lograr. Si ya tenés una web, un sistema, diseños o documentación, ese material ayuda. Si solo tenés una idea, podemos empezar por darle forma.' },
+];
+---
+<BaseLayout title="Diseño web y desarrollo de sistemas para PyMEs en Argentina" description={site.description}>
+  <section class="hero container" id="home" aria-labelledby="hero-title">
+    <div class="hero-copy">
+      <p class="eyebrow"><span class="tiny-cross">+</span> DISEÑO, DESARROLLO Y CRITERIO</p>
+      <h1 id="hero-title">Diseño y desarrollo digital para <span>hacer avanzar</span> tu proyecto<span class="title-period">.</span></h1>
+      <p class="hero-description">Webs, sistemas e integraciones para PyMEs y emprendedores. Desde una idea en papel hasta ese proyecto que necesita el próximo paso.</p>
+      <div class="hero-actions"><a class="button button-primary" href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-contact="whatsapp">Contame tu proyecto <Icon name="external" /></a><a class="button button-secondary" href="/#works">Ver proyectos <Icon name="arrow" /></a></div>
+      <div class="hero-note"><span class="status-dot"></span> Leandro García · Argentina · Trabajo remoto</div>
+    </div>
+    <Blueprint />
+    <div class="hero-bottom"><span>IDEAS CLARAS. SOLUCIONES CONCRETAS.</span><a href="#services">EXPLORÁ LO QUE PODEMOS HACER <span>↓</span></a></div>
+  </section>
+
+  <section class="services-section section" id="services" aria-labelledby="services-title">
+    <div class="container">
+      <div class="section-heading"><div><p class="eyebrow">01 / QUÉ PUEDO HACER POR VOS</p><h2 id="services-title">Una idea. Muchas piezas.<br /><span>Una solución que funciona.</span></h2></div><p class="section-intro">Diseño y tecnología con un mismo objetivo: resolver lo que tu negocio necesita.</p></div>
+      <div class="service-grid">{services.map((service) => <a class="service-card" href={`/servicios/${service.id}/`}><div class="service-card-top"><Icon name={service.data.icon} /><span class="mono">{service.data.number}</span></div><h3>{service.data.shortTitle}</h3><p>{service.data.description}</p><span class="service-card-link">{service.data.ctaLabel} <Icon name="arrow" /></span></a>)}</div>
+    </div>
+  </section>
+
+  <section class="projects-section section container" id="works" aria-labelledby="projects-title">
+    <div class="section-heading"><div><p class="eyebrow">02 / DEL PLANO A LA REALIDAD</p><h2 id="projects-title">Algunos de los trabajos</h2></div><a class="text-link" href="/proyectos/">Todos los proyectos <Icon name="arrow" /></a></div>
+    <div class="featured-projects">{projects.map((project, index) => <a class="featured-project" href={`/proyectos/${project.id}/`}><div class="project-image"><span class="project-corner corner-tl"></span><span class="project-corner corner-tr"></span><span class="project-corner corner-bl"></span><span class="project-corner corner-br"></span><div class="project-image-label"><span>PROYECTO / {String(index + 1).padStart(2, '0')}</span><span>WEB</span></div><Image src={project.data.image} alt={project.data.imageAlt} widths={[360, 640, 900]} sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 1279px) 45vw, 585px" format="webp" quality={80} loading="lazy" /></div><div class="project-info"><div><p class="project-sector">{project.data.sector}</p><h3>{project.data.title}</h3><p class="project-description">{project.data.description}</p></div><span class="project-arrow"><Icon name="external" /></span></div></a>)}</div>
+    <p class="portfolio-note">De una presencia web para un comercio a una plataforma para conectar personas. Dos proyectos, distintas necesidades.</p>
+  </section>
+
+  <section class="process-section section" aria-labelledby="process-title">
+    <div class="container"><div class="section-heading"><div><p class="eyebrow">03 / CÓMO TRABAJO</p><h2 id="process-title">Un buen proyecto<br />necesita un buen <span>plan.</span></h2></div><p class="section-intro">Sin perder de vista la idea original.<br />Sin dejar los detalles al azar.</p></div><div class="process-grid">{steps.map((step) => <div class="process-step"><div class="step-number">{step.number}<span class="step-cross">+</span></div><h3>{step.title}</h3><p>{step.description}</p></div>)}</div></div>
+  </section>
+
+  <section class="about-section section container" id="about" aria-labelledby="about-title">
+    <div class="about-visual"><div class="about-frame"><div class="portrait-wrap"><Image src={portrait} alt="Retrato de Leandro García, detrás de LG Design" width={152} height={152} format="webp" loading="lazy" /></div><span class="about-monogram" aria-hidden="true">LG<span>+</span></span><div class="about-caption"><span>DISEÑO + TECNOLOGÍA</span><span>LG / 04</span></div></div><p class="about-signature">Una persona detrás de cada decisión.</p></div>
+    <div class="about-copy"><p class="eyebrow">04 / LA PERSONA DETRÁS DEL PLANO</p><h2 id="about-title">Soy Leandro.<br /><span>Diseño y construyo.</span></h2><p>LG Design es el espacio donde conecto el diseño con el desarrollo para convertir ideas en soluciones digitales.</p><p>Trabajo con PyMEs y emprendedores que necesitan una web, un sistema a medida o alguien que se sume para hacer avanzar un proyecto. Me interesa entender el problema, definir un camino claro y cuidar tanto lo que se ve como lo que lo hace funcionar.</p><a class="text-link" href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-contact="whatsapp">Conversemos sobre tu idea <Icon name="arrow" /></a></div>
+  </section>
+
+  <section class="faq-section section" aria-labelledby="faq-title"><div class="container faq-grid"><div><p class="eyebrow">05 / ANTES DE EMPEZAR</p><h2 id="faq-title">Las primeras<br /><span>preguntas.</span></h2><p class="faq-intro">Cada proyecto es distinto.<br />Estas respuestas ayudan a dar el primer paso.</p></div><div class="faq-list">{faqs.map((faq) => <details class="faq-item"><summary>{faq.question}<span aria-hidden="true">+</span></summary><p>{faq.answer}</p></details>)}</div></div></section>
+</BaseLayout>

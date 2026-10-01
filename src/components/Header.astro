@@ -1,0 +1,30 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import { site } from '../lib/site';
+const currentPath = Astro.url.pathname;
+---
+<header class="site-header">
+  <div class="container header-inner">
+    <Logo />
+    <nav class="desktop-nav" aria-label="Navegación principal">
+      <a href="/servicios/" aria-current={currentPath.startsWith('/servicios/') ? 'page' : undefined}>Servicios</a>
+      <a href="/proyectos/" aria-current={currentPath.startsWith('/proyectos/') ? 'page' : undefined}>Proyectos</a>
+      <a href="/#about">Sobre mí</a>
+    </nav>
+    <a class="header-contact" href={site.whatsapp} data-contact="whatsapp" target="_blank" rel="noopener noreferrer">Hablemos <Icon name="external" /></a>
+    <details class="mobile-menu">
+      <summary aria-label="Abrir menú de navegación"><span></span><span></span></summary>
+      <nav aria-label="Navegación móvil">
+        <a href="/servicios/">Servicios</a><a href="/proyectos/">Proyectos</a><a href="/#about">Sobre mí</a><a href="/#contacts">Contacto</a>
+      </nav>
+    </details>
+  </div>
+</header>
+<script>
+  const menu = document.querySelector<HTMLDetailsElement>('.mobile-menu');
+  menu?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => { menu.open = false; }));
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && menu?.open) { menu.open = false; menu.querySelector('summary')?.focus(); }
+  });
+</script>

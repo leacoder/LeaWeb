@@ -1,0 +1,35 @@
+{
+  "name": "lg-design-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.19.0",
+    "npm": ">=9.6.5"
+  },
+  "scripts": {
+    "dev": "node scripts/astro.mjs dev --host 127.0.0.1",
+    "check": "node scripts/astro.mjs check",
+    "prebuild": "npm run social",
+    "build": "node scripts/astro.mjs build",
+    "preview": "node scripts/astro.mjs preview --host 127.0.0.1",
+    "social": "node scripts/render-social.mjs",
+    "verify": "node scripts/check-site.mjs",
+    "verify:interactions": "node scripts/check-interactions.mjs",
+    "validate": "npm run check && npm run verify:interactions && npm run build && npm run verify"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "3.7.4",
+    "@fontsource-variable/inter": "5.3.0",
+    "@fontsource/ibm-plex-mono": "5.3.0",
+    "astro": "7.3.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.10",
+    "@fontsource/inter": "5.3.0",
+    "fontkit": "2.0.4",
+    "lighthouse": "13.5.0",
+    "sharp": "0.35.5",
+    "typescript": "6.0.3"
+  }
+}

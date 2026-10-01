@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Página no encontrada" description="Esta página no está disponible. Volvé al inicio de LG Design o explorá los proyectos de diseño y desarrollo digital." path="/404.html" noindex={true}>
+  <section class="section not-found">
+    <div class="container">
+      <p class="eyebrow">LG Design / Coordenada no encontrada</p>
+      <span class="error-number" aria-hidden="true">404</span>
+      <h1>Este plano no tiene<br />esa dirección.</h1>
+      <p class="text-muted">El enlace puede haber cambiado. Podés volver al inicio o explorar los proyectos.</p>
+      <div class="error-actions"><a class="button button-primary" href="/">Volver al inicio <span aria-hidden="true">↗</span></a><a class="button button-secondary" href="/proyectos/">Ver proyectos</a></div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found { padding: clamp(5rem, 12vw, 10rem) 0; }
+  .error-number { display: block; font: 300 clamp(5rem, 15vw, 12rem) var(--font-mono, monospace); line-height: 1.2; color: #8be2ef; opacity: .35; margin: 1.5rem 0; }
+  h1 { font-size: clamp(2rem, 5vw, 4rem); font-weight: 500; line-height: 1.15; letter-spacing: -.045em; }
+  .not-found p.text-muted { max-width: 45ch; margin: 1.5rem 0 2rem; line-height: 1.8; }
+  .error-actions { display: flex; flex-wrap: wrap; gap: 1rem; }
+</style>

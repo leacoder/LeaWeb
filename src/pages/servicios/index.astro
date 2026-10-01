@@ -1,0 +1,67 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site } from '../../lib/site';
+
+const services = (await getCollection('services')).sort((a, b) =>
+  a.data.number.localeCompare(b.data.number, 'es', { numeric: true })
+);
+---
+
+<BaseLayout
+  title="Servicios de diseño y desarrollo digital"
+  description="Diseño y desarrollo web, sistemas e integraciones y mejora de proyectos existentes. Consultoría de Leandro García para PyMEs y emprendedores de Argentina."
+  path="/servicios/"
+  breadcrumbs={[{ name: 'Inicio', url: '/' }, { name: 'Servicios', url: '/servicios/' }]}
+>
+  <section class="section services-intro">
+    <div class="container">
+      <p class="eyebrow">LG Design / Servicios</p>
+      <h1 class="page-title">Una idea, un proyecto en marcha.<br /><span>Un próximo paso claro.</span></h1>
+      <p class="page-lead text-muted">Te acompaño a definir y construir la solución digital que necesitás. Podemos empezar desde cero o trabajar sobre lo que ya tenés.</p>
+      <div class="services-list">
+        {services.map((service) => (
+          <a class="service-row" href={`/servicios/${service.id}/`}>
+            <span class="service-number" aria-hidden="true">{service.data.number}</span>
+            <div>
+              <h2>{service.data.title}</h2>
+              <p class="text-muted">{service.data.description}</p>
+              <span class="service-link">Conocer el servicio <span aria-hidden="true">↗</span></span>
+            </div>
+            <svg class="service-arrow" aria-hidden="true" viewBox="0 0 32 32" fill="none"><path d="M8 24 24 8M8 8h16v16" stroke="currentColor" stroke-width="1.5" /></svg>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+  <section class="section next-step">
+    <div class="container next-step-inner">
+      <div><p class="eyebrow">El punto de partida</p><h2 class="detail-heading">Contame en qué estás trabajando.</h2><p class="text-muted">Una primera conversación para entender tu necesidad y encontrar un camino posible.</p></div>
+      <a class="button button-primary" href={site.whatsapp} data-contact="whatsapp" target="_blank" rel="noopener noreferrer">Contame tu proyecto <span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .services-intro { padding-top: clamp(4rem, 9vw, 8rem); }
+  .page-title { max-width: 18ch; font-size: clamp(2.5rem, 5.8vw, 5rem); font-weight: 500; letter-spacing: -.055em; line-height: 1.1; }
+  .page-title span { color: #8be2ef; }
+  .detail-heading { font-size: clamp(1.9rem, 3.8vw, 3rem); line-height: 1.15; letter-spacing: -.045em; margin: 0 0 1rem; }
+  .page-lead { max-width: 58ch; font-size: 1.125rem; line-height: 1.8; margin-top: 1.75rem; }
+  .services-list { margin-top: clamp(3rem, 6vw, 5rem); border-top: 1px solid rgba(155,196,221,.2); }
+  .service-row { display: grid; grid-template-columns: 4rem minmax(0, 1fr) 3rem; gap: 1.5rem; padding: clamp(1.75rem, 4vw, 3rem) 0; border-bottom: 1px solid rgba(155,196,221,.2); color: inherit; text-decoration: none; }
+  .service-number { color: #8be2ef; font: .875rem var(--font-mono, monospace); padding-top: .6rem; }
+  .service-row h2 { margin: 0; font-size: clamp(1.5rem, 3.1vw, 2.5rem); letter-spacing: -.035em; font-weight: 500; }
+  .service-row p { max-width: 60ch; line-height: 1.75; margin: 1rem 0 1.5rem; }
+  .service-link { color: #8be2ef; font-size: .875rem; }
+  .service-link span { margin-left: .6rem; }
+  .service-arrow { width: 2rem; align-self: center; color: #8be2ef; transition: transform .2s; }
+  .service-row:hover .service-arrow { transform: translate(3px, -3px); }
+  .next-step { border-top: 1px solid rgba(155,196,221,.2); }
+  .next-step-inner { display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+  .next-step-inner > div { max-width: 42rem; }
+  .next-step-inner p { line-height: 1.7; }
+  .next-step-inner .button { flex-shrink: 0; }
+  @media (max-width: 640px) { .service-row { grid-template-columns: 2rem minmax(0, 1fr); gap: .75rem; } .service-arrow { display: none; } .next-step-inner { align-items: flex-start; flex-direction: column; } }
+  @media (prefers-reduced-motion: reduce) { .service-arrow { transition: none; } }
+</style>

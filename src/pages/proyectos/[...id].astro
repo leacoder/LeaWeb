@@ -1,0 +1,89 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site } from '../../lib/site';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects', ({ data }) => data.published);
+  return projects.map((project) => ({ params: { id: project.id }, props: { project } }));
+}
+
+interface Props { project: CollectionEntry<'projects'>; }
+const { project } = Astro.props;
+const { Content } = await render(project);
+const projects = (await getCollection('projects', ({ data }) => data.published)).sort((a, b) => a.data.order - b.data.order);
+const currentIndex = projects.findIndex((entry) => entry.id === project.id);
+const nextProject = projects.length > 1 ? projects[(currentIndex + 1) % projects.length] : undefined;
+---
+
+<BaseLayout
+  title={project.data.title}
+  description={project.data.description}
+  path={`/proyectos/${project.id}/`}
+  image={project.data.image.src}
+  breadcrumbs={[{ name: 'Inicio', url: '/' }, { name: 'Proyectos', url: '/proyectos/' }, { name: project.data.title, url: `/proyectos/${project.id}/` }]}
+>
+  <section class="section project-hero">
+    <div class="container">
+      <p class="eyebrow">Portfolio / {project.data.sector}</p>
+      <h1 class="detail-title">{project.data.title}</h1>
+      <p class="detail-lead text-muted">{project.data.description}</p>
+      {project.data.website && <a class="button button-secondary project-website" href={project.data.website} target="_blank" rel="noopener noreferrer">Visitar {project.data.title} <span aria-hidden="true">↗</span></a>}
+      <dl class="project-meta"><div><dt>Proyecto</dt><dd>{project.data.client}</dd></div><div><dt>Sector</dt><dd>{project.data.sector}</dd></div>{project.data.historical && <div><dt>Selección</dt><dd>Archivo de proyectos</dd></div>}</dl>
+      <figure class="project-cover">
+        <Image src={project.data.image} alt={project.data.imageAlt} widths={[480, 768, 1200, 1600]} sizes="(max-width: 1200px) 92vw, 1120px" format="webp" quality={80} loading="eager" fetchpriority="high" />
+        <figcaption>{project.data.imageCaption ?? `Captura del proyecto ${project.data.client}${project.data.historical ? ' · Versión del archivo de LG Design' : ''}.`}</figcaption>
+      </figure>
+    </div>
+  </section>
+  <section class="section project-story">
+    <div class="container story-grid">
+      <div class="story-label"><p class="eyebrow">El proyecto</p><h2 class="detail-heading">Del contexto<br />a la solución.</h2></div>
+      <article class="prose"><Content /></article>
+    </div>
+  </section>
+  <section class="section project-bottom">
+    <div class="container">
+      <div class="project-contact"><div><p class="eyebrow">Trabajemos juntos</p><h2 class="detail-heading">¿Tenés un proyecto en mente?</h2><p class="text-muted">Contame qué necesitás y en qué etapa está.</p></div><a class="button button-primary" href={site.whatsapp} data-contact="whatsapp" target="_blank" rel="noopener noreferrer">Contame tu proyecto <span aria-hidden="true">↗</span></a></div>
+      <nav class="project-navigation" aria-label="Más proyectos"><a href="/proyectos/">← Todos los proyectos</a>{nextProject && <a href={`/proyectos/${nextProject.id}/`}>Siguiente: {nextProject.data.title} <span aria-hidden="true">↗</span></a>}</nav>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .project-hero { padding-top: clamp(3rem, 7vw, 6rem); padding-bottom: 0; }
+  .detail-title { font-size: clamp(2.5rem, 7vw, 6rem); line-height: 1.1; font-weight: 500; letter-spacing: -.055em; overflow-wrap: anywhere; }
+  .detail-lead { font-size: 1.15rem; max-width: 60ch; line-height: 1.8; margin: 1.75rem 0 0; }
+  .project-website { margin-top: 1.75rem; }
+  .detail-heading { font-size: clamp(1.9rem, 3.8vw, 3rem); line-height: 1.15; letter-spacing: -.045em; margin: 0 0 1rem; }
+  .project-meta { display: flex; flex-wrap: wrap; gap: 2rem 4rem; padding: 2rem 0; border-top: 1px solid rgba(155,196,221,.2); margin: 3rem 0; }
+  .project-meta dt { color: #8be2ef; font: .7rem var(--font-mono, monospace); text-transform: uppercase; letter-spacing: .12em; }
+  .project-meta dd { margin: .75rem 0 0; font-size: .95rem; }
+  .project-cover { margin: 0; padding: clamp(1rem, 3vw, 2.5rem); background: #102638; border: 1px solid rgba(155,196,221,.2); }
+  .project-cover :global(img) { display: block; width: 100%; height: auto; max-height: 850px; object-fit: contain; }
+  .project-cover figcaption { color: #a3b5c4; font-size: .75rem; line-height: 1.6; margin-top: 1rem; }
+  .story-grid { display: grid; grid-template-columns: minmax(0, .7fr) minmax(0, 1.3fr); gap: clamp(2rem, 6vw, 6rem); }
+  .story-label .detail-heading { font-size: clamp(1.8rem, 3vw, 2.5rem); }
+  .prose { max-width: 68ch; overflow-wrap: anywhere; }
+  .prose :global(h2) { font-size: clamp(1.5rem, 2.8vw, 2rem); letter-spacing: -.03em; font-weight: 500; margin: 2.5rem 0 1rem; }
+  .prose :global(h2:first-child) { margin-top: 0; }
+  .prose :global(h3) { font-size: 1.2rem; margin: 2rem 0 .75rem; font-weight: 500; }
+  .prose :global(p), .prose :global(li) { color: #a3b5c4; line-height: 1.85; }
+  .prose :global(p) { margin: 0 0 1.25rem; }
+  .prose :global(ul), .prose :global(ol) { padding-left: 1.25rem; }
+  .prose :global(strong) { color: #eaf3f8; font-weight: 600; }
+  .prose :global(a) { color: #8be2ef; text-underline-offset: .25em; }
+  .project-bottom { border-top: 1px solid rgba(155,196,221,.2); }
+  .project-contact { display: flex; justify-content: space-between; align-items: center; gap: 2rem; }
+  .project-contact p { line-height: 1.7; }
+  .project-contact .button { flex-shrink: 0; }
+  .project-navigation { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; padding-top: 2rem; margin-top: 3rem; border-top: 1px solid rgba(155,196,221,.2); }
+  .project-navigation a { color: #8be2ef; text-decoration: none; font-size: .875rem; }
+  @media (max-width: 800px) { .story-grid { grid-template-columns: 1fr; } .project-contact { flex-direction: column; align-items: flex-start; } }
+  @media (max-width: 639px) {
+    .detail-lead { font-size: 1rem; }
+    .project-meta { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 1.25rem; padding: 1.5rem 0; margin: 2rem 0; }
+    .project-meta dd { font-size: .875rem; }
+  }
+</style>

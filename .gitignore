@@ -41,3 +41,14 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Astro build and local dependencies
+node_modules/
+dist/
+.astro/
+.npm-cache/
+.lighthouse/
+.env
+.env.*
+!.env.example
+*.log

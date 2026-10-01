@@ -1,0 +1,17 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import { site } from '../lib/site';
+interface Props { analyticsEnabled?: boolean; }
+const { analyticsEnabled = false } = Astro.props;
+---
+<footer class="site-footer">
+  <section class="contact-section container" id="contacts" aria-labelledby="contact-title">
+    <div class="contact-top"><span class="eyebrow">06 / EL PRÓXIMO PROYECTO</span><span class="status-label"><i></i> Argentina · Trabajo remoto</span></div>
+    <div class="contact-grid">
+      <div><h2 id="contact-title">Todo empieza<br />con una <span>buena charla.</span></h2><p>Contame qué necesitás, en qué punto está tu proyecto<br class="desktop-break" /> y a dónde querés llegar. Pensemos el próximo paso.</p></div>
+      <div class="contact-actions"><a href={site.whatsapp} class="button button-primary" target="_blank" rel="noopener noreferrer" data-contact="whatsapp">Contame tu proyecto <Icon name="external" /></a><a class="email-link" href={`mailto:${site.email}`} data-contact="email">{site.email} <Icon name="arrow" /></a></div>
+    </div>
+  </section>
+  <div class="footer-bottom container"><Logo footer /><p>© {new Date().getFullYear()} LG Design · Leandro García</p><div class="footer-notes"><span>De la idea a la solución.</span>{analyticsEnabled && <button type="button" data-analytics-preferences>Privacidad</button>}<a href="/#home" aria-label="Volver al inicio">↑</a></div></div>
+</footer>

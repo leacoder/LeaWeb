@@ -1,0 +1,81 @@
+<script>
+  // Progressive enhancement: the HTML is visible before and without this script.
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const precisePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+  const revealed = new WeakSet<Element>();
+  let dispose = () => {};
+
+  function enhanceMotion() {
+    const cleanups: (() => void)[] = [];
+    const animations = new Set<Animation>();
+
+    if ('IntersectionObserver' in window && typeof Element.prototype.animate === 'function') {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(({ target, isIntersecting }) => {
+          if (!isIntersecting) return;
+          observer.unobserve(target);
+          revealed.add(target);
+          if (target.contains(document.activeElement)) return;
+          const stagger = Math.min(Array.from(target.parentElement?.children ?? []).indexOf(target), 3) * 55;
+          const animation = target.animate([
+            { opacity: 0.8, transform: 'translateY(16px)' },
+            { opacity: 1, transform: 'translateY(0)' },
+          ], { duration: 650, delay: Math.max(0, stagger), easing: 'cubic-bezier(.16,1,.3,1)' });
+          animations.add(animation);
+          animation.finished.then(() => animations.delete(animation), () => animations.delete(animation));
+        });
+      }, { threshold: 0.08 });
+      document.querySelectorAll('.section-heading, .service-card, .featured-project, .process-step, .about-visual, .about-copy, .faq-item, .contact-grid, .project-row, .project-cover, .deliverables, .prose h2').forEach((element) => {
+        if (!revealed.has(element) && element.getBoundingClientRect().top >= window.innerHeight) observer.observe(element);
+      });
+      cleanups.push(() => { observer.disconnect(); animations.forEach((animation) => animation.cancel()); });
+    }
+
+    if (precisePointer.matches) {
+      const blueprint = document.querySelector<HTMLElement>('.blueprint');
+      const plane = blueprint?.querySelector<HTMLElement>('[data-blueprint-plane]');
+      if (blueprint && plane) {
+        let frame = 0;
+        let pendingX = 0;
+        let pendingY = 0;
+        const move = (event: PointerEvent) => {
+          if (event.pointerType !== 'mouse' || event.buttons) return;
+          const bounds = blueprint.getBoundingClientRect();
+          pendingX = Math.max(-1, Math.min(1, ((event.clientX - bounds.left) / bounds.width - 0.5) * 2));
+          pendingY = Math.max(-1, Math.min(1, ((event.clientY - bounds.top) / bounds.height - 0.5) * 2));
+          if (!frame) frame = requestAnimationFrame(() => {
+            frame = 0;
+            plane.style.setProperty('--tilt-x', `${-pendingY * 2.5}deg`);
+            plane.style.setProperty('--tilt-y', `${pendingX * 3}deg`);
+          });
+        };
+        const reset = () => {
+          cancelAnimationFrame(frame);
+          frame = 0;
+          plane.style.removeProperty('--tilt-x');
+          plane.style.removeProperty('--tilt-y');
+        };
+        blueprint.addEventListener('pointermove', move, { passive: true });
+        blueprint.addEventListener('pointerleave', reset);
+        blueprint.addEventListener('pointercancel', reset);
+        cleanups.push(() => {
+          blueprint.removeEventListener('pointermove', move);
+          blueprint.removeEventListener('pointerleave', reset);
+          blueprint.removeEventListener('pointercancel', reset);
+          reset();
+        });
+      }
+    }
+    return () => cleanups.forEach((cleanup) => cleanup());
+  }
+
+  function syncMotion() {
+    dispose();
+    dispose = reducedMotion.matches ? () => {} : enhanceMotion();
+  }
+  reducedMotion.addEventListener('change', syncMotion);
+  precisePointer.addEventListener('change', syncMotion);
+  syncMotion();
+  window.addEventListener('pagehide', () => dispose());
+  window.addEventListener('pageshow', (event) => { if (event.persisted) syncMotion(); });
+</script>
