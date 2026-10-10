@@ -1,0 +1,18 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props { image: ImageMetadata; alt: string; sizes?: string; }
+const { image, alt, sizes = '(max-width: 639px) 26vw, 160px' } = Astro.props;
+---
+
+<div class="phone-preview">
+  <div class="phone-speaker" aria-hidden="true"></div>
+  <Image src={image} alt={alt} widths={[180, 320, 560]} sizes={sizes} format="webp" quality={85} loading="lazy" draggable="false" />
+</div>
+
+<style>
+  .phone-preview { width: 100%; padding: 12px 5px 7px; border: 1px solid #81929f; border-radius: 23px; background: #101820; box-shadow: inset 0 0 0 2px #34414c, 0 10px 24px #0006; }
+  .phone-speaker { width: 23%; height: 3px; border-radius: 5px; background: #53616b; margin: -6px auto 5px; }
+  .phone-preview :global(img) { display: block; width: 100%; height: auto; aspect-ratio: 390 / 844; object-fit: cover; object-position: top; border-radius: 16px; }
+</style>

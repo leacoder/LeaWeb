@@ -7,6 +7,9 @@ sector: Eventos y comunidades
 image: ../../assets/projects/matchvybe.png
 imageAlt: Portada de Vybe con la frase «Encontrá tu match en tu próximo evento» y una tarjeta de evento
 imageCaption: Captura de la portada pública de Vybe en matchvybe.com.
+mobile:
+  image: ../../assets/projects/matchvybe-mobile.png
+  alt: Versión móvil de Vybe con presentación, registro y eventos destacados
 website: https://matchvybe.com/
 featured: true
 historical: false

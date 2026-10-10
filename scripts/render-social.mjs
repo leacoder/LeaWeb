@@ -6,7 +6,7 @@ import { logoMark, logoDimensions } from '../src/lib/logo.mjs';
 
 // The editable SVG is the source of the raster sharing image; no remote assets.
 const input = fileURLToPath(new URL('../public/og-image.svg', import.meta.url));
-const output = fileURLToPath(new URL('../public/og-logo-v3.png', import.meta.url));
+const output = fileURLToPath(new URL('../public/og-logo-v4.png', import.meta.url));
 const svg = outlineSvg(await readFile(input, 'utf8'));
 await sharp(Buffer.from(svg)).png().toFile(output);
 for (const [variant, ink, accent] of [['light', '#edf3f8', '#8be2ef'], ['dark', '#071a2e', '#17466b']]) {
@@ -14,4 +14,4 @@ for (const [variant, ink, accent] of [['light', '#edf3f8', '#8be2ef'], ['dark', 
   await writeFile(fileURLToPath(new URL(`../public/logo-${variant}.svg`, import.meta.url)), logo);
 }
 await writeFile(fileURLToPath(new URL('../public/favicon.svg', import.meta.url)), `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 72"><rect width="100" height="72" rx="8" fill="#071a2e"/>${logoMark()}${logoDimensions()}</svg>`);
-console.log('Generated public/og-logo-v3.png (1200 × 1200).');
+console.log('Generated public/og-logo-v4.png (1200 × 1200).');

@@ -21,7 +21,7 @@ interface Props {
   breadcrumbs?: { name: string; url: string }[];
   noindex?: boolean;
 }
-const { title, description, image = '/og-logo-v3.png', breadcrumbs = [], noindex = false } = Astro.props;
+const { title, description, image = '/og-logo-v4.png', breadcrumbs = [], noindex = false } = Astro.props;
 const rawPath = Astro.props.path ?? Astro.url.pathname;
 const normalizedPath = rawPath === '/index.html' ? '/' : rawPath;
 const canonical = new URL(normalizedPath, site.url).href;
@@ -29,7 +29,7 @@ const pageTitle = `${title} | ${site.name}`;
 const socialTitle = Astro.props.socialTitle ?? pageTitle;
 const socialDescription = Astro.props.socialDescription ?? description;
 const socialImage = new URL(image, site.url).href;
-const brandImage = image === '/og-logo-v3.png';
+const brandImage = image === '/og-logo-v4.png';
 const verification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 const gaId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID ?? '';
 const analyticsEnabled = /^G-[A-Z0-9]+$/.test(gaId);

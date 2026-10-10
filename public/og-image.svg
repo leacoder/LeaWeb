@@ -1,9 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200">
   <rect width="1200" height="1200" fill="#071a2e"/>
-  <g transform="translate(62 90) scale(10.75)">
-    <g fill="#edf3f8"><path d="M12 14h10v32h27v10H12zM64 14h24v10H66q-8 0-8 8v6q0 8 8 8h12v-6H68V30h20v26H64q-16 0-16-17v-8q0-17 16-17z"/></g>
-    <g stroke="#8be2ef" stroke-width=".8" fill="none"><path d="M12 2v9M88 2v9M12 7h76M4 14h7M4 56h7M7 14v42M91 14h7M91 56h7M95 14v42M12 59v9M88 59v9M12 64h76"/></g>
-    <g fill="#8be2ef"><path d="m12 7 5-2v4zm76 0-5-2v4zM7 14l-2 5h4zm0 42-2-5h4zM95 14l-2 5h4zm0 42-2-5h4zM12 64l5-2v4zm76 0-5-2v4z"/></g>
+  <g transform="translate(180.75 173.16) scale(8.385)" fill="#edf3f8">
+    <path d="M12 14h10v32h27v10H12zM64 14h24v10H66q-8 0-8 8v6q0 8 8 8h12v-6H68V30h20v26H64q-16 0-16-17v-8q0-17 16-17z"/>
   </g>
-  <text x="600" y="973" text-anchor="middle" font-family="Arial,sans-serif" font-size="160" font-weight="600" fill="#edf3f8" letter-spacing="10">DESIGN</text>
+  <text x="600" y="862" text-anchor="middle" font-family="Arial,sans-serif" font-size="124.8" font-weight="600" fill="#edf3f8" letter-spacing="7.8">DESIGN</text>
 </svg>

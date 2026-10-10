@@ -7,6 +7,9 @@ sector: Comercio y servicios
 image: ../../assets/projects/libreria2001.jpg
 imageAlt: Portada actual de Librería 2001 con el mensaje «Tu librería en Avellaneda. Desde 1992.» y materiales de artística
 imageCaption: Captura de la portada de Librería 2001 en libreria2001.com.ar, actualizada en octubre de 2026.
+mobile:
+  image: ../../assets/projects/libreria2001-mobile.png
+  alt: Versión móvil de Librería 2001 con presentación, consulta por WhatsApp y materiales de artística
 website: https://libreria2001.com.ar/
 featured: true
 historical: false

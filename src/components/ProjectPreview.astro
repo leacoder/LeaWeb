@@ -1,0 +1,23 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import PhonePreview from './PhonePreview.astro';
+
+interface Props { project: CollectionEntry<'projects'>; }
+const { project } = Astro.props;
+---
+
+<div class:list={['project-preview', { 'has-mobile': project.data.mobile }]}>
+  <Image class="desktop-preview" src={project.data.image} alt={project.data.imageAlt} widths={[360, 640, 900]} sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 1279px) 45vw, 585px" format="webp" quality={85} loading="lazy" draggable="false" />
+  {project.data.mobile && <div class="mobile-preview"><PhonePreview image={project.data.mobile.image} alt={project.data.mobile.alt} /></div>}
+</div>
+
+<style>
+  .project-preview { position: relative; width: 100%; min-width: 0; aspect-ratio: 1.5; isolation: isolate; }
+  .project-preview :global(.desktop-preview) { display: block; width: 100%; height: 100%; object-fit: contain; background: var(--ink); }
+  .mobile-preview { position: absolute; width: 27%; right: 1%; bottom: 0; z-index: 1; }
+  @media (prefers-reduced-motion: no-preference) {
+    .project-preview :global(.desktop-preview) { transition: transform .6s cubic-bezier(.2,.65,.3,1); }
+    :global(.featured-project:hover) .project-preview :global(.desktop-preview), :global(.project-row:hover) .project-preview :global(.desktop-preview) { transform: scale(1.015); }
+  }
+</style>

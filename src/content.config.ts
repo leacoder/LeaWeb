@@ -26,6 +26,7 @@ const projects = defineCollection({
     image: image(),
     imageAlt: z.string(),
     imageCaption: z.string().optional(),
+    mobile: z.object({ image: image(), alt: z.string() }).optional(),
     website: z.url({ protocol: /^https$/ }).optional(),
     featured: z.boolean(),
     historical: z.boolean(),
