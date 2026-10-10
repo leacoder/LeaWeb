@@ -1,7 +1,25 @@
 ---
+import { logoMark, logoDimensions } from '../lib/logo.mjs';
 interface Props { footer?: boolean; }
 const { footer = false } = Astro.props;
 ---
 <a class:list={['brand', { 'brand-footer': footer }]} href="/" draggable="false" aria-label={footer ? 'LG Design, inicio' : 'LG Design diseño + desarrollo, inicio'}>
-  <img src="/logo-light.svg" width="200" height="60" alt="" draggable="false" />
+    <span class="brand-lockup" aria-hidden="true">
+      <svg class="brand-symbol" width="200" height="60" viewBox="0 0 240 72" fill="none" focusable="false">
+        <Fragment set:html={logoMark('#edf3f8') + logoDimensions('#8be2ef')} />
+        <text x="108" y="46" fill="#edf3f8" font-family="var(--font)" font-size="31" letter-spacing="1">DESIGN</text>
+      </svg>
+      <span class="brand-tagline">DISEÑO + DESARROLLO</span>
+    </span>
 </a>
+
+<style>
+  .brand-lockup { display: flex; flex-direction: column; align-items: center; gap: 2px; width: 200px; }
+  .brand-lockup .brand-symbol { width: 200px; height: 60px; }
+  .brand-tagline { font-family: var(--mono); font-size: 11px; line-height: 1.3; letter-spacing: .065em; color: var(--accent); white-space: nowrap; }
+  @media (max-width: 639px) {
+    .brand-lockup { width: 140px; }
+    .brand-lockup .brand-symbol { width: 140px; height: 42px; }
+    .brand-tagline { font-size: 10px; letter-spacing: .01em; }
+  }
+</style>

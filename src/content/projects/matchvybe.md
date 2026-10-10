@@ -1,6 +1,7 @@
 ---
 title: Vybe
-description: Los planes se disfrutan más en compañía. Vybe conecta personas que comparten eventos, lugares e intereses para que puedan conocerse antes de encontrarse.
+description: "Creé Vybe desde la idea hasta la app web: diseño, desarrollo, base de datos y chat para conectar personas que comparten eventos, comunidades y lugares."
+contribution: Idea, diseño y desarrollo integral de la app web
 client: Vybe
 sector: Eventos y comunidades
 image: ../../assets/projects/matchvybe.png
@@ -13,19 +14,23 @@ published: true
 order: 2
 ---
 
-## Contexto
+## La idea
 
-Vybe conecta personas alrededor de eventos, comunidades y lugares. La propuesta parte de un contexto compartido: un plan, una actividad o un interés que permite conocer a otras personas antes de encontrarse en la vida real.
+La idea de Vybe es conectar personas a partir de algo que ya comparten: un evento, una comunidad o un lugar. La aplicación permite descubrir quiénes participan y empezar una conversación antes de encontrarse.
 
-## Producto
+## Mi aporte
 
-La aplicación permite crear una cuenta, explorar planes y ver perfiles de quienes participan. Cuando dos personas expresan interés mutuo, se habilita un chat para conversar y coordinar antes del encuentro.
+Definí la idea y la convertí en una aplicación web. Me ocupé del diseño de la experiencia y la interfaz, el desarrollo del frontend y el backend, la base de datos y el chat.
 
-El recorrido también incluye comunidades temáticas y lugares habituales, como bares, clubes o parques. Para los creadores de eventos, la plataforma presenta herramientas de gestión y una página propia para reunir su propuesta y sus actividades.
+El trabajo abarcó tanto lo que ve cada persona como la lógica que conecta cuentas, perfiles, planes y conversaciones dentro del producto.
 
-## Enfoque
+## Qué incluye
 
-La portada pública explica el funcionamiento en pasos y organiza la exploración entre eventos, comunidades y lugares. El producto reúne distintos recorridos —descubrir, participar y conectar— dentro de una misma experiencia web.
+- Cuentas y perfiles para descubrir a otras personas.
+- Exploración de eventos, comunidades y lugares.
+- Match por interés mutuo y chat para conversar antes del encuentro.
+- Base de datos y backend para sostener las funciones de la aplicación.
+- Herramientas para que los organizadores gestionen y presenten sus eventos.
 
 ## Visitar el producto
 

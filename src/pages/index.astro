@@ -1,4 +1,5 @@
 ---
+import SentenceText from '../components/SentenceText.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Blueprint from '../components/Blueprint.astro';
 import Icon from '../components/Icon.astro';
@@ -15,7 +16,7 @@ const steps = [
 ];
 const faqs = [
   { question: '¿Qué es LG Design y quién realiza el trabajo?', answer: 'LG Design es la marca de Leandro García, consultor, diseñador y desarrollador de soluciones digitales. Trabajo de forma remota con PyMEs y emprendedores de Argentina para crear webs, desarrollar sistemas e integraciones o mejorar y completar proyectos existentes.' },
-  { question: '¿Podés sumarte a un proyecto que ya empezó?', answer: 'Sí. Primero reviso el estado del proyecto y lo que necesitás resolver. A partir de ese diagnóstico definimos qué conviene mantener, mejorar o completar, y acordamos el alcance antes de avanzar.' },
+  { question: '¿Podés sumarte a un proyecto que ya empezó?', answer: 'Sí, primero reviso el estado del proyecto y lo que necesitás resolver. A partir de ese diagnóstico definimos qué conviene mantener, mejorar o completar, y acordamos el alcance antes de avanzar.' },
   { question: '¿Trabajás con clientes de toda Argentina?', answer: 'Sí, trabajo de forma remota. Podemos coordinar reuniones, revisar avances y compartir el material del proyecto sin importar dónde esté tu negocio.' },
   { question: '¿Cómo se define el presupuesto?', answer: 'Depende del alcance y del punto de partida. Después de entender la necesidad, preparo una propuesta con entregables, etapas y condiciones. Si el proyecto es grande, podemos organizarlo por fases.' },
   { question: '¿Qué necesitás para empezar?', answer: 'Una conversación sobre qué querés lograr. Si ya tenés una web, un sistema, diseños o documentación, ese material ayuda. Si solo tenés una idea, podemos empezar por darle forma.' },
@@ -26,7 +27,7 @@ const faqs = [
     <div class="hero-copy">
       <p class="eyebrow"><span class="tiny-cross">+</span> DISEÑO, DESARROLLO Y CRITERIO</p>
       <h1 id="hero-title">Diseño y desarrollo digital para <span>hacer avanzar</span> tu proyecto<span class="title-period">.</span></h1>
-      <p class="hero-description">Webs, sistemas e integraciones para PyMEs y emprendedores. Desde una idea en papel hasta ese proyecto que necesita el próximo paso.</p>
+      <p class="hero-description">Webs, sistemas e integraciones para PyMEs y emprendedores.<br />Desde una idea en papel hasta ese proyecto que necesita el próximo paso.</p>
       <div class="hero-actions"><a class="button button-primary" href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-contact="whatsapp">Contame tu proyecto <Icon name="external" /></a><a class="button button-secondary" href="/#works">Ver proyectos <Icon name="arrow" /></a></div>
       <div class="hero-note"><span class="status-dot"></span> Leandro García · Consultor digital · Argentina</div>
     </div>
@@ -37,18 +38,18 @@ const faqs = [
   <section class="services-section section" id="services" aria-labelledby="services-title">
     <div class="container">
       <div class="section-heading"><div><p class="eyebrow">01 / QUÉ PUEDO HACER POR VOS</p><h2 id="services-title">Una idea. Muchas piezas.<br /><span>Una solución que funciona.</span></h2></div><p class="section-intro">Diseño y tecnología con un mismo objetivo: resolver lo que tu negocio necesita.</p></div>
-      <div class="service-grid">{services.map((service) => <a class="service-card" href={`/servicios/${service.id}/`}><div class="service-card-top"><Icon name={service.data.icon} /><span class="mono">{service.data.number}</span></div><h3>{service.data.shortTitle}</h3><p>{service.data.description}</p><span class="service-card-link">{service.data.ctaLabel} <Icon name="arrow" /></span></a>)}</div>
+      <div class="service-grid">{services.map((service) => <a class="service-card" href={`/servicios/${service.id}/`}><div class="service-card-top"><Icon name={service.data.icon} /><span class="mono">{service.data.number}</span></div><h3>{service.data.shortTitle}</h3><p><SentenceText text={service.data.description} /></p><span class="service-card-link">{service.data.ctaLabel} <Icon name="arrow" /></span></a>)}</div>
     </div>
   </section>
 
   <section class="projects-section section container" id="works" aria-labelledby="projects-title">
     <div class="section-heading"><div><p class="eyebrow">02 / DEL PLANO A LA REALIDAD</p><h2 id="projects-title">Ideas que tomaron <span>forma.</span></h2></div><a class="text-link" href="/proyectos/">Todos los proyectos <Icon name="arrow" /></a></div>
-    <div class="featured-projects">{projects.map((project, index) => <a class="featured-project" href={`/proyectos/${project.id}/`}><div class="project-image"><span class="project-corner corner-tl" aria-hidden="true"></span><span class="project-corner corner-tr" aria-hidden="true"></span><span class="project-corner corner-bl" aria-hidden="true"></span><span class="project-corner corner-br" aria-hidden="true"></span><div class="project-image-label"><span>PROYECTO / {String(index + 1).padStart(2, '0')}</span><span>{project.data.historical ? 'ARCHIVO / WEB' : 'PRODUCTO DIGITAL'}</span></div><Image src={project.data.image} alt={project.data.imageAlt} widths={[360, 640, 900]} sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 1279px) 45vw, 585px" format="webp" quality={85} loading="lazy" draggable="false" /></div><div class="project-info"><div><p class="project-sector">{project.data.sector}</p><h3>{project.data.title}</h3><p class="project-description">{project.data.description}</p><span class="project-case-link">Explorar proyecto <Icon name="arrow" /></span></div><span class="project-arrow" aria-hidden="true"><Icon name="external" /></span></div></a>)}</div>
+    <div class="featured-projects">{projects.map((project, index) => <a class="featured-project" href={`/proyectos/${project.id}/`}><div class="project-image"><span class="project-corner corner-tl" aria-hidden="true"></span><span class="project-corner corner-tr" aria-hidden="true"></span><span class="project-corner corner-bl" aria-hidden="true"></span><span class="project-corner corner-br" aria-hidden="true"></span><div class="project-image-label"><span>PROYECTO / {String(index + 1).padStart(2, '0')}</span><span>{project.data.historical ? 'ARCHIVO / WEB' : 'PRODUCTO DIGITAL'}</span></div><Image src={project.data.image} alt={project.data.imageAlt} widths={[360, 640, 900]} sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 1279px) 45vw, 585px" format="webp" quality={85} loading="lazy" draggable="false" /></div><div class="project-info"><div><p class="project-sector">{project.data.sector}</p><h3>{project.data.title}</h3><p class="project-description"><SentenceText text={project.data.description} /></p><span class="project-case-link">Explorar proyecto <Icon name="arrow" /></span></div><span class="project-arrow" aria-hidden="true"><Icon name="external" /></span></div></a>)}</div>
     <p class="portfolio-note">De una presencia web para un comercio a una plataforma para conectar personas. Dos proyectos, distintas necesidades.</p>
   </section>
 
   <section class="process-section section" aria-labelledby="process-title">
-    <div class="container"><div class="section-heading"><div><p class="eyebrow">03 / CÓMO TRABAJO</p><h2 id="process-title">Un buen proyecto<br />necesita un buen <span>plan.</span></h2></div><p class="section-intro">Sin perder de vista la idea original.<br />Sin dejar los detalles al azar.</p></div><div class="process-grid">{steps.map((step) => <div class="process-step"><div class="step-number">{step.number}<span class="step-cross">+</span></div><h3>{step.title}</h3><p>{step.description}</p></div>)}</div></div>
+    <div class="container"><div class="section-heading"><div><p class="eyebrow">03 / CÓMO TRABAJO</p><h2 id="process-title">Un buen proyecto<br />necesita un buen <span>plan.</span></h2></div><p class="section-intro">Sin perder de vista la idea original.<br />Sin dejar los detalles al azar.</p></div><div class="process-grid">{steps.map((step) => <div class="process-step"><div class="step-number">{step.number}<span class="step-cross">+</span></div><h3>{step.title}</h3><p><SentenceText text={step.description} /></p></div>)}</div></div>
   </section>
 
   <section class="about-section section container" id="about" aria-labelledby="about-title">
@@ -68,7 +69,7 @@ const faqs = [
         </svg>
         <div class="about-plan-content">
           <p class="eyebrow">04 / SOBRE MÍ</p>
-          <h2 id="about-title">Soy Leandro García.</h2>
+          <h2 id="about-title"><span>Soy Leandro</span> <span>García.</span></h2>
           <p class="about-subtitle">Ingeniería, diseño y desarrollo.</p>
         </div>
         <div class="about-plan-legend" aria-hidden="true"><span>01 / CRITERIO</span><span>02 / DISEÑO</span><span>03 / DESARROLLO</span></div>
@@ -76,11 +77,12 @@ const faqs = [
       <div class="about-plan-footer" aria-hidden="true"><span>DE LA IDEA A LA SOLUCIÓN</span><span class="about-plan-mark">+</span></div>
     </div>
     <div class="about-copy">
-      <p>Soy ingeniero en sistemas, graduado de la Universidad Tecnológica Nacional (UTN). Desarrollo aplicaciones y sistemas a medida, y diseño y construyo sitios web. Combino la mirada técnica con el diseño para crear soluciones que funcionen bien y sean fáciles de usar.</p>
-      <p>Me involucro desde el análisis y la arquitectura hasta la experiencia de uso, el desarrollo y la puesta en marcha. Puedo dar forma a una idea desde cero o sumarme a un producto existente para mejorarlo y hacerlo crecer.</p>
+      <p class="about-credential">Ingeniero en Sistemas · <abbr title="Universidad Tecnológica Nacional">UTN</abbr></p>
+      <p>Desarrollo aplicaciones y sistemas a medida, y diseño sitios web.<br />Combino ingeniería y diseño para crear productos que funcionen bien y sean fáciles de usar.</p>
+      <p>Trabajo desde el análisis hasta la puesta en marcha.<br />Puedo construir una idea desde cero o sumarme a un producto existente para mejorarlo.</p>
       <a class="text-link" href={site.whatsapp} target="_blank" rel="noopener noreferrer" data-contact="whatsapp">Contame qué tenés en mente <Icon name="arrow" /></a>
     </div>
   </section>
 
-  <section class="faq-section section" aria-labelledby="faq-title"><div class="container faq-grid"><div><p class="eyebrow">05 / ANTES DE EMPEZAR</p><h2 id="faq-title">Las primeras<br /><span>preguntas.</span></h2><p class="faq-intro">Cada proyecto es distinto.<br />Estas respuestas ayudan a dar el primer paso.</p></div><div class="faq-list">{faqs.map((faq) => <details class="faq-item"><summary>{faq.question}<span aria-hidden="true">+</span></summary><p>{faq.answer}</p></details>)}</div></div></section>
+  <section class="faq-section section" aria-labelledby="faq-title"><div class="container faq-grid"><div><p class="eyebrow">05 / ANTES DE EMPEZAR</p><h2 id="faq-title">Las primeras<br /><span>preguntas.</span></h2><p class="faq-intro">Cada proyecto es distinto.<br />Estas respuestas ayudan a dar el primer paso.</p></div><div class="faq-list">{faqs.map((faq) => <details class="faq-item"><summary>{faq.question}<span aria-hidden="true">+</span></summary><p><SentenceText text={faq.answer} /></p></details>)}</div></div></section>
 </BaseLayout>

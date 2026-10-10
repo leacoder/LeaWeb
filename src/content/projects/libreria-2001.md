@@ -1,6 +1,7 @@
 ---
 title: Librería 2001
-description: Un proyecto web para una librería comercial y artística de Avellaneda, con servicios de copiado de libros contables.
+description: Diseñé y desarrollé el sitio de Librería 2001, con catálogo de productos, servicios y consultas por WhatsApp. También me ocupé de la publicación y el hosting.
+contribution: Diseño, desarrollo, publicación y hosting
 client: Librería 2001
 sector: Comercio y servicios
 image: ../../assets/projects/libreria2001.jpg
@@ -13,13 +14,21 @@ published: true
 order: 1
 ---
 
-## Contexto
+## La necesidad
 
-Librería 2001 es una librería comercial, escolar y artística ubicada en el centro de Avellaneda. Su sitio reúne productos y servicios para el estudio, el trabajo y los proyectos creativos.
+Librería 2001 es una librería comercial, escolar y artística de Avellaneda. El objetivo del sitio es acercar su oferta a quienes buscan productos o servicios, facilitar las consultas y reunir la información para visitar el local.
 
-## Solución y aporte
+## Mi aporte
 
-El sitio presenta los servicios de impresiones y fotocopias, copiado de libros contables y librería artística, comercial y escolar. Incluye una selección de productos por categoría, consultas por WhatsApp y la información necesaria para visitar el local.
+Me ocupé del proyecto completo: la organización del contenido, el diseño visual y el desarrollo de la web. También resolví la publicación y el hosting, para entregar el sitio en funcionamiento.
+
+## Qué incluye
+
+- Catálogo de productos organizado por categorías, con consultas por WhatsApp.
+- Páginas de impresiones y fotocopias, libros contables y librería artística, comercial y escolar.
+- Horarios, ubicación e indicaciones para llegar al local.
+- Diseño adaptable a celulares y escritorio.
+- Publicación y hosting del sitio.
 
 ## Sitio actual
 

@@ -177,12 +177,12 @@ const columns = Array.from({ length: 12 }, (_, index) => 84 + index * 27);
   .blueprint-stage { perspective: 1100px; overflow: hidden; background: #082138; }
   .blueprint-plane { transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)); transform-origin: 50% 50%; transition: transform 420ms cubic-bezier(.2,.7,.2,1); }
   .blueprint-drawing { width: 100%; height: auto; aspect-ratio: 7 / 6; overflow: hidden; pointer-events: none; }
-  .blueprint-controls { display: flex; align-items: center; gap: 3px; padding: 9px 0; border-top: 1px solid var(--line); }
-  .blueprint-controls button { min-height: 44px; border: 1px solid transparent; background: transparent; color: var(--muted); padding: 0 12px; font-family: var(--mono); font-size: 10px; transition: color .25s, background .25s, border-color .25s; }
+  .blueprint-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 3px; padding: 9px 0; border-top: 1px solid var(--line); }
+  .blueprint-controls button { min-height: 44px; border: 1px solid transparent; background: transparent; color: var(--muted); padding: 0 12px; font-family: var(--mono); font-size: 12px; transition: color .25s, background .25s, border-color .25s; }
   .blueprint-controls button:hover { color: var(--text); background: rgba(139,226,239,.04); }
   .blueprint-controls button[aria-pressed='true'] { border-color: rgba(139,226,239,.28); background: rgba(139,226,239,.07); color: var(--accent); }
   .blueprint-controls button:focus-visible { outline-offset: -3px; }
-  .blueprint-hint { margin-left: auto; padding-right: 8px; color: var(--muted); font-family: var(--mono); font-size: 8px; letter-spacing: .05em; }
+  .blueprint-hint { margin-left: auto; padding-right: 8px; color: var(--muted); font-family: var(--mono); font-size: 11px; letter-spacing: .05em; }
   .blueprint-hint > span { color: var(--accent); padding-left: 5px; }
   .plan-reference { opacity: .32; }
   .plan-projection { opacity: .24; }

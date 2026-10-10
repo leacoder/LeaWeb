@@ -21,6 +21,7 @@ const projects = defineCollection({
     title: z.string(),
     description: z.string(),
     client: z.string(),
+    contribution: z.string().optional(),
     sector: z.string(),
     image: image(),
     imageAlt: z.string(),

@@ -1,0 +1,5 @@
+---
+interface Props { text: string; }
+const sentences = Array.from(new Intl.Segmenter('es', { granularity: 'sentence' }).segment(Astro.props.text), ({ segment }) => segment.trim()).filter(Boolean);
+---
+{sentences.map((sentence, index) => <>{index > 0 && <br />}{sentence}</>)}

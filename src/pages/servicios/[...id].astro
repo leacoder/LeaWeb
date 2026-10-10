@@ -1,4 +1,5 @@
 ---
+import SentenceText from '../../components/SentenceText.astro';
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { site } from '../../lib/site';
@@ -25,7 +26,7 @@ const otherServices = (await getCollection('services')).filter((entry) => entry.
     <div class="container">
       <p class="eyebrow">Servicio {service.data.number} / LG Design</p>
       <h1 class="detail-title">{service.data.title}</h1>
-      <p class="detail-lead text-muted">{service.data.description}</p>
+      <p class="detail-lead text-muted"><SentenceText text={service.data.description} /></p>
       <a class="button button-primary" href={site.whatsapp} data-contact="whatsapp" target="_blank" rel="noopener noreferrer">Contame tu proyecto <span aria-hidden="true">↗</span></a>
     </div>
   </section>

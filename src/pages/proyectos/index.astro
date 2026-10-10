@@ -1,4 +1,5 @@
 ---
+import SentenceText from '../../components/SentenceText.astro';
 import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
@@ -28,7 +29,7 @@ const projects = (await getCollection('projects', ({ data }) => data.published))
             <div class="project-copy">
               <p class="eyebrow">{String(index + 1).padStart(2, '0')} / {project.data.sector}</p>
               <h2>{project.data.title}</h2>
-              <p class="text-muted">{project.data.description}</p>
+              <p class="text-muted"><SentenceText text={project.data.description} /></p>
               {project.data.historical && <span class="project-tag">Archivo de proyectos</span>}
               <span class="project-link">Ver proyecto <span aria-hidden="true">↗</span></span>
             </div>

@@ -9,13 +9,13 @@
   .background-grid .grid-tail { stroke-width: 1.5; stroke-dasharray: 3 20000; }
   .background-grid .grid-point, .background-grid .grid-glow { stroke-linecap: round; stroke-dasharray: .5 20000; }
   .background-grid .grid-point { stroke-width: 2.5; }
-  .background-grid .grid-glow { stroke-width: 6; opacity: .12; }
+  .background-grid .grid-glow { stroke-width: 7; opacity: .18; }
   @media (prefers-reduced-motion: no-preference) {
     .background-grid .grid-route { animation: grid-pulse var(--duration) linear var(--delay) infinite; animation-play-state: paused; }
     .background-grid .grid-route path { animation: grid-travel var(--duration) linear var(--delay) infinite; animation-play-state: paused; }
     .background-grid [data-active] .grid-route, .background-grid [data-active] .grid-route path { animation-play-state: running; }
-    @keyframes grid-travel { 0% { stroke-dashoffset: calc(32px + var(--trail-offset, 0px)); } 78%, 100% { stroke-dashoffset: calc(var(--route-end) + var(--trail-offset, 0px)); } }
-    @keyframes grid-pulse { 0%, 78%, 100% { opacity: 0; } 6%, 70% { opacity: .65; } }
+    @keyframes grid-travel { 0% { stroke-dashoffset: calc(32px + var(--trail-offset, 0px)); } 65%, 100% { stroke-dashoffset: calc(var(--route-end) + var(--trail-offset, 0px)); } }
+    @keyframes grid-pulse { 0%, 65%, 100% { opacity: 0; } 6%, 58% { opacity: .56; } }
   }
   @media (max-width: 639px) { .background-grid .grid-secondary { display: none; } }
 </style>
@@ -32,11 +32,35 @@
       sync();
     });
     let previousSize = '';
+    const updateMasks = () => {
+      const origin = grid.getBoundingClientRect();
+      const protectedElements = Array.from(document.querySelectorAll<HTMLElement>('h1, h2, h3, p, li, dt, dd, a, button, summary, label, figcaption, .eyebrow, .hero-note, .about-intro, .blueprint'));
+      const boxes = protectedElements.filter((element) => element.getClientRects().length && !element.closest('[data-background-grid]')).map((element) => {
+        const box = element.getBoundingClientRect();
+        return { x: box.left - origin.left - 24, y: box.top - origin.top - 24, width: box.width + 48, height: box.height + 48 };
+      });
+      grid.querySelectorAll<SVGSVGElement>('svg').forEach((tile) => {
+        const top = Number.parseFloat(tile.style.top);
+        const holes = tile.querySelector('[data-mask-holes]');
+        if (!holes) return;
+        const fragment = document.createDocumentFragment();
+        boxes.filter((box) => box.y < top + 640 && box.y + box.height > top).forEach((box) => {
+          const rect = document.createElementNS(ns, 'rect');
+          rect.setAttribute('x', String(box.x));
+          rect.setAttribute('y', String(box.y - top));
+          rect.setAttribute('width', String(box.width));
+          rect.setAttribute('height', String(box.height));
+          rect.setAttribute('rx', '8');
+          fragment.append(rect);
+        });
+        holes.replaceChildren(fragment);
+      });
+    };
     const render = () => {
       const width = document.body.clientWidth;
       const count = Math.ceil(document.body.offsetHeight / 640);
       const size = `${width}:${count}`;
-      if (size === previousSize) return;
+      if (size === previousSize) { updateMasks(); return; }
       previousSize = size;
       observer.disconnect();
       visible.clear();
@@ -45,39 +69,67 @@
         const tile = document.createElementNS(ns, 'svg');
         tile.setAttribute('focusable', 'false');
         tile.style.top = `${i * 640}px`;
+        const defs = document.createElementNS(ns, 'defs');
+        const mask = document.createElementNS(ns, 'mask');
+        mask.id = `background-text-mask-${i}`;
+        mask.setAttribute('maskUnits', 'userSpaceOnUse');
+        mask.setAttribute('x', '0');
+        mask.setAttribute('y', '0');
+        mask.setAttribute('width', String(width));
+        mask.setAttribute('height', '640');
+        mask.style.maskType = 'luminance';
+        const base = document.createElementNS(ns, 'rect');
+        base.setAttribute('width', String(width));
+        base.setAttribute('height', '640');
+        base.setAttribute('fill', 'white');
+        const holes = document.createElementNS(ns, 'g');
+        holes.setAttribute('data-mask-holes', '');
+        holes.setAttribute('fill', 'black');
+        mask.append(base, holes);
+        defs.append(mask);
+        const routesLayer = document.createElementNS(ns, 'g');
+        routesLayer.setAttribute('mask', `url(#${mask.id})`);
+        tile.append(defs, routesLayer);
         const firstX = Math.max(64, Math.floor(width * .7 / 64) * 64);
         const secondX = Math.max(64, Math.floor(width * .3 / 64) * 64);
         // Pixel coordinates share the background's 64px grid, without SVG scaling.
-        const routes = [`M0 128H${firstX + .5}V384`, `M${width} 448H${secondX + .5}V192`];
+        const routes = [
+          { path: `M0 128.5H${firstX + .5}V384`, length: firstX + 256 },
+          { path: `M${width} 448.5H${secondX + .5}V192`, length: width - secondX + 256 },
+          { path: 'M64.5 640V512.5H0', length: 192 },
+        ];
         routes.forEach((route, index) => {
           const group = document.createElementNS(ns, 'g');
-          group.setAttribute('class', `grid-route${index ? ' grid-secondary' : ''}`);
-          const length = index ? width - secondX + 256 : firstX + 256;
+          group.setAttribute('class', `grid-route${index === 1 ? ' grid-secondary' : ''}`);
+          const length = route.length;
           // Keep the head at 38px/s, with a 30px fading wake behind it.
-          group.style.setProperty('--duration', `${(length + 32) / (38 * .78)}s`);
+          group.style.setProperty('--duration', `${(length + 32) / (38 * .65)}s`);
           group.style.setProperty('--route-end', `${-length}px`);
           group.style.setProperty('--delay', `${-i * 5 - index * 12}s`);
           for (let segment = 0; segment < 12; segment++) {
             const kind = segment < 10 ? 'tail' : segment === 10 ? 'glow' : 'point';
             const path = document.createElementNS(ns, 'path');
             path.setAttribute('class', `grid-${kind}`);
-            path.setAttribute('d', route.replace(/ 128H/, ' 128.5H').replace(/ 448H/, ' 448.5H'));
+            path.setAttribute('d', route.path);
             if (kind === 'tail') {
               path.style.setProperty('--trail-offset', `${(10 - segment) * 3}px`);
               path.style.opacity = String(.025 + .36 * (segment / 9) ** 2);
             }
             group.append(path);
           }
-          tile.append(group);
+          routesLayer.append(group);
         });
         grid.append(tile);
         observer.observe(tile);
       }
+      updateMasks();
     };
     const resize = new ResizeObserver(render);
     resize.observe(document.body);
     document.addEventListener('visibilitychange', sync);
     reduced.addEventListener('change', sync);
+    document.addEventListener('toggle', updateMasks, true);
+    document.fonts.ready.then(updateMasks);
     window.addEventListener('pagehide', () => { resize.disconnect(); observer.disconnect(); visible.clear(); sync(); });
     window.addEventListener('pageshow', (event) => {
       if (event.persisted) { previousSize = ''; resize.observe(document.body); render(); }
