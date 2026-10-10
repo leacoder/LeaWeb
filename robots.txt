@@ -1,7 +1,9 @@
 User-agent: OAI-SearchBot
 Allow: /
+Disallow: /demo/alvarezinmobiliaria/
 
 User-agent: *
 Allow: /
+Disallow: /demo/alvarezinmobiliaria/
 
 Sitemap: https://lgdesign.com.ar/sitemap-index.xml

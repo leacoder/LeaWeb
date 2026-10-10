@@ -1,0 +1,8 @@
+name = "alvarez-demo-auth"
+main = "auth-worker.mjs"
+compatibility_date = "2026-10-10"
+workers_dev = false
+preview_urls = false
+routes = [{ pattern = "lgdesign.com.ar/demo/alvarezinmobiliaria*", zone_name = "lgdesign.com.ar" }]
+# Set secrets with `wrangler secret put BASIC_AUTH_USER` and
+# `wrangler secret put BASIC_AUTH_PASSWORD`. Do not store them in this file.
