@@ -1,0 +1,87 @@
+<div class="background-grid" data-background-grid aria-hidden="true"></div>
+
+<style is:global>
+  body { position: relative; isolation: isolate; }
+  .background-grid { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; color: var(--accent); background-image: linear-gradient(rgba(127,189,216,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(127,189,216,.035) 1px, transparent 1px); background-size: 64px 64px; }
+  .background-grid svg { position: absolute; left: 0; width: 100%; height: 640px; overflow: hidden; }
+  .background-grid path { fill: none; stroke: currentColor; }
+  .background-grid .grid-route { opacity: 0; }
+  .background-grid .grid-tail { stroke-width: 1.5; stroke-dasharray: 3 20000; }
+  .background-grid .grid-point, .background-grid .grid-glow { stroke-linecap: round; stroke-dasharray: .5 20000; }
+  .background-grid .grid-point { stroke-width: 2.5; }
+  .background-grid .grid-glow { stroke-width: 6; opacity: .12; }
+  @media (prefers-reduced-motion: no-preference) {
+    .background-grid .grid-route { animation: grid-pulse var(--duration) linear var(--delay) infinite; animation-play-state: paused; }
+    .background-grid .grid-route path { animation: grid-travel var(--duration) linear var(--delay) infinite; animation-play-state: paused; }
+    .background-grid [data-active] .grid-route, .background-grid [data-active] .grid-route path { animation-play-state: running; }
+    @keyframes grid-travel { 0% { stroke-dashoffset: calc(32px + var(--trail-offset, 0px)); } 78%, 100% { stroke-dashoffset: calc(var(--route-end) + var(--trail-offset, 0px)); } }
+    @keyframes grid-pulse { 0%, 78%, 100% { opacity: 0; } 6%, 70% { opacity: .65; } }
+  }
+  @media (max-width: 639px) { .background-grid .grid-secondary { display: none; } }
+</style>
+
+<script>
+  const grid = document.querySelector<HTMLElement>('[data-background-grid]');
+  if (grid && 'ResizeObserver' in window && 'IntersectionObserver' in window) {
+    const ns = 'http://www.w3.org/2000/svg';
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    const visible = new Set<Element>();
+    const sync = () => grid.querySelectorAll('svg').forEach((tile) => tile.toggleAttribute('data-active', visible.has(tile) && !document.hidden && !reduced.matches));
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(({target, isIntersecting}) => isIntersecting ? visible.add(target) : visible.delete(target));
+      sync();
+    });
+    let previousSize = '';
+    const render = () => {
+      const width = document.body.clientWidth;
+      const count = Math.ceil(document.body.offsetHeight / 640);
+      const size = `${width}:${count}`;
+      if (size === previousSize) return;
+      previousSize = size;
+      observer.disconnect();
+      visible.clear();
+      grid.replaceChildren();
+      for (let i = 0; i < count; i++) {
+        const tile = document.createElementNS(ns, 'svg');
+        tile.setAttribute('focusable', 'false');
+        tile.style.top = `${i * 640}px`;
+        const firstX = Math.max(64, Math.floor(width * .7 / 64) * 64);
+        const secondX = Math.max(64, Math.floor(width * .3 / 64) * 64);
+        // Pixel coordinates share the background's 64px grid, without SVG scaling.
+        const routes = [`M0 128H${firstX + .5}V384`, `M${width} 448H${secondX + .5}V192`];
+        routes.forEach((route, index) => {
+          const group = document.createElementNS(ns, 'g');
+          group.setAttribute('class', `grid-route${index ? ' grid-secondary' : ''}`);
+          const length = index ? width - secondX + 256 : firstX + 256;
+          // Keep the head at 38px/s, with a 30px fading wake behind it.
+          group.style.setProperty('--duration', `${(length + 32) / (38 * .78)}s`);
+          group.style.setProperty('--route-end', `${-length}px`);
+          group.style.setProperty('--delay', `${-i * 5 - index * 12}s`);
+          for (let segment = 0; segment < 12; segment++) {
+            const kind = segment < 10 ? 'tail' : segment === 10 ? 'glow' : 'point';
+            const path = document.createElementNS(ns, 'path');
+            path.setAttribute('class', `grid-${kind}`);
+            path.setAttribute('d', route.replace(/ 128H/, ' 128.5H').replace(/ 448H/, ' 448.5H'));
+            if (kind === 'tail') {
+              path.style.setProperty('--trail-offset', `${(10 - segment) * 3}px`);
+              path.style.opacity = String(.025 + .36 * (segment / 9) ** 2);
+            }
+            group.append(path);
+          }
+          tile.append(group);
+        });
+        grid.append(tile);
+        observer.observe(tile);
+      }
+    };
+    const resize = new ResizeObserver(render);
+    resize.observe(document.body);
+    document.addEventListener('visibilitychange', sync);
+    reduced.addEventListener('change', sync);
+    window.addEventListener('pagehide', () => { resize.disconnect(); observer.disconnect(); visible.clear(); sync(); });
+    window.addEventListener('pageshow', (event) => {
+      if (event.persisted) { previousSize = ''; resize.observe(document.body); render(); }
+    });
+    render();
+  }
+</script>

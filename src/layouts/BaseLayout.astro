@@ -8,6 +8,7 @@ import '../styles/motion.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Motion from '../components/Motion.astro';
+import BackgroundGrid from '../components/BackgroundGrid.astro';
 import { site } from '../lib/site';
 interface Props {
   title: string;
@@ -75,6 +76,7 @@ const schema = {
     <script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, '\\u003c')} />
   </head>
   <body>
+    <BackgroundGrid />
     <a class="skip-link" href="#main">Saltar al contenido</a>
     <Header />
     <main id="main">

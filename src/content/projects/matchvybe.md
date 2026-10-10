@@ -1,10 +1,10 @@
 ---
-title: MatchVybe
-description: Una app para conectar personas en eventos, comunidades y lugares. Permite descubrir quiénes participan, hacer match y conversar antes de encontrarse.
+title: Vybe
+description: Los planes se disfrutan más en compañía. Vybe conecta personas que comparten eventos, lugares e intereses para que puedan conocerse antes de encontrarse.
 client: Vybe
 sector: Eventos y comunidades
-image: ../../assets/projects/matchvybe.jpg
-imageAlt: Portada pública de Vybe, una plataforma para conocer personas en eventos, comunidades y lugares
+image: ../../assets/projects/matchvybe.png
+imageAlt: Portada de Vybe con la frase «Encontrá tu match en tu próximo evento» y una tarjeta de evento
 imageCaption: Captura de la portada pública de Vybe en matchvybe.com.
 website: https://matchvybe.com/
 featured: true
