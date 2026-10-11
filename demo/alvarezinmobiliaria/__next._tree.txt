@@ -1,4 +1,4 @@
 :HL["/demo/alvarezinmobiliaria/_next/static/chunks/13_1kkt9bdce2.css","style"]
-:HL["/demo/alvarezinmobiliaria/images/3729/foto04.webp","image",{"fetchPriority":"high"}]
+:HL["/demo/alvarezinmobiliaria/images/hero.webp","image",{"fetchPriority":"high"}]
 1:[["children",{"s":"__PAGE__","h":160}]]
-0:{"b":"YSSsar7mbfHBBErvQiY-e","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
+0:{"b":"aklkbRg8YnYLuHg5wzkN-","t":{"t":{"s":"","h":80,"c":"$Q1"}}}

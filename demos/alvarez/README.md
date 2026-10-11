@@ -62,7 +62,7 @@ Límite: proteger el dominio con un proxy no hace privado el repositorio públic
 - `components/`: interacciones; `app/`: páginas y diseño responsive.
 - `public/images/`: fotos de referencia de Unsplash descargadas para no depender de peticiones de terceros en la demo. IDs: hero `photo-1600210492486-724fe5c67fb0`; living `photo-1600607687920-4e2a09cf159d`; house `photo-1600047509807-ba8f99d2cdde`; kitchen `photo-1600566753086-00f18fb6b3ea`; bedroom `photo-1616046229478-9901c5536a45`; patio `photo-1600607687939-ce8a6c25118c`. No corresponden a propiedades reales de Álvarez.
 - Inter local (SIL Open Font License). `brand.svg` y `brand-light.svg`: reinterpretación vectorial del logo azul/naranja suministrado por el usuario, con tipografía convertida a trazados. Se generan con `node scripts/render-brand.mjs`, usando las dependencias fontkit y @fontsource/inter del repositorio padre. El SVG generado es independiente de esas herramientas y no necesita fuentes externas.
-- `public/images/SOURCES.md`: procedencia y selección de las 18 fotografías reales de los tres avisos. La portada usa una fotografía de Roasenda 1395. Las fotos de muestra restantes siguen identificadas como ilustrativas.
+- `public/images/SOURCES.md`: procedencia y selección de las 18 fotografías reales de los tres avisos. La portada usa una fotografía ilustrativa de un living luminoso (Unsplash, recurso local `hero.webp`). Las fotos de muestra restantes siguen identificadas como ilustrativas.
 
 Las consultas se mantienen mock intencionalmente, sin configurar un número WhatsApp.
 
