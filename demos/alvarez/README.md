@@ -1,6 +1,6 @@
 # Álvarez Propiedades · Demo
 
-Demo independiente en Next.js + React + Tailwind. Home, buscador, catálogo con filtros por operación/zona/tipo/ambientes/precio, búsqueda por texto/código, ordenamiento, favoritos locales, seis fichas estáticas con galería y contacto simulado. Todo el contenido inmobiliario y las fotografías son ilustrativos. Dirección y teléfonos de oficina tomados de https://www.alvarezpropiedades.com/; no se copiaron anuncios reales ni testimonios.
+Demo independiente en Next.js + React + Tailwind. Home, buscador, filtros, favoritos locales y nueve fichas con galería y contacto simulado. Tres avisos reales de referencia, incorporados a pedido del usuario: Roasenda 1395 (3729), España 195 (3732) y Monseñor Piaggio 37 (3736). Fotos y datos consultados el 10/10/2026 en la web de Álvarez; los precios y disponibilidad deben confirmarse en la fuente enlazada. Las seis propiedades restantes son ficticias y están identificadas como muestra. No se inventan superficies cubiertas para los avisos que no las publican.
 
 ## Desarrollo
 
@@ -58,10 +58,11 @@ Límite: proteger el dominio con un proxy no hace privado el repositorio públic
 
 ## Contenido y recursos
 
-- `lib/data.ts`: seis propiedades mock, precios y características.
+- `lib/data.ts`: tres avisos de referencia y seis propiedades mock, precios, características, fuentes y galerías propias.
 - `components/`: interacciones; `app/`: páginas y diseño responsive.
 - `public/images/`: fotos de referencia de Unsplash descargadas para no depender de peticiones de terceros en la demo. IDs: hero `photo-1600210492486-724fe5c67fb0`; living `photo-1600607687920-4e2a09cf159d`; house `photo-1600047509807-ba8f99d2cdde`; kitchen `photo-1600566753086-00f18fb6b3ea`; bedroom `photo-1616046229478-9901c5536a45`; patio `photo-1600607687939-ce8a6c25118c`. No corresponden a propiedades reales de Álvarez.
-- Inter local (SIL Open Font License); marca tipográfica recreada para la propuesta, tomando azul/rojo de la referencia del cliente.
+- Inter local (SIL Open Font License). `brand.svg` y `brand-light.svg`: reinterpretación vectorial del logo azul/naranja suministrado por el usuario, con tipografía convertida a trazados. Se generan con `node scripts/render-brand.mjs`, usando las dependencias fontkit y @fontsource/inter del repositorio padre. El SVG generado es independiente de esas herramientas y no necesita fuentes externas.
+- `public/images/SOURCES.md`: procedencia y selección de las 18 fotografías reales de los tres avisos. La portada usa una fotografía de Roasenda 1395. Las fotos de muestra restantes siguen identificadas como ilustrativas.
 
 Las consultas se mantienen mock intencionalmente, sin configurar un número WhatsApp.
 

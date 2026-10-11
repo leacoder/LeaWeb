@@ -22,14 +22,14 @@ try{
   assert.equal(await page.locator('.property-card').count(),1);
   assert.match(await page.locator('.property-card').innerText(),/Belgrano/);
   await page.getByLabel('Quitar filtro Sarandí').click();
-  await page.waitForFunction(()=>document.querySelectorAll('.property-card').length===2);
+  await page.waitForFunction(()=>document.querySelectorAll('.property-card').length===3);
   await page.getByLabel('Precio máximo').fill('500000');
   await page.waitForFunction(()=>document.querySelectorAll('.property-card').length===1);
   assert.match(await page.locator('.property-card').innerText(),/España/);
   await page.getByLabel('Precio máximo').fill('1');
   await page.getByText('No encontramos propiedades con estos filtros.',{exact:false}).waitFor();
   await page.getByRole('button',{name:'Ver todas las propiedades'}).click();
-  await page.waitForFunction(()=>document.querySelectorAll('.property-card').length===6);
+  await page.waitForFunction(()=>document.querySelectorAll('.property-card').length===9);
   await page.getByLabel('Buscar por dirección, barrio o código').fill('av-104');
   await page.getByRole('button',{name:'Buscar',exact:true}).click();
   await page.waitForFunction(()=>document.querySelectorAll('.property-card').length===1);
@@ -57,7 +57,7 @@ try{
   await page.getByRole('button',{name:/Quitar de favoritos: Av. Mitre/}).waitFor();
   await page.getByLabel('Ordenar propiedades').selectOption('superficie');
   await page.waitForFunction(()=>document.querySelector('.card-body h3')?.textContent==='Las Flores al 600');
-  console.log('Interactions passed; checking responsive pages.');const routes=['/','/propiedades/','/propiedades/av-101/','/contacto/'];
+  for(const [id,count,address] of [['3729',7,'Roasenda 1395 · Edificio G'],['3732',6,'España 195'],['3736',5,'Monseñor Piaggio 37']]){await page.goto(base+'/propiedades/'+id+'/');await page.getByRole('heading',{name:address,exact:true}).waitFor();assert.equal(await page.locator('.gallery-thumbnails button').count(),count);assert.equal(await page.locator('.gallery img').evaluateAll((imgs,id)=>imgs.every(i=>i.src.includes('/images/'+id+'/')),id),true);assert.equal(await page.getByRole('link',{name:'Ver aviso original',exact:false}).getAttribute('href'),'https://www.alvarezpropiedades.com/inmuebles/interiores.php?ID_inmueble='+id);await page.locator('.gallery-thumbnails button').last().click();assert.match(await page.locator('.lightbox-controls').innerText(),new RegExp(count+' / '+count));await page.keyboard.press('Escape');} console.log('Real listing sources and galleries passed.');console.log('Interactions passed; checking responsive pages.');const routes=['/','/propiedades/','/propiedades/3729/','/propiedades/3732/','/propiedades/3736/','/contacto/'];
   for(const width of [320,390,768,1024,1440]){console.log('Viewport '+width);
     await page.setViewportSize({width,height:900});
     for(const route of routes){
