@@ -19,9 +19,9 @@
           if (target.contains(document.activeElement)) return;
           const stagger = Math.min(Array.from(target.parentElement?.children ?? []).indexOf(target), 3) * 55;
           const animation = target.animate([
-            { opacity: 0.8, transform: 'translateY(16px)' },
+            { opacity: 0.8, transform: `translateY(${precisePointer.matches ? 16 : 12}px)` },
             { opacity: 1, transform: 'translateY(0)' },
-          ], { duration: 650, delay: Math.max(0, stagger), easing: 'cubic-bezier(.16,1,.3,1)' });
+          ], { duration: precisePointer.matches ? 650 : 450, delay: Math.max(0, stagger), easing: 'cubic-bezier(.16,1,.3,1)' });
           animations.add(animation);
           animation.finished.then(() => animations.delete(animation), () => animations.delete(animation));
         });

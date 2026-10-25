@@ -1,6 +1,7 @@
 ---
 import SentenceText from '../components/SentenceText.astro';
 import SectionJourney from '../components/SectionJourney.astro';
+import MobileJourney from '../components/MobileJourney.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Blueprint from '../components/Blueprint.astro';
 import Icon from '../components/Icon.astro';
@@ -10,10 +11,10 @@ import { site } from '../lib/site';
 const services = (await getCollection('services')).sort((a, b) => a.data.number.localeCompare(b.data.number));
 const projects = (await getCollection('projects', ({ data }) => data.published)).filter((entry) => entry.data.featured).sort((a, b) => a.data.order - b.data.order);
 const steps = [
-  { number: '01', title: 'Entender', description: 'Tu idea, tu negocio y el punto de partida. Primero, las preguntas correctas.' },
-  { number: '02', title: 'Definir', description: 'Un alcance claro, prioridades y un plan que tenga sentido para tu proyecto.' },
-  { number: '03', title: 'Construir', description: 'Diseño y desarrollo con avances visibles. Decisiones que tomamos juntos.' },
-  { number: '04', title: 'Entregar', description: 'Pruebas, puesta en marcha y una base clara para que puedas seguir creciendo.' },
+  { number: '01', title: 'Entender', description: 'Tu idea, tu negocio y el punto de partida. Primero, las preguntas correctas.', detail: 'Revisamos objetivos, usuarios y lo que ya existe.' },
+  { number: '02', title: 'Definir', description: 'Un alcance claro, prioridades y un plan que tenga sentido para tu proyecto.', detail: 'Acordamos funcionalidades, prioridades y entregables.' },
+  { number: '03', title: 'Construir', description: 'Diseño y desarrollo con avances visibles. Decisiones que tomamos juntos.', detail: 'Revisamos avances y ajustamos con tu devolución.' },
+  { number: '04', title: 'Entregar', description: 'Pruebas, puesta en marcha y una base clara para que puedas seguir creciendo.', detail: 'Validamos el funcionamiento y coordinamos la puesta en marcha.' },
 ];
 const faqs = [
   { question: '¿Qué es LG Design y quién realiza el trabajo?', answer: 'LG Design es la marca de Leandro García, consultor, diseñador y desarrollador de soluciones digitales. Trabajo de forma remota con PyMEs y emprendedores de Argentina para crear webs, desarrollar sistemas e integraciones o mejorar y completar proyectos existentes.' },
@@ -50,7 +51,7 @@ const faqs = [
   </section>
 
   <section class="process-section section" id="process" aria-labelledby="process-title">
-    <div class="container"><div class="section-heading"><div><p class="eyebrow">03 / CÓMO TRABAJO</p><h2 id="process-title">Un buen proyecto<br />necesita un buen <span>plan.</span></h2></div><p class="section-intro">Sin perder de vista la idea original.<br />Sin dejar los detalles al azar.</p></div><div class="process-grid">{steps.map((step) => <div class="process-step"><div class="step-number">{step.number}<span class="step-cross">+</span></div><h3>{step.title}</h3><p><SentenceText text={step.description} /></p></div>)}</div></div>
+    <div class="container"><div class="section-heading"><div><p class="eyebrow">03 / CÓMO TRABAJO</p><h2 id="process-title">Un buen proyecto<br />necesita un buen <span>plan.</span></h2></div><p class="section-intro">Sin perder de vista la idea original.<br />Sin dejar los detalles al azar.</p></div><div class="process-grid">{steps.map((step) => <div class="process-step"><div class="step-number">{step.number}<span class="step-cross">+</span></div><h3>{step.title}</h3><p><SentenceText text={step.description} /></p><p class="process-detail">{step.detail}</p></div>)}</div></div>
   </section>
 
   <section class="about-section section container" id="about" aria-labelledby="about-title">
@@ -87,4 +88,5 @@ const faqs = [
 
   <section class="faq-section section" id="faq" aria-labelledby="faq-title"><div class="container faq-grid"><div><p class="eyebrow">05 / ANTES DE EMPEZAR</p><h2 id="faq-title">Las primeras<br /><span>preguntas.</span></h2><p class="faq-intro">Cada proyecto es distinto.<br />Estas respuestas ayudan a dar el primer paso.</p></div><div class="faq-list">{faqs.map((faq) => <details class="faq-item"><summary>{faq.question}<span aria-hidden="true">+</span></summary><p><SentenceText text={faq.answer} /></p></details>)}</div></div></section>
   <SectionJourney />
+  <MobileJourney />
 </BaseLayout>
