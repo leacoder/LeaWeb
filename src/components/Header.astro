@@ -2,7 +2,8 @@
 import Logo from './Logo.astro';
 import Icon from './Icon.astro';
 import { site } from '../lib/site';
-const currentPath = Astro.url.pathname;
+const english = Astro.url.pathname.startsWith('/en/');
+const currentPath = Astro.url.pathname.replace(/^\/en(?=\/)/, '').replace('/404/', '/404.html');
 ---
 <header class="site-header">
   <div class="container header-inner">
@@ -13,6 +14,11 @@ const currentPath = Astro.url.pathname;
       <a href="/#about">Sobre mí</a>
     </nav>
     <a class="header-contact" href={site.whatsapp} data-contact="whatsapp" target="_blank" rel="noopener noreferrer">Hablemos <Icon name="external" /></a>
+    <nav class="language-selector" aria-label="Idioma / Language">
+      <a data-language="es" href={`${currentPath}?lang=es`} lang="es" hreflang="es" aria-label="Español" aria-current={!english ? 'true' : undefined}>ES</a>
+      <span aria-hidden="true">/</span>
+      <a data-language="en" href={`/en${currentPath.replace('/404.html', '/404/')}?lang=en`} lang="en" hreflang="en" aria-label="English" aria-current={english ? 'true' : undefined}>EN</a>
+    </nav>
     <details class="mobile-menu">
       <summary aria-label="Abrir menú de navegación"><span></span><span></span></summary>
       <nav aria-label="Navegación móvil">
@@ -21,6 +27,13 @@ const currentPath = Astro.url.pathname;
     </details>
   </div>
 </header>
+<style>
+  .language-selector { display: flex; align-items: center; flex-shrink: 0; gap: 2px; font: 12px var(--mono); color: var(--muted); }
+  .language-selector a { display: grid; place-items: center; min-width: 32px; min-height: 44px; }
+  .language-selector a:hover, .language-selector a[aria-current] { color: var(--accent); }
+  .language-selector a[aria-current] { text-decoration: underline; text-underline-offset: 5px; }
+  @media (max-width: 420px) { :global(.header-contact) { display: none; } .language-selector { margin-left: auto; } }
+</style>
 <script>
   const menu = document.querySelector<HTMLDetailsElement>('.mobile-menu');
   menu?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => { menu.open = false; }));

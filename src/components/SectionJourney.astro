@@ -1,0 +1,114 @@
+---
+import '../styles/journey.css';
+const sections = [['home', 'Inicio'], ['services', 'Servicios'], ['works', 'Proyectos'], ['process', 'Proceso'], ['about', 'Sobre mí'], ['faq', 'Preguntas'], ['contacts', 'Hablemos']];
+---
+<nav class="journey-nav" aria-label="Secciones de la página" hidden>
+  {sections.map(([id, label]) => <a href={`#${id}`} aria-label={label}><span>{label}</span><i aria-hidden="true"></i></a>)}
+</nav>
+<script>
+  import { gsap } from 'gsap';
+  import { Observer } from 'gsap/Observer';
+  gsap.registerPlugin(Observer);
+
+  const nav = document.querySelector<HTMLElement>('.journey-nav')!;
+  const links = Array.from(nav.querySelectorAll<HTMLAnchorElement>('a'));
+  const panels = links.map(link => document.querySelector<HTMLElement>(link.hash)!);
+  // Keep real document scrolling: selection, find-in-page, keyboard and long content remain usable.
+  const media = gsap.matchMedia();
+  media.add('(min-width: 1000px) and (min-height: 650px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)', () => {
+    document.documentElement.classList.add('journey-enabled');
+    nav.hidden = false;
+    const header = document.querySelector<HTMLElement>('.site-header')!;
+    let active = 0;
+    let animating = false;
+    let gestureUsed = false;
+    let timeline: gsap.core.Timeline | undefined;
+    let frame = 0;
+    const top = (index: number) => Math.max(0, panels[index].getBoundingClientRect().top + window.scrollY - header.offsetHeight);
+    const sync = () => {
+      active = panels.reduce((best, _, index) => top(index) <= window.scrollY + window.innerHeight * .3 ? index : best, 0);
+      links.forEach((link, index) => {
+        if (index === active) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      });
+    };
+    const stop = () => { timeline?.kill(); gsap.set(panels.flatMap(panel => Array.from(panel.children)), { clearProps: 'transform,opacity' }); animating = false; };
+    const go = (index: number, focus = false) => {
+      if (index < 0 || index >= panels.length) return;
+      stop();
+      const direction = top(index) >= window.scrollY ? 1 : -1;
+      const position = { y: window.scrollY };
+      const destination = Math.min(top(index), document.documentElement.scrollHeight - window.innerHeight);
+      const content = Array.from(panels[index].children);
+      animating = true;
+      timeline = gsap.timeline({ onComplete: () => {
+        animating = false;
+        gsap.set(content, { clearProps: 'transform,opacity' });
+        sync();
+        history.replaceState(history.state, '', `#${panels[index].id}`);
+        if (focus) {
+          panels[index].tabIndex = -1;
+          panels[index].focus({ preventScroll: true });
+        }
+      }});
+      timeline.to(position, { y: destination, duration: 1.05, ease: 'power3.inOut', onUpdate: () => window.scrollTo(0, position.y) }, 0);
+      timeline.fromTo(content, { y: direction * 42, opacity: .6 }, { y: 0, opacity: 1, duration: .85, stagger: .025, ease: 'power3.out' }, .25);
+    };
+    const observer = Observer.create({
+      target: window, type: 'wheel', preventDefault: true, tolerance: 18,
+      ignore: '.analytics-consent, .mobile-menu',
+      ignoreCheck: event => (event as WheelEvent).ctrlKey || Math.abs((event as WheelEvent).deltaX) > Math.abs((event as WheelEvent).deltaY),
+      onStopDelay: .22,
+      onStop: () => { gestureUsed = false; },
+      onChangeY: self => {
+        if (animating || gestureUsed) return;
+        sync();
+        const direction = self.deltaY > 0 ? 1 : -1;
+        const start = top(active);
+        const panelEnd = panels[active].getBoundingClientRect().bottom + window.scrollY;
+        const end = Math.max(start, panelEnd - window.innerHeight);
+        // Overflow (including expanded FAQs) scrolls normally before the next scene.
+        if ((direction > 0 && window.scrollY < end - 2) || (direction < 0 && window.scrollY > start + 2)) {
+          window.scrollTo(0, Math.max(start, Math.min(end, window.scrollY + self.deltaY)));
+          return;
+        }
+        if (Math.abs(self.deltaY) < 3) return;
+        if (active + direction < 0 || active + direction >= panels.length) {
+          window.scrollBy(0, self.deltaY); return;
+        }
+        gestureUsed = true;
+        go(active + direction);
+      },
+    });
+    const click = (event: MouseEvent) => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      const link = (event.target as Element).closest<HTMLAnchorElement>('a[href]');
+      if (!link || link.origin !== location.origin || link.pathname !== location.pathname) return;
+      const index = panels.findIndex(panel => `#${panel.id}` === link.hash);
+      if (index < 0) return;
+      event.preventDefault();
+      history.pushState(null, '', link.hash);
+      go(index, event.detail === 0);
+    };
+    const hash = () => { const index = panels.findIndex(panel => `#${panel.id}` === location.hash); if (index >= 0) go(index); };
+    const scroll = () => { if (!frame) frame = requestAnimationFrame(() => { frame = 0; sync(); }); };
+    const key = () => { if (animating) stop(); };
+    document.addEventListener('click', click);
+    window.addEventListener('hashchange', hash);
+    window.addEventListener('scroll', scroll, { passive: true });
+    window.addEventListener('keydown', key);
+    window.addEventListener('resize', stop);
+    sync();
+    if (location.hash) hash();
+    return () => {
+      stop(); observer.kill(); cancelAnimationFrame(frame);
+      document.removeEventListener('click', click);
+      window.removeEventListener('hashchange', hash);
+      window.removeEventListener('scroll', scroll);
+      window.removeEventListener('keydown', key);
+      window.removeEventListener('resize', stop);
+      document.documentElement.classList.remove('journey-enabled');
+      nav.hidden = true;
+    };
+  });
+</script>

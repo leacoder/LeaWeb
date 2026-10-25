@@ -61,9 +61,15 @@ const pageCache = new Map(await Promise.all(htmlFiles.map(async (file) => [file,
 for (const [file, html] of pageCache) {
   const route = routeFor(file);
   const legacy = route === '/tablet/';
-  const errorPage = route === '/404.html' || route === '/404/';
+  const errorPage = /\/(?:404\.html|404\/)$/.test(route);
   const label = path.relative(dist, file);
-  assert(/<html\b[^>]*\blang=["']es(?:-AR)?["']/i.test(html), `${label}: falta el idioma español.`);
+  const english = route.startsWith('/en/');
+  assert(new RegExp(`<html\\b[^>]*\\blang=["']${english ? 'en' : 'es(?:-AR)?'}["']`, 'i').test(html), `${label}: idioma incorrecto.`);
+  if (!legacy && !errorPage) {
+    const alternates = tags(html, 'link').filter(tag => tag.rel === 'alternate');
+    for (const lang of ['es', 'en', 'x-default']) assert(alternates.some(tag => tag.hreflang === lang), `${label}: falta alternate ${lang}.`);
+    assert(html.includes('data-language="es"') && html.includes('data-language="en"'), `${label}: falta el selector de idioma.`);
+  }
   assert(/<meta\b[^>]*name=["']viewport["']/i.test(html), `${label}: falta viewport responsive.`);
   assert((html.match(/<h1\b/gi) ?? []).length === 1, `${label}: debe tener exactamente un H1.`);
   assert(/<title>[^<]{10,}<\/title>/i.test(html), `${label}: falta un título descriptivo.`);
@@ -89,11 +95,11 @@ for (const [file, html] of pageCache) {
         const graph = structured['@graph'] ?? [];
         const entity = (type) => graph.find((node) => node['@type'] === type);
         assert(entity('WebPage')?.url === expectedCanonical, `${label}: WebPage debe identificar la URL canónica.`);
-        if (/^\/servicios\/[^/]+\/$/.test(route)) {
+        if (/^(?:\/en)?\/servicios\/[^/]+\/$/.test(route)) {
           const service = entity('Service');
           assert(service?.url === expectedCanonical && service?.provider?.['@id'] === `${site.origin}/#organization`, `${label}: el servicio debe identificar página y proveedor.`);
         }
-        if (route === '/') {
+        if (route === '/' || route === '/en/') {
           const faq = entity('FAQPage');
           assert(faq?.mainEntity?.length > 0, 'Home: faltan preguntas estructuradas.');
           for (const question of faq?.mainEntity ?? []) {

@@ -1,0 +1,45 @@
+<!-- Run before paint; explicit English URLs always keep their language. -->
+<script is:inline>
+  (() => {
+    const url = new URL(location.href);
+    const explicit = url.searchParams.get('lang');
+    let preferred;
+    try {
+      if (explicit === 'es' || explicit === 'en') localStorage.setItem('lg-language', explicit);
+      preferred = localStorage.getItem('lg-language');
+    } catch { /* The URL keeps the choice when storage is blocked. */ }
+    const browserLanguage = (navigator.languages || [navigator.language])
+      .map(value => value.toLowerCase().split('-')[0]).find(value => value === 'es' || value === 'en');
+    const language = ['es', 'en'].includes(explicit) ? explicit : ['es', 'en'].includes(preferred) ? preferred : browserLanguage || 'es';
+    const english = url.pathname.startsWith('/en/');
+    const errorPage = /(?:\/404(?:\.html|\/)?$)/.test(url.pathname);
+    // Unknown URLs served through 404.html must never enter a redirect loop.
+    if (!english && language === 'en' && document.documentElement.dataset.error !== 'true' && !errorPage) {
+      url.pathname = '/en' + url.pathname;
+      location.replace(url.href);
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('a[data-language]').forEach(link => {
+        const target = new URL(link.href);
+        target.search = url.search;
+        target.searchParams.set('lang', link.dataset.language);
+        target.hash = location.hash;
+        link.href = target.href;
+        link.addEventListener('click', () => {
+          try { localStorage.setItem('lg-language', link.dataset.language); } catch {}
+          // Refresh the hash if the visitor scrolled to another section.
+          const destination = new URL(link.href);
+          destination.hash = location.hash;
+          link.href = destination.href;
+        });
+      });
+      if (explicit === 'es' && !english) {
+        document.querySelectorAll('a[href^="/"]:not([data-language])').forEach(link => {
+          const target = new URL(link.href);
+          target.searchParams.set('lang', 'es');
+          link.href = target.href;
+        });
+      }
+    });
+  })();
+</script>

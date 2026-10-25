@@ -18,13 +18,16 @@
     "verify:root": "node scripts/check-site.mjs --root",
     "prepare:pages": "npm run validate && node scripts/sync-pages-root.mjs && npm run verify:root",
     "verify:interactions": "node scripts/check-interactions.mjs",
-    "validate": "npm run check && npm run verify:interactions && npm run build && npm run verify"
+    "validate": "npm run check && npm run verify:language && npm run verify:interactions && npm run build && npm run verify",
+    "verify:language": "node scripts/check-language.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "3.7.4",
     "@fontsource-variable/inter": "5.3.0",
     "@fontsource/ibm-plex-mono": "5.3.0",
-    "astro": "7.3.5"
+    "astro": "7.3.5",
+    "gsap": "^3.15.0",
+    "ultrahtml": "1.7.0"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",

@@ -1,6 +1,12 @@
 # LG Design · Portfolio
 
-Portfolio en español de Leandro García para presentar servicios de diseño y desarrollo digital. La nueva web usa Astro con generación estática, tipografías locales y contenido editable en Markdown. El dominio sigue siendo [lgdesign.com.ar](https://lgdesign.com.ar/).
+Portfolio en español e inglés de Leandro García para presentar servicios de diseño y desarrollo digital. La web usa Astro con generación estática, tipografías locales y contenido editable en Markdown. El dominio sigue siendo [lgdesign.com.ar](https://lgdesign.com.ar/).
+
+## Idiomas
+
+Las rutas originales conservan el español; `/en/` contiene las mismas páginas en inglés. El selector ES / EN conserva la página, los parámetros y la sección, y guarda la elección en `localStorage` (`lg-language`). En rutas sin prefijo se aplica la elección guardada, luego el primer idioma compatible del navegador y finalmente español. Las URLs `/en/` se respetan al abrirse directamente. Si el almacenamiento está bloqueado, `?lang=es` conserva la selección durante la navegación. Sin JavaScript, ambas versiones siguen disponibles mediante enlaces normales.
+
+Las páginas inglesas reutilizan las plantillas originales y `src/middleware.ts` traduce el HTML durante el renderizado, tanto en desarrollo como en el build estático. Las traducciones de textos, Markdown, accesibilidad y metadatos se mantienen en `src/lib/i18n/translations.ts`: al cambiar el texto español, actualizar su entrada allí. No se envían textos a servicios externos ni se traduce en el navegador. Los recursos y capturas de proyectos conservan sus originales. Cada versión incluye canonical y alternates de idioma; ambas aparecen en el sitemap.
 
 ## Desarrollo y validación
 

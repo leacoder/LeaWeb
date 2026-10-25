@@ -15,6 +15,7 @@
           if (!isIntersecting) return;
           observer.unobserve(target);
           revealed.add(target);
+          if (document.documentElement.classList.contains('journey-enabled')) return;
           if (target.contains(document.activeElement)) return;
           const stagger = Math.min(Array.from(target.parentElement?.children ?? []).indexOf(target), 3) * 55;
           const animation = target.animate([
