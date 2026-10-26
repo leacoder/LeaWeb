@@ -1,0 +1,47 @@
+---
+import { logoMark, logoDimensions } from '../lib/logo.mjs';
+import controller from '../scripts/brand-splash.js?raw';
+---
+<div class="brand-splash" data-brand-splash data-session-key="lg-brand-intro" data-duration="1400" hidden aria-hidden="true" inert>
+  <div class="splash-sheet">
+    <div class="splash-guide splash-guide-x"></div><div class="splash-guide splash-guide-y"></div>
+    <div class="splash-lockup">
+      <svg viewBox="0 0 240 72" fill="none" focusable="false">
+        <g class="splash-dimensions"><Fragment set:html={logoDimensions('#8be2ef')} /></g>
+        <path class="splash-outline" pathLength="1" stroke="#8be2ef" stroke-width=".7" d="M12 14h10v32h27v10H12zM64 14h24v10H66q-8 0-8 8v6q0 8 8 8h12v-6H68V30h20v26H64q-16 0-16-17v-8q0-17 16-17z" />
+        <g class="splash-mark"><Fragment set:html={logoMark('#edf3f8')} /></g>
+        <text class="splash-wordmark" x="108" y="46" fill="#edf3f8" font-family="var(--font)" font-size="31" letter-spacing="1">DESIGN</text>
+      </svg>
+      <p class="splash-tagline">DISEÑO + DESARROLLO</p>
+    </div>
+    <p class="splash-signature">lgdesign.com.ar</p>
+  </div>
+</div>
+<script is:inline set:html={controller} />
+<style>
+  .brand-splash{position:fixed;inset:0;z-index:1000;pointer-events:none;--splash-ease:cubic-bezier(.16,1,.3,1)}
+  .brand-splash[hidden]{display:none!important}
+  .brand-splash:not([hidden]){animation:splash-expire 1ms step-end 1900ms forwards}
+  .splash-sheet{position:absolute;inset:0;display:grid;place-items:center;overflow:hidden;background:#071a2e;color:#edf3f8;animation:splash-exit 350ms var(--splash-ease) 1050ms both}
+  .splash-lockup{position:relative;z-index:1;width:min(72vw,320px);text-align:center}
+  .splash-lockup svg{display:block;width:100%;height:auto;overflow:visible}
+  .splash-tagline{font-family:var(--font);font-size:10px;line-height:1.3;letter-spacing:.13em;color:#8be2ef;margin:14px 0 0;animation:splash-rise 340ms var(--splash-ease) 360ms both}
+  .splash-signature{position:absolute;bottom:max(28px,env(safe-area-inset-bottom));left:0;right:0;text-align:center;font-size:10px;letter-spacing:.1em;color:#a8b9c8;margin:0}
+  .splash-guide{position:absolute;background:#8be2ef;opacity:.13;animation:splash-guide-in 500ms var(--splash-ease) both}
+  .splash-guide-x{left:0;right:0;height:1px;top:50%}
+  .splash-guide-y{top:0;bottom:0;width:1px;left:50%}
+  .splash-dimensions{animation:splash-measure 390ms var(--splash-ease) both}
+  .splash-outline{stroke-dasharray:1;animation:splash-draw 520ms var(--splash-ease) 60ms both}
+  .splash-mark{animation:splash-appear 300ms var(--splash-ease) 330ms both}
+  .splash-wordmark{animation:splash-word 400ms var(--splash-ease) 250ms both}
+  @keyframes splash-measure{from{opacity:0;transform:scaleX(.85)}to{opacity:1;transform:scaleX(1)}}
+  @keyframes splash-draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+  @keyframes splash-appear{from{opacity:0}to{opacity:1}}
+  @keyframes splash-word{from{opacity:0;clip-path:inset(0 100% 0 0)}to{opacity:1;clip-path:inset(0)}}
+  @keyframes splash-rise{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes splash-guide-in{from{opacity:0}to{opacity:.13}}
+  @keyframes splash-exit{to{opacity:0;visibility:hidden}}
+  @keyframes splash-expire{to{visibility:hidden}}
+  @media(prefers-reduced-motion:reduce){.brand-splash{display:none!important}}
+  @media print{.brand-splash{display:none!important}}
+</style>

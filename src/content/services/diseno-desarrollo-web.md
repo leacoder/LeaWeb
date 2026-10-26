@@ -1,6 +1,7 @@
 ---
 title: Diseño y desarrollo web para PyMEs y emprendimientos
 shortTitle: Diseño y desarrollo web
+summary: Sitios para presentar tu negocio y recibir consultas.
 ctaLabel: Exploremos la web que querés
 description: Diseño y desarrollo web para PyMEs y emprendedores de Argentina. Sitios responsive con SEO técnico, desde la idea y el diseño hasta la publicación.
 number: "01"

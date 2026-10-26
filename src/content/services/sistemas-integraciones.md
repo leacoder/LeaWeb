@@ -1,6 +1,7 @@
 ---
 title: Sistemas a medida e integración de sistemas para PyMEs
 shortTitle: Sistemas e integraciones
+summary: Herramientas a medida para conectar y simplificar tareas.
 ctaLabel: Conectemos tus sistemas
 description: Desarrollo de sistemas a medida e integraciones para PyMEs de Argentina. Aplicaciones web y automatizaciones definidas según los procesos de tu negocio.
 number: "02"

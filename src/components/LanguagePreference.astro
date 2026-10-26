@@ -16,6 +16,7 @@
     // Unknown URLs served through 404.html must never enter a redirect loop.
     if (!english && language === 'en' && document.documentElement.dataset.error !== 'true' && !errorPage) {
       url.pathname = '/en' + url.pathname;
+      document.documentElement.dataset.languageRedirect = 'true';
       location.replace(url.href);
     }
     document.addEventListener('DOMContentLoaded', () => {

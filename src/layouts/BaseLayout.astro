@@ -10,6 +10,7 @@ import LanguagePreference from '../components/LanguagePreference.astro';
 import Footer from '../components/Footer.astro';
 import Motion from '../components/Motion.astro';
 import BackgroundGrid from '../components/BackgroundGrid.astro';
+import BrandSplash from '../components/BrandSplash.astro';
 import { site } from '../lib/site';
 interface Props {
   title: string;
@@ -21,6 +22,7 @@ interface Props {
   structuredData?: Record<string, unknown>[];
   breadcrumbs?: { name: string; url: string }[];
   noindex?: boolean;
+  compactFooter?: boolean;
 }
 const { title, description, image = '/og-logo-v4.png', breadcrumbs = [], noindex = false } = Astro.props;
 const rawPath = Astro.props.path ?? Astro.url.pathname;
@@ -85,6 +87,7 @@ const schema = {
     <script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, '\\u003c')} />
   </head>
   <body>
+    {spanishPath === '/' && !noindex && <BrandSplash />}
     <BackgroundGrid />
     <a class="skip-link" href="#main">Saltar al contenido</a>
     <Header />
@@ -92,7 +95,7 @@ const schema = {
       {breadcrumbs.length > 0 && <nav class="breadcrumbs container" aria-label="Ruta de navegación"><ol>{breadcrumbs.map((item, index) => <li>{index === breadcrumbs.length - 1 ? <span aria-current="page">{item.name}</span> : <a href={item.url}>{item.name}</a>}</li>)}</ol></nav>}
       <slot />
     </main>
-    <Footer analyticsEnabled={analyticsEnabled} />
+    <Footer analyticsEnabled={analyticsEnabled} compact={Astro.props.compactFooter} />
     <Motion />
     {analyticsEnabled && <aside class="analytics-consent" id="analytics-consent" data-ga-id={gaId} hidden aria-label="Preferencias de privacidad"><p>¿Permitís medir las visitas para mejorar esta web? Podés cambiar tu elección desde el pie de página.</p><div><button type="button" data-consent="denied">Solo necesarias</button><button type="button" data-consent="granted">Aceptar</button></div></aside>}
     <script>

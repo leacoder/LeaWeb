@@ -25,7 +25,7 @@ const nextProject = projects.length > 1 ? projects[(currentIndex + 1) % projects
   path={`/proyectos/${project.id}/`}
   image={project.data.image.src}
   structuredData={[{ '@type': 'CreativeWork', '@id': `${site.url}/proyectos/${project.id}/#project`, name: project.data.title, description: project.data.description, url: `${site.url}/proyectos/${project.id}/`, image: new URL(project.data.image.src, site.url).href, inLanguage: 'es-AR', mainEntityOfPage: { '@id': `${site.url}/proyectos/${project.id}/#webpage` } }]}
-  breadcrumbs={[{ name: 'Inicio', url: '/' }, { name: 'Proyectos', url: '/proyectos/' }, { name: project.data.title, url: `/proyectos/${project.id}/` }]}
+  breadcrumbs={[{ name: 'Inicio', url: '/' }, { name: 'Proyectos', url: '/#works' }, { name: project.data.title, url: `/proyectos/${project.id}/` }]}
 >
   <section class="section project-hero">
     <div class="container">
@@ -50,8 +50,7 @@ const nextProject = projects.length > 1 ? projects[(currentIndex + 1) % projects
   </section>
   <section class="section project-bottom">
     <div class="container">
-      <div class="project-contact"><div><p class="eyebrow">Trabajemos juntos</p><h2 class="detail-heading">¿Tenés un proyecto en mente?</h2><p class="text-muted">Contame qué necesitás y en qué etapa está.</p></div><a class="button button-primary" href={site.whatsapp} data-contact="whatsapp" target="_blank" rel="noopener noreferrer">Contame tu proyecto <span aria-hidden="true">↗</span></a></div>
-      <nav class="project-navigation" aria-label="Más proyectos"><a href="/proyectos/">← Todos los proyectos</a>{nextProject && <a href={`/proyectos/${nextProject.id}/`}>Siguiente: {nextProject.data.title} <span aria-hidden="true">↗</span></a>}</nav>
+      <nav class="project-navigation" aria-label="Más proyectos"><a href="/#works">← Ver proyectos</a>{nextProject && <a href={`/proyectos/${nextProject.id}/`}>Siguiente: {nextProject.data.title} <span aria-hidden="true">↗</span></a>}</nav>
     </div>
   </section>
 </BaseLayout>
@@ -82,12 +81,9 @@ const nextProject = projects.length > 1 ? projects[(currentIndex + 1) % projects
   .prose :global(strong) { color: #eaf3f8; font-weight: 600; }
   .prose :global(a) { color: #8be2ef; text-underline-offset: .25em; }
   .project-bottom { border-top: 1px solid rgba(155,196,221,.2); }
-  .project-contact { display: flex; justify-content: space-between; align-items: center; gap: 2rem; }
-  .project-contact p { line-height: 1.7; }
-  .project-contact .button { flex-shrink: 0; }
   .project-navigation { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; padding-top: 2rem; margin-top: 3rem; border-top: 1px solid rgba(155,196,221,.2); }
   .project-navigation a { color: #8be2ef; text-decoration: none; font-size: .875rem; }
-  @media (max-width: 800px) { .story-grid { grid-template-columns: 1fr; } .project-contact { flex-direction: column; align-items: flex-start; } }
+  @media (max-width: 800px) { .story-grid { grid-template-columns: 1fr; } }
   @media (max-width: 639px) {
     .detail-lead { font-size: 1rem; }
     .project-meta { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 1.25rem; padding: 1.5rem 0; margin: 2rem 0; }

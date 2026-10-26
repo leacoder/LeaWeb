@@ -95,6 +95,7 @@
   .blueprint-bottom span:first-child { display: flex; align-items: center; gap: 9px; }
 
   .services-section { position: relative; }
+  .services-more { margin-top: 24px; }
   .service-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid var(--line); }
   .service-card { display: flex; flex-direction: column; padding: 32px; background: rgba(11,36,60,.36); min-width: 0; transition: background .2s; }
   .service-card + .service-card { border-left: 1px solid var(--line); }

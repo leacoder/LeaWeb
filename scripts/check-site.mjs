@@ -60,6 +60,13 @@ const pageCache = new Map(await Promise.all(htmlFiles.map(async (file) => [file,
 
 for (const [file, html] of pageCache) {
   const route = routeFor(file);
+  if (/^(?:\/en)?\/proyectos\/$/.test(route)) {
+    const target = route.startsWith('/en/') ? '/en/#works' : '/#works';
+    assert(tags(html, 'meta').some(tag => tag['http-equiv'] === 'refresh' && tag.content === '0;url=' + target), route + ': falta redirección a la landing.');
+    assert(tags(html, 'a').some(tag => tag.href === target), route + ': falta enlace alternativo.');
+    assert((metadata(html, 'robots') ?? '').includes('noindex'), route + ': debe excluirse de indexación.');
+    continue;
+  }
   const legacy = route === '/tablet/';
   const errorPage = /\/(?:404\.html|404\/)$/.test(route);
   const label = path.relative(dist, file);
@@ -68,7 +75,7 @@ for (const [file, html] of pageCache) {
   if (!legacy && !errorPage) {
     const alternates = tags(html, 'link').filter(tag => tag.rel === 'alternate');
     for (const lang of ['es', 'en', 'x-default']) assert(alternates.some(tag => tag.hreflang === lang), `${label}: falta alternate ${lang}.`);
-    assert(html.includes('data-language="es"') && html.includes('data-language="en"'), `${label}: falta el selector de idioma.`);
+    assert(tags(html, 'a').filter(tag => 'data-language' in tag).length === 1 && html.includes(`data-language="${english ? 'es' : 'en'}"`), `${label}: debe tener un único botón para alternar idioma.`);
   }
   assert(/<meta\b[^>]*name=["']viewport["']/i.test(html), `${label}: falta viewport responsive.`);
   assert((html.match(/<h1\b/gi) ?? []).length === 1, `${label}: debe tener exactamente un H1.`);

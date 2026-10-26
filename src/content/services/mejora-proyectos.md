@@ -1,6 +1,7 @@
 ---
 title: Mejorar y completar proyectos web existentes
 shortTitle: Mejora de proyectos
+summary: Correcciones y nuevas funciones para lo que ya tenés.
 ctaLabel: Hagamos avanzar tu proyecto
 description: Consultoría para mejorar o completar proyectos web en Argentina. Revisión de código, diseño responsive y funciones pendientes con un alcance acordado.
 number: "03"

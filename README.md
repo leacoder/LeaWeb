@@ -4,7 +4,7 @@ Portfolio en español e inglés de Leandro García para presentar servicios de d
 
 ## Idiomas
 
-Las rutas originales conservan el español; `/en/` contiene las mismas páginas en inglés. El selector ES / EN conserva la página, los parámetros y la sección, y guarda la elección en `localStorage` (`lg-language`). En rutas sin prefijo se aplica la elección guardada, luego el primer idioma compatible del navegador y finalmente español. Las URLs `/en/` se respetan al abrirse directamente. Si el almacenamiento está bloqueado, `?lang=es` conserva la selección durante la navegación. Sin JavaScript, ambas versiones siguen disponibles mediante enlaces normales.
+Las rutas originales conservan el español; `/en/` contiene las mismas páginas en inglés. Un único botón muestra el idioma de destino (EN o ES), conserva la página, los parámetros y la sección, y guarda la elección en `localStorage` (`lg-language`). En rutas sin prefijo se aplica la elección guardada, luego el primer idioma compatible del navegador y finalmente español. Las URLs `/en/` se respetan al abrirse directamente. Si el almacenamiento está bloqueado, `?lang=es` conserva la selección durante la navegación. Sin JavaScript, ambas versiones siguen disponibles mediante enlaces normales.
 
 Las páginas inglesas reutilizan las plantillas originales y `src/middleware.ts` traduce el HTML durante el renderizado, tanto en desarrollo como en el build estático. Las traducciones de textos, Markdown, accesibilidad y metadatos se mantienen en `src/lib/i18n/translations.ts`: al cambiar el texto español, actualizar su entrada allí. No se envían textos a servicios externos ni se traduce en el navegador. Los recursos y capturas de proyectos conservan sus originales. Cada versión incluye canonical y alternates de idioma; ambas aparecen en el sitemap.
 
@@ -35,6 +35,8 @@ Lighthouse está disponible como dependencia de desarrollo para auditar la home 
 ## Editar contenido
 
 - Los servicios se editan en `src/content/services/`; se publican como `/servicios/<nombre-del-archivo>/`.
+La navegación Proyectos lleva a `/#works` (o `/en/#works`). Los dos casos aparecen en la landing y conservan sus páginas individuales. Las antiguas rutas de listado `/proyectos/` y `/en/proyectos/` redirigen a esa sección y se excluyen del sitemap; el listado completo queda para una futura ampliación del portfolio.
+
 - Los casos se editan en `src/content/projects/`; se publican como `/proyectos/<nombre-del-archivo>/`.
 - La portada y biografía están en `src/pages/index.astro`; los canales de contacto y datos básicos están en `src/lib/site.ts`.
 - Las imágenes de proyectos están en `src/assets/projects/` y se procesan durante el build.
@@ -97,3 +99,4 @@ Para incorporar medición o verificación de Google en la salida publicada, comp
 La home se genera como `dist/index.html`; `/index.html` continúa disponible con canonical hacia `https://lgdesign.com.ar/`. Se conservan las anclas `#home`, `#about`, `#services`, `#works` y `#contacts`. `/tablet/index.html` redirige a la home conservando el fragmento y descartando parámetros antiguos como `devicelock`; ofrece además un enlace visible si JavaScript está desactivado. Esta página y la página 404 tienen `noindex` y no se incluyen en el sitemap.
 
 La implementación editable está en `src/`, los archivos públicos en `public/` y las herramientas de compilación en `scripts/`. Se retiraron los CSS, scripts JavaScript/PHP, imágenes y ZIP de Adobe Muse que ya no usa la web; las versiones anteriores siguen recuperables en el historial de Git. Se conserva `/tablet/index.html` como redirección de compatibilidad. Los casos de proyectos archivados y sus imágenes en `src/` se mantienen como contenido editable. La configuración DNS y los servicios externos no se modifican al construir localmente. Para volver a una versión anterior, republicar el commit o etiqueta conservado mediante el origen de Pages correspondiente.
+

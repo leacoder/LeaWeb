@@ -46,7 +46,7 @@ const otherServices = (await getCollection('services')).filter((entry) => entry.
       <p class="eyebrow">Otras posibilidades</p>
       <h2 class="detail-heading">Cada proyecto tiene su camino.</h2>
       <div class="related-list">{otherServices.map((entry) => <a href={`/servicios/${entry.id}/`}><span>{entry.data.shortTitle}</span><span aria-hidden="true">↗</span></a>)}</div>
-      <a class="button button-secondary" href="/proyectos/">Ver proyectos <span aria-hidden="true">↗</span></a>
+      <a class="button button-secondary" href="/#works">Ver proyectos <span aria-hidden="true">↗</span></a>
     </div>
   </section>
 </BaseLayout>
