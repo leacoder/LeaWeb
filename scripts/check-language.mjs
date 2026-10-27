@@ -21,4 +21,8 @@ assert.equal(visit('/?lang=es', ['en-US'],null,true).redirect,undefined);
 assert.equal(visit('/servicios/?utm_source=test#contacts',['en']).redirect,'https://lgdesign.com.ar/en/servicios/?utm_source=test#contacts');
 assert.equal(visit('/missing/',['en'],null,false,true).redirect,undefined);
 assert.equal(visit('/404.html',['en']).redirect,undefined);
+assert.equal(visit('/v2/#vybe',['en']).redirect,'https://lgdesign.com.ar/en/v2/#vybe');
+assert.equal(visit('/v2/?lang=es#piezas',['en'],'en').redirect,undefined);
+assert.equal(visit('/en/v2/?lang=en#vybe',['es'],'es').saved.get('lg-language'),'en');
+assert.equal(visit('/v2/?lang=es',['en'],null,true).redirect,undefined);
 console.log('Idioma: detección, fallback, preferencia, enlaces explícitos, almacenamiento bloqueado y 404 correctos.');

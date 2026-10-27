@@ -25,22 +25,26 @@ function translateData(value: unknown, key = ''): unknown {
   if (value && typeof value === 'object') return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, translateData(v, k)]));
   return value;
 }
-export function translateHTML(html: string) {
+export function translateHTML(html: string, additional: Record<string, string> = {}) {
+  const copy = { ...english, ...additional };
+  const customKeys = Object.keys(copy).sort((a, b) => b.length - a.length);
+  const customPattern = new RegExp(customKeys.map(key => key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|'), 'g');
+  const translateText = Object.keys(additional).length ? (value: string) => value.replace(customPattern, match => copy[match]) : translate;
   const tree = parse(html);
   walkSync(tree, (node) => {
     if (node.type === TEXT_NODE) {
       if (node.parent?.name === 'script' && node.parent.attributes.type === 'application/ld+json') {
         node.value = JSON.stringify(translateData(JSON.parse(node.value))).replace(/</g, '\\u003c');
-      } else if (!['script', 'style'].includes(node.parent?.name)) node.value = translate(node.value);
+      } else if (!['script', 'style'].includes(node.parent?.name)) node.value = translateText(node.value);
     }
     if (node.type !== ELEMENT_NODE) return;
     const a = node.attributes;
     if (node.name === 'html') a.lang = 'en';
-    for (const key of ['alt', 'title', 'aria-label']) if (a[key]) a[key] = translate(a[key]);
+    for (const key of ['alt', 'title', 'aria-label']) if (a[key]) a[key] = translateText(a[key]);
     if (node.name === 'meta') {
       if (a.property === 'og:locale') a.content = 'en_US';
       else if (a.property === 'og:url') a.content = localizeURL(a.content);
-      else if (['description', 'og:title', 'og:description', 'og:image:alt', 'twitter:title', 'twitter:description'].includes(a.name || a.property)) a.content = translate(a.content);
+      else if (['description', 'og:title', 'og:description', 'og:image:alt', 'twitter:title', 'twitter:description'].includes(a.name || a.property)) a.content = translateText(a.content);
     }
     if (a.href && !('data-language' in a) && a.rel !== 'alternate') {
       a.href = localizeURL(a.href);

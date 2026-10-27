@@ -69,6 +69,7 @@ for (const [file, html] of pageCache) {
   }
   const legacy = route === '/tablet/';
   const errorPage = /\/(?:404\.html|404\/)$/.test(route);
+  const previewPage = /^(?:\/en)?\/v2\/$/.test(route);
   const label = path.relative(dist, file);
   const english = route.startsWith('/en/');
   assert(new RegExp(`<html\\b[^>]*\\blang=["']${english ? 'en' : 'es(?:-AR)?'}["']`, 'i').test(html), `${label}: idioma incorrecto.`);
@@ -85,7 +86,7 @@ for (const [file, html] of pageCache) {
   const canonicals = tags(html, 'link').filter((tag) => tag.rel === 'canonical');
   const expectedCanonical = legacy ? site.href : new URL(route, site).href;
   assert(canonicals.length === 1 && canonicals[0].href === expectedCanonical, `${label}: canonical incorrecto; se esperaba ${expectedCanonical}.`);
-  if (legacy || errorPage) {
+  if (legacy || errorPage || previewPage) {
     assert((metadata(html, 'robots') ?? '').includes('noindex'), `${label}: debe excluirse de la indexación.`);
   } else {
     assert(!(metadata(html, 'robots') ?? '').includes('noindex'), `${label}: la página pública no debe tener noindex.`);
@@ -190,6 +191,7 @@ const sitemapFiles = files.filter((file) => /sitemap[^/\\]*\.xml$/.test(file));
 assert(sitemapFiles.some((file) => path.basename(file) === 'sitemap-index.xml'), 'Falta sitemap-index.xml.');
 for (const sitemapFile of sitemapFiles) {
   const xml = await readFile(sitemapFile, 'utf8');
+  assert(!/<loc>https:\/\/lgdesign\.com\.ar\/(?:en\/)?v2(?:\/|<)/.test(xml), 'El sitemap no debe incluir las vistas previas /v2.');
   assert(!/\/(?:tablet|404)(?:[/.<]|$)/.test(xml), 'El sitemap contiene una página de compatibilidad o de error.');
   for (const match of xml.matchAll(/<loc>([^<]+)<\/loc>/g)) {
     const url = new URL(decode(match[1]));

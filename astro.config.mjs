@@ -18,7 +18,7 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
-      filter: (page) => !/^(?:\/en)?\/proyectos\/$/.test(new URL(page).pathname) && !/\/(?:tablet(?:\/|$)|404(?:\.html|\/|$))/.test(new URL(page).pathname),
+      filter: (page) => !/^(?:\/en)?\/v2(?:\/|$)/.test(new URL(page).pathname) && !/^(?:\/en)?\/proyectos\/$/.test(new URL(page).pathname) && !/\/(?:tablet(?:\/|$)|404(?:\.html|\/|$))/.test(new URL(page).pathname),
     }),
   ],
 });

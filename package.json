@@ -18,9 +18,10 @@
     "verify:root": "node scripts/check-site.mjs --root",
     "prepare:pages": "npm run validate && node scripts/sync-pages-root.mjs && npm run verify:root",
     "verify:interactions": "node scripts/check-interactions.mjs",
-    "validate": "npm run check && npm run verify:language && npm run verify:interactions && npm run verify:splash && npm run build && npm run verify",
+    "validate": "npm run check && npm run verify:language && npm run verify:interactions && npm run verify:splash && npm run verify:v2-touch && npm run build && npm run verify",
     "verify:splash": "node --test scripts/check-splash.mjs",
-    "verify:language": "node scripts/check-language.mjs"
+    "verify:language": "node scripts/check-language.mjs",
+    "verify:v2-touch": "node --test scripts/check-v2-touch.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "3.7.4",
