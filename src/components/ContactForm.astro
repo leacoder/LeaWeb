@@ -1,0 +1,97 @@
+---
+import Icon from './Icon.astro';
+import { site } from '../lib/site';
+const recipient = import.meta.env.PUBLIC_FORMSUBMIT_ID || site.email;
+const action = `https://formsubmit.co/${encodeURIComponent(recipient)}`;
+---
+<form class="contact-form" action={action} method="POST" data-endpoint={`https://formsubmit.co/ajax/${encodeURIComponent(recipient)}`} aria-label="Contame tu idea">
+  <div class="contact-fields">
+    <div class="contact-field"><label for="contact-email">Tu correo</label><input id="contact-email" name="email" type="email" autocomplete="email" placeholder="vos@ejemplo.com" maxlength="254" required /></div>
+    <div class="contact-field"><label for="contact-phone">Teléfono <span>(opcional)</span></label><input id="contact-phone" name="phone" type="tel" autocomplete="tel" placeholder="+54 9…" maxlength="40" /></div>
+  </div>
+  <div class="contact-field"><label for="contact-message">¿Qué tenés en mente?</label><textarea id="contact-message" name="message" rows="4" minlength="10" maxlength="3000" placeholder="Contame tu idea o qué necesitás resolver…" required></textarea></div>
+  <div class="contact-honey" aria-hidden="true"><label for="contact-website">Dejá este campo vacío</label><input id="contact-website" name="_honey" type="text" tabindex="-1" autocomplete="off" /></div>
+  <input type="hidden" name="_subject" value="Nueva consulta desde LG Design" />
+  <input type="hidden" name="_template" value="table" />
+  <div class="contact-form-bottom"><p class="contact-privacy">Uso tus datos solo para responder tu consulta.</p><button type="submit" class="button button-primary"><span data-submit-label>Enviar mi idea</span><Icon name="arrow" /></button></div>
+  <p class="contact-feedback" role="status" aria-live="polite" aria-atomic="true" hidden></p>
+</form>
+<style>
+  .contact-form { display: grid; gap: 22px; min-width: 0; width: 100%; }
+  .contact-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .contact-field { display: grid; gap: 9px; min-width: 0; }
+  .contact-field label { color: var(--text); font-size: 13px; }
+  .contact-field label span { color: var(--muted); font-size: 12px; }
+  .contact-field input, .contact-field textarea { width: 100%; min-width: 0; padding: 14px 15px; border: 1px solid var(--line); border-radius: 3px; background: var(--ink); color: var(--text); font: 16px/1.5 var(--font); caret-color: var(--accent); transition: border-color .2s; }
+  .contact-field textarea { resize: vertical; min-height: 132px; max-height: 320px; }
+  .contact-field input::placeholder, .contact-field textarea::placeholder { color: var(--muted); opacity: .85; }
+  .contact-field input:focus, .contact-field textarea:focus { border-color: var(--accent); outline: 1px solid var(--accent); outline-offset: 3px; }
+  .contact-field :user-invalid { border-color: #f3aaa3; }
+  .contact-honey { display: none; }
+  .contact-form-bottom { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .contact-form .contact-privacy { margin: 0; font-size: 11px; line-height: 1.6; max-width: 22ch; }
+  .contact-form button { flex-shrink: 0; }
+  .contact-form button:disabled { opacity: .65; cursor: wait; transform: none; }
+  .contact-form .contact-feedback { margin: 0; padding: 14px 16px; border: 1px solid var(--line); color: var(--accent); font-size: 13px; line-height: 1.6; }
+  .contact-form .contact-feedback[data-state="error"] { color: #f3aaa3; }
+  @media(max-width: 639px) {
+    .contact-fields { grid-template-columns: 1fr; }
+    .contact-form-bottom { align-items: stretch; flex-direction: column-reverse; gap: 12px; }
+    .contact-form .contact-privacy { max-width: none; }
+  }
+</style>
+<script>
+  import { sendContact } from '../lib/contact.mjs';
+  document.querySelectorAll<HTMLFormElement>('.contact-form').forEach(form => {
+    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+    const label = form.querySelector<HTMLElement>('[data-submit-label]')!;
+    const feedback = form.querySelector<HTMLElement>('.contact-feedback')!;
+    const english = document.documentElement.lang.startsWith('en');
+    const copy = english ? {
+      idle: 'Send my idea', sending: 'Sending…', sent: 'Your enquiry has been sent. I’ll reply to the email you provided.',
+      failed: 'We couldn’t confirm your submission. Your text is still here. Please try again or contact me on WhatsApp.',
+      activation: 'Email delivery is being activated. Your text is still here; please use WhatsApp for now.',
+    } : {
+      idle: 'Enviar mi idea', sending: 'Enviando…', sent: 'Tu consulta fue enviada. Te respondo al correo que dejaste.',
+      failed: 'No pudimos confirmar el envío. Tu texto sigue acá: probá de nuevo o escribime por WhatsApp.',
+      activation: 'La recepción por correo está en activación. Tu texto sigue acá; por ahora podés escribirme por WhatsApp.',
+    };
+    let pending = false;
+    const status = (text: string, state: string) => { feedback.textContent = text; feedback.dataset.state = state; feedback.hidden = false; };
+    form.addEventListener('submit', async event => {
+      event.preventDefault();
+      if (pending || !form.reportValidity()) return;
+      const data = new FormData(form);
+      if (String(data.get('_honey') || '')) return;
+      if (String(data.get('message') || '').trim().length < 10) {
+        const input = form.querySelector<HTMLTextAreaElement>('textarea')!;
+        input.setCustomValidity(english ? 'Please tell me a little more about your idea.' : 'Contame un poco más sobre tu idea.');
+        input.reportValidity();
+        input.addEventListener('input', () => input.setCustomValidity(''), { once: true });
+        return;
+      }
+      pending = true;
+      button.disabled = true;
+      label.textContent = copy.sending;
+      form.setAttribute('aria-busy', 'true');
+      status(copy.sending, 'sending');
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 20000);
+      try {
+        const values = Object.fromEntries(Array.from(data.entries(), ([key, value]) => [key, String(value).trim()]));
+        values._url = location.origin + location.pathname;
+        const result = await sendContact(form.dataset.endpoint!, values, { signal: controller.signal });
+        if (result === 'activation') status(copy.activation, 'error');
+        else { form.reset(); status(copy.sent, 'success'); }
+      } catch {
+        status(copy.failed, 'error');
+      } finally {
+        clearTimeout(timeout);
+        pending = false;
+        button.disabled = false;
+        label.textContent = copy.idle;
+        form.removeAttribute('aria-busy');
+      }
+    });
+  });
+</script>

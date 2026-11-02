@@ -4,50 +4,29 @@ shortTitle: Mejora de proyectos
 summary: Correcciones y nuevas funciones para lo que ya tenés.
 ctaLabel: Hagamos avanzar tu proyecto
 description: Consultoría para mejorar o completar proyectos web en Argentina. Revisión de código, diseño responsive y funciones pendientes con un alcance acordado.
+lead: Tu proyecto puede dar el próximo paso. Revisión de código, mejoras de diseño y desarrollo de las funciones que faltan.
 number: "03"
 icon: upgrade
 deliverables:
-  - Revisión inicial del proyecto y sus accesos
-  - Diagnóstico y prioridades de mejora
-  - Correcciones o funciones acordadas
-  - Validación y documentación de los cambios
+  - Revisión del código y la plataforma
+  - Diagnóstico y prioridades claras
+  - Correcciones y funciones acordadas
+  - Validación y documentación
+faqs:
+  - question: ¿Podés continuar el trabajo de otra persona?
+    answer: Podemos evaluarlo. Reviso la tecnología, el estado del código y los accesos disponibles antes de estimar el trabajo.
+  - question: ¿Hace falta rehacer todo el sitio?
+    answer: No siempre. Si la base lo permite, hacemos cambios puntuales. Si conviene reconstruir una parte, te explico por qué.
+  - question: ¿Puedo pedir solo una mejora de diseño?
+    answer: Sí. Podemos trabajar el diseño responsive o una sección específica, según lo que permita la plataforma actual.
 ---
 
-## Avanzar desde lo que ya tenés
+## Retomá lo que quedó pendiente
 
-Una web puede necesitar un mejor diseño, funcionar mejor en el celular o incorporar una función nueva. Un desarrollo en marcha puede requerir ayuda para resolver un bloqueo y llegar a una entrega. Podemos revisar tu proyecto y definir el próximo paso.
+Si buscás un programador para terminar un proyecto web, corregir errores o mejorar su uso en celulares, revisamos cómo seguir. Trabajo de forma remota desde Argentina.
 
-Antes de estimar los cambios, necesito conocer el estado del sitio, el código o plataforma disponible y el objetivo que querés alcanzar. Esa revisión permite distinguir mejoras puntuales de un trabajo de reconstrucción.
+## Del diagnóstico a la mejora
 
-## ¿Buscás un programador para terminar tu proyecto?
-
-Si un desarrollo quedó incompleto, tiene errores o necesita una función pendiente, podemos evaluar cómo retomarlo. Para empezar, compartí el objetivo, el estado actual, la tecnología utilizada y los archivos o accesos disponibles. Si existe documentación de lo ya acordado, también ayuda a entender qué falta.
-
-La revisión inicial permite acordar si conviene una corrección puntual, continuar el desarrollo o reconstruir una parte. El alcance, los plazos y el presupuesto se definen después de esa evaluación. El trabajo se organiza de forma remota con PyMEs y emprendedores de Argentina.
-
-Para proyectos nuevos, consultá [diseño y desarrollo web](/servicios/diseno-desarrollo-web/) o [sistemas a medida e integraciones](/servicios/sistemas-integraciones/), según la necesidad.
-
-## Etapas de la intervención
-
-1. **Revisamos el punto de partida.** Vemos qué funciona, qué falta y qué materiales o accesos están disponibles.
-2. **Ordenamos las prioridades.** Identificamos los cambios que tienen más impacto para tu negocio y los riesgos técnicos.
-3. **Acordamos una intervención.** Definimos tareas, entregas y criterios para comprobar que el problema está resuelto.
-4. **Implementamos y revisamos.** Probamos los cambios dentro del proyecto existente y documentamos lo necesario para continuar.
-
-## Preguntas frecuentes
-
-### ¿Podés continuar un proyecto que empezó otra persona?
-
-Podemos evaluarlo. Primero reviso la tecnología, el estado del código y los accesos disponibles para saber cómo continuar y estimar el trabajo.
-
-### ¿Siempre hace falta rehacer el sitio?
-
-No. Si la base permite resolver la necesidad con cambios puntuales, esa opción se incluye en la propuesta. Cuando hay limitaciones importantes, te explico qué conviene reconstruir y por qué.
-
-### ¿Puedo pedir solamente una mejora de diseño?
-
-Sí. El alcance puede centrarse en diseño, adaptación a celulares o una parte específica del sitio, según lo que permita la plataforma actual.
-
-### ¿Qué tengo que enviar para empezar?
-
-El enlace al sitio o una descripción del proyecto, qué necesitás cambiar y qué accesos o archivos tenés. Con eso podemos definir la revisión inicial.
+1. **Revisamos.** Compartís el sitio, el objetivo y los materiales disponibles.
+2. **Priorizamos.** Acordamos cambios, plazos y presupuesto.
+3. **Resolvemos.** Implementamos, probamos y documentamos las mejoras.

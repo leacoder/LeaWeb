@@ -10,8 +10,9 @@ const allowed = new Set(['.nojekyll', '404.html', 'CNAME', 'favicon.svg', 'index
 function destination(relative) {
   const parts = relative.split('/');
   if (parts.some((part) => !part || part === '.' || part === '..') || relative.includes('\\')) throw new Error(`Ruta inválida: ${relative}`);
-  if (!allowed.has(relative) && !['_astro', 'proyectos', 'servicios', 'tablet', 'en'].includes(parts[0])) throw new Error(`Archivo fuera de la salida publicada: ${relative}`);
+  if (!allowed.has(relative) && !['_astro', 'proyectos', 'servicios', 'tablet', 'en', 'v2'].includes(parts[0])) throw new Error(`Archivo fuera de la salida publicada: ${relative}`);
   if (parts[0] === 'tablet' && relative !== 'tablet/index.html') throw new Error(`Archivo de compatibilidad inesperado: ${relative}`);
+  if (parts[0] === 'v2' && relative !== 'v2/index.html') throw new Error(`Vista previa inesperada: ${relative}`);
   const target = path.resolve(root, ...parts);
   if (!target.startsWith(`${path.resolve(root)}${path.sep}`)) throw new Error('La ruta sale del repositorio.');
   return target;

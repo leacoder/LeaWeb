@@ -10,9 +10,11 @@ const services = defineCollection({
     summary: z.string().trim().min(1),
     ctaLabel: z.string().trim().min(1),
     description: z.string(),
+    lead: z.string(),
     number: z.string(),
     icon: z.enum(['web', 'systems', 'upgrade']),
     deliverables: z.array(z.string()),
+    faqs: z.array(z.object({ question: z.string(), answer: z.string() })),
   }),
 });
 

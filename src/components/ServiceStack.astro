@@ -1,0 +1,78 @@
+<style is:global>
+  @media (max-width: 850px) and (prefers-reduced-motion: no-preference) {
+    .service-grid.service-stack { display: block; border: 0; }
+    .service-stack .service-card {
+      position: sticky;
+      top: var(--stack-top);
+      z-index: var(--stack-order);
+      min-height: var(--stack-height);
+      margin-bottom: clamp(32px, 10svh, 88px);
+      border: 1px solid var(--line);
+      background: #0b243c;
+      transform: scale(var(--stack-scale, 1));
+      transform-origin: center top;
+    }
+    .service-stack .service-card:last-child { margin-bottom: 0; }
+    .service-stack .service-card:hover { background: #102c43; }
+    /* Keyboard navigation exposes every link instead of focusing a covered card. */
+    .service-stack:has(.service-card:focus-visible) .service-card { position: relative; top: auto; transform: none; }
+  }
+  @media print {
+    .service-grid.service-stack .service-card { position: static; transform: none; min-height: 0; margin: 0; }
+  }
+</style>
+<script>
+  const grid = document.querySelector<HTMLElement>('.service-grid');
+  if (grid) {
+    const cards = Array.from(grid.querySelectorAll<HTMLElement>('.service-card'));
+    const header = document.querySelector<HTMLElement>('.site-header')!;
+    const media = matchMedia('(max-width: 850px) and (prefers-reduced-motion: no-preference)');
+    let frame = 0;
+    let measuring = false;
+    let top = 0;
+    let height = 0;
+    const reset = () => {
+      grid.classList.remove('service-stack');
+      cards.forEach(card => {
+        for (const property of ['--stack-top', '--stack-order', '--stack-height', '--stack-scale']) card.style.removeProperty(property);
+      });
+    };
+    const update = () => {
+      frame = 0;
+      if (!grid.classList.contains('service-stack')) return;
+      const positions = cards.map(card => card.getBoundingClientRect().top);
+      cards.forEach((card, index) => {
+        const overlap = index === cards.length - 1 ? 0 : Math.max(0, Math.min(1, (top + index * 14 + height - positions[index + 1]) / height));
+        card.style.setProperty('--stack-scale', String(1 - overlap * .035));
+      });
+    };
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
+    const measure = () => {
+      if (measuring) return;
+      measuring = true;
+      reset();
+      if (media.matches) {
+        top = header.offsetHeight + 16;
+        height = Math.ceil(Math.max(...cards.map(card => card.offsetHeight)));
+        // Leave space for the sticky header, visible card edges and bottom location bar.
+        if (height + top + (cards.length - 1) * 14 + 48 <= innerHeight) {
+          cards.forEach((card, index) => {
+            card.style.setProperty('--stack-top', `${top + index * 14}px`);
+            card.style.setProperty('--stack-order', String(index + 1));
+            card.style.setProperty('--stack-height', `${height}px`);
+          });
+          grid.classList.add('service-stack');
+        }
+      }
+      measuring = false;
+      schedule();
+    };
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', measure);
+    window.addEventListener('pageshow', measure);
+    media.addEventListener('change', measure);
+    document.fonts.ready.then(measure);
+    measure();
+    window.addEventListener('pagehide', () => { cancelAnimationFrame(frame); frame = 0; });
+  }
+</script>

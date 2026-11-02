@@ -1,17 +1,80 @@
 ---
 import Logo from './Logo.astro';
 import Icon from './Icon.astro';
+import ContactForm from './ContactForm.astro';
 import { site } from '../lib/site';
 interface Props { analyticsEnabled?: boolean; compact?: boolean; }
 const { analyticsEnabled = false, compact = false } = Astro.props;
 ---
 <footer class="site-footer">
   {!compact && <section class="contact-section container" id="contacts" aria-labelledby="contact-title">
-    <div class="contact-top"><span class="eyebrow">06 / EL PRÓXIMO PROYECTO</span><div class="contact-availability"><span class="status-label"><i aria-hidden="true"></i> Argentina · Trabajo remoto</span><span class="contact-languages">Trabajo en español e inglés</span></div></div>
+    <div class="contact-top"><span class="eyebrow">06 / EL PRÓXIMO PROYECTO</span></div>
     <div class="contact-grid">
-      <div><h2 id="contact-title">Todo empieza<br />con una <span>buena charla.</span></h2><p>Contame qué necesitás, en qué punto está tu proyecto<br class="desktop-break" /> y a dónde querés llegar. Pensemos el próximo paso.</p></div>
-      <div class="contact-actions"><a href={site.whatsapp} class="button button-primary" target="_blank" rel="noopener noreferrer" data-contact="whatsapp">Contame tu proyecto <Icon name="external" /></a><a class="email-link" href={`mailto:${site.email}`} data-contact="email">{site.email} <Icon name="arrow" /></a></div>
+      <div class="contact-copy"><h2 id="contact-title">Todo empieza<br />con una <span>buena charla.</span></h2><p>Contame qué tenés en mente.<br />Te respondo personalmente.</p></div>
+      <div class="contact-options">
+        <details class="contact-disclosure">
+          <summary class="button button-primary"><Icon name="mail" /><span>Enviame tu idea por correo</span><span class="contact-chevron"><Icon name="arrow" /></span></summary>
+          <div class="contact-reveal"><ContactForm /></div>
+        </details>
+        <a href={site.whatsapp} class="contact-whatsapp button button-secondary" target="_blank" rel="noopener noreferrer" data-contact="whatsapp"><span>O hablemos por WhatsApp</span><Icon name="external" /></a>
+      </div>
     </div>
   </section>}
   <div class="footer-bottom container"><Logo footer /><p>© {new Date().getFullYear()} LG Design · Leandro García</p><div class="footer-notes"><span>De la idea a la solución.</span>{analyticsEnabled && <button type="button" data-analytics-preferences>Privacidad</button>}<a href="/#home" aria-label="Volver al inicio">↑</a></div></div>
 </footer>
+<style>
+  .contact-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; gap: clamp(32px, 5vw, 72px); }
+  .contact-copy > p { max-width: 34ch; }
+  .contact-options { display: grid; gap: 16px; min-width: 0; }
+  .contact-disclosure { min-width: 0; }
+  .contact-disclosure summary { list-style: none; cursor: pointer; width: 100%; justify-content: flex-start; gap: 14px; }
+  .contact-disclosure summary::-webkit-details-marker { display: none; }
+  .contact-chevron { margin-left: auto; }
+  .contact-chevron :global(svg) { transition: transform .25s ease; }
+  .contact-disclosure[open] .contact-chevron :global(svg) { transform: rotate(90deg); }
+  .contact-reveal { padding: 26px 2px 10px; }
+  .contact-whatsapp { justify-content: space-between; }
+  @media(prefers-reduced-motion: reduce) { .contact-chevron :global(svg) { transition: none; } }
+  @media(max-width: 850px) { .contact-grid { grid-template-columns: 1fr; gap: 36px; } }
+</style>
+<script>
+  const disclosure = document.querySelector<HTMLDetailsElement>('.contact-disclosure');
+  if (disclosure) {
+    const summary = disclosure.querySelector<HTMLElement>('summary')!;
+    const content = disclosure.querySelector<HTMLElement>('.contact-reveal')!;
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    let animation: Animation | undefined;
+    let expanded = disclosure.open;
+    const settle = () => {
+      animation?.cancel();
+      animation = undefined;
+      disclosure.open = expanded;
+      content.inert = !expanded;
+      disclosure.style.removeProperty('overflow');
+    };
+    summary.addEventListener('click', event => {
+      if (event.defaultPrevented) return;
+      event.preventDefault();
+      expanded = animation ? !expanded : !disclosure.open;
+      const start = disclosure.getBoundingClientRect().height;
+      animation?.cancel();
+      if (expanded) disclosure.open = true;
+      content.inert = !expanded;
+      if (reduced.matches || !disclosure.animate) { settle(); return; }
+      const end = expanded ? disclosure.scrollHeight : summary.getBoundingClientRect().height;
+      disclosure.style.overflow = 'clip';
+      const current = disclosure.animate({ height: [`${start}px`, `${end}px`] }, {
+        duration: expanded ? 420 : 240, easing: 'cubic-bezier(.16,1,.3,1)',
+      });
+      animation = current;
+      current.onfinish = () => { if (animation === current) settle(); };
+    });
+    disclosure.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && disclosure.open) { expanded = false; settle(); summary.focus(); }
+    });
+    // Keep native find-in-page and browser-initiated disclosure changes usable.
+    disclosure.addEventListener('toggle', () => { if (!animation) { expanded = disclosure.open; content.inert = !expanded; } });
+    reduced.addEventListener('change', () => { if (animation) settle(); });
+    window.addEventListener('pagehide', () => { if (animation) settle(); });
+  }
+</script>

@@ -156,7 +156,9 @@ for (const anchor of ['home', 'about', 'services', 'works', 'contacts']) {
 }
 assert(/Diseño\s+y\s+desarrollo/i.test(homepage.replace(/<[^>]+>/g, ' ')), 'Home: el mensaje principal debe estar en el HTML estático.');
 assert(/https:\/\/wa\.me\/5491134477257(?:\?|["'])/.test(homepage), 'Home: el enlace de WhatsApp debe usar 5491134477257.');
-assert(/mailto:lg\.design\.web@gmail\.com/.test(homepage), 'Home: falta el correo de contacto.');
+const contactForm = tags(homepage, 'form').find(tag => tag.class?.includes('contact-form'));
+assert(contactForm?.method === 'POST' && /^https:\/\/formsubmit\.co\/[^/]+$/.test(contactForm.action ?? ''), 'Home: falta el formulario de contacto con destino válido.');
+assert(tags(homepage, 'input').some(tag => tag.name === 'email' && tag.type === 'email') && tags(homepage, 'input').some(tag => tag.name === 'phone' && tag.type === 'tel') && tags(homepage, 'textarea').some(tag => tag.name === 'message'), 'Home: faltan correo, teléfono o mensaje en el formulario.');
 
 const tabletHTML = pageCache.get(path.join(dist, 'tablet', 'index.html')) ?? '';
 assert(tags(tabletHTML, 'a').some((tag) => tag.href === '/'), 'Tablet: falta el enlace visible a la home sin JavaScript.');

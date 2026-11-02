@@ -52,11 +52,13 @@ const sections = [['home', 'Inicio'], ['services', 'Servicios'], ['works', 'Proy
         }
       }});
       timeline.to(position, { y: destination, duration: 1.05, ease: 'power3.inOut', onUpdate: () => window.scrollTo(0, position.y) }, 0);
-      timeline.fromTo(content, { y: direction * 42, opacity: .6 }, { y: 0, opacity: 1, duration: .85, stagger: .025, ease: 'power3.out' }, .25);
+      // At the document boundary keep the footer geometry stable throughout the scroll.
+      const isLastPanel = index === panels.length - 1;
+      timeline.fromTo(content, { y: isLastPanel ? 0 : direction * 42, opacity: .6 }, { y: 0, opacity: 1, duration: .85, stagger: .025, ease: 'power3.out' }, .25);
     };
     const observer = Observer.create({
       target: window, type: 'wheel', preventDefault: true, tolerance: 18,
-      ignore: '.analytics-consent, .mobile-menu',
+      ignore: '.analytics-consent, .mobile-menu, .contact-form',
       ignoreCheck: event => (event as WheelEvent).ctrlKey || Math.abs((event as WheelEvent).deltaX) > Math.abs((event as WheelEvent).deltaY),
       onStopDelay: .22,
       onStop: () => { gestureUsed = false; },

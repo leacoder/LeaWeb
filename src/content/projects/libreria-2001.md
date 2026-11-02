@@ -1,6 +1,6 @@
 ---
 title: Librería 2001
-description: Diseñé y desarrollé el sitio de Librería 2001, con catálogo de productos, servicios y consultas por WhatsApp. También me ocupé de la publicación y el hosting.
+description: Diseñé y desarrollé el sitio de Librería 2001, con catálogo de productos, servicios y consultas por WhatsApp.
 contribution: Diseño, desarrollo, publicación y hosting
 client: Librería 2001
 sector: Comercio y servicios

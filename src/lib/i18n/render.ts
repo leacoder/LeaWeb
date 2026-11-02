@@ -40,7 +40,7 @@ export function translateHTML(html: string, additional: Record<string, string> =
     if (node.type !== ELEMENT_NODE) return;
     const a = node.attributes;
     if (node.name === 'html') a.lang = 'en';
-    for (const key of ['alt', 'title', 'aria-label']) if (a[key]) a[key] = translateText(a[key]);
+    for (const key of ['alt', 'title', 'aria-label', 'placeholder']) if (a[key]) a[key] = translateText(a[key]);
     if (node.name === 'meta') {
       if (a.property === 'og:locale') a.content = 'en_US';
       else if (a.property === 'og:url') a.content = localizeURL(a.content);

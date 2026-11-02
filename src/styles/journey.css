@@ -12,6 +12,7 @@
 .mobile-progress span { display: block; height: 100%; background: var(--accent); transform: scaleX(0); transform-origin: left; }
 .mobile-location { position: fixed; bottom: 0; inset-inline: 0; padding: 7px 20px; font: 11px/18px var(--mono); color: var(--muted); background: var(--ink); border-top: 1px solid var(--line); z-index: 19; pointer-events: none; }
 @media (max-width: 999px) {
+  #process, .journey-nav a[href="#process"] { display: none; }
   .process-grid { display: block; position: relative; padding-left: 45px; }
   .process-grid::before, .process-grid::after { content: ''; position: absolute; top: 14px; left: 10px; width: 1px; height: var(--process-line-height, calc(100% - 180px)); background: var(--line); }
   .process-grid::after { background: var(--accent); transform: scaleY(var(--process-drawn, 0)); transform-origin: top; }
@@ -38,7 +39,8 @@
 .journey-enabled .projects-section .project-description { font-size: 13px; line-height: 1.65; }
 .journey-enabled .projects-section .project-info { margin-top: 16px; }
 .journey-enabled .portfolio-note { margin-top: 22px; }
-.journey-enabled .contact-section { min-height: calc(100svh - 80px - 110px); display: flex; flex-direction: column; justify-content: center; }
+.journey-enabled .site-footer { min-height: calc(100svh - 80px); display: flex; flex-direction: column; }
+.journey-enabled .contact-section { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: center; }
 .journey-nav { position: fixed; z-index: 30; right: 12px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; }
 .journey-nav a { position: relative; width: 36px; height: 36px; display: grid; place-items: center; }
 .journey-nav i { width: 5px; height: 5px; background: var(--muted); border-radius: 50%; opacity: .45; transition: transform .35s, opacity .35s, background .35s; }
@@ -66,5 +68,5 @@
   .mobile-journey .site-header { position: static; }
   .journey-nav { display: none !important; }
   .journey-enabled .site-header { position: static; }
-  .journey-enabled main > section, .journey-enabled .contact-section { min-height: 0; }
+  .journey-enabled main > section, .journey-enabled .contact-section, .journey-enabled .site-footer { min-height: 0; }
 }

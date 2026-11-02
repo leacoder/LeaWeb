@@ -6,9 +6,7 @@
   const progress = document.querySelector<HTMLElement>('.mobile-progress')!;
   const locationLabel = document.querySelector<HTMLElement>('.mobile-location')!;
   const header = document.querySelector<HTMLElement>('.site-header')!;
-  const grid = document.querySelector<HTMLElement>('.process-grid')!;
-  const steps = Array.from(grid.querySelectorAll<HTMLElement>('.process-step'));
-  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('.journey-nav a'));
+  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('.journey-nav a')).filter(link => link.hash !== '#process');
   const sections = links.map(link => document.querySelector<HTMLElement>(link.hash)!);
   let cleanup = () => {};
   const start = () => {
@@ -24,12 +22,6 @@
       progress.firstElementChild!.setAttribute('style', `transform:scaleX(${ratio})`);
       progress.setAttribute('aria-valuenow', String(Math.round(ratio * 100)));
       document.documentElement.style.setProperty('--mobile-header-height', `${header.offsetHeight}px`);
-      const first = steps[0].offsetTop;
-      const length = steps[steps.length - 1].offsetTop - first;
-      grid.style.setProperty('--process-line-height', `${length}px`);
-      const drawn = Math.max(0, Math.min(1, (innerHeight * .6 - grid.getBoundingClientRect().top - first - 14) / Math.max(1, length)));
-      grid.style.setProperty('--process-drawn', String(reduced.matches ? 1 : drawn));
-      steps.forEach(step => step.toggleAttribute('data-reached', reduced.matches || step.getBoundingClientRect().top < innerHeight * .6));
       const current = sections.reduce((best, section, index) => section.getBoundingClientRect().top < header.offsetHeight + innerHeight * .3 ? index : best, 0);
       locationLabel.querySelector('span')!.textContent = links[current].textContent;
     };
@@ -37,7 +29,6 @@
     const resize = new ResizeObserver(schedule);
     resize.observe(document.body);
     resize.observe(header);
-    resize.observe(grid);
     window.addEventListener('scroll', schedule, { passive: true });
     window.addEventListener('resize', schedule);
     window.addEventListener('pageshow', schedule);
