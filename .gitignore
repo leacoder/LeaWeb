@@ -52,3 +52,10 @@ dist/
 .env.*
 !.env.example
 *.log
+
+# Local exports, screenshots, scratch scripts and release worktrees
+/output/
+/tmp/
+
+# Legacy Juanis demo, maintained in its separate repository
+/demos/juanis/
