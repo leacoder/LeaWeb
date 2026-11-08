@@ -1,6 +1,11 @@
 import { gsap } from 'gsap';
+import { bindElasticInput } from './elastic-input';
 
 const drawing = document.querySelector<SVGSVGElement>('#blueprint-drawing')!;
+const plane = drawing.closest<HTMLElement>('.blueprint-plane')!;
+// Composite the camera move as one layer instead of relaying out all SVG text
+// and paths on every frame of a viewBox animation.
+plane.style.transition = 'none';
 const play = document.querySelector<HTMLButtonElement>('#build-play')!;
 const progress = document.querySelector<HTMLInputElement>('#build-progress')!;
 const step = document.querySelector<HTMLOutputElement>('#build-step')!;
@@ -67,8 +72,10 @@ timeline.fromTo(select('.reality'), { opacity: 0 }, { opacity: 1, duration: .35 
   .to(select('.plan-paper-label, .plan-titleblock-copy'), { opacity: 0, duration: 1.4 }, 6.5)
   .to(select('.plan-reference'), { opacity: .1, duration: 1.8 }, 6.5)
   .to(select(':scope > rect:not(:first-of-type)'), { opacity: 0, duration: 1.8 }, 6.5)
-  .fromTo(drawing, { attr: { viewBox: '0 0 560 480' } }, { attr: { viewBox: '30 55 500 405' }, duration: 2.7, ease: 'power2.inOut' }, 6.3)
+  .set(plane, { willChange: 'transform' }, 6.3)
+  .fromTo(plane, { scale: 1, yPercent: 0 }, { scale: 1.1, yPercent: -2, duration: 2.7, ease: 'power2.inOut', force3D: true }, 6.3)
   .to([...desktop, ...mobile], { opacity: 0, duration: .3 }, 8.9)
+  .set(plane, { willChange: 'auto' }, 9.2)
   .to({}, { duration: .3 }, 9.2);
 timeline.time(reduced.matches ? timeline.duration() : autoplayRoot ? 0 : 5.9).pause();
 play.disabled = false;
@@ -105,7 +112,45 @@ const ctx = canvas.getContext('2d');
 let width = 0, height = 0, frame = 0, active = false, visible = true;
 let mode = 'elastic';
 let previousFrame = 0;
+let resizeFrame = 0;
+let pixelRatio = 0;
+let restingGrid = new Path2D();
+const spacing = 40;
+const radius = 240;
 const pointer = { x: -1000, y: -1000, targetX: -1000, targetY: -1000, strength: 0 };
+
+function makeGrid(deformed: boolean) {
+  const path = new Path2D();
+  const left = Math.max(0, Math.floor((pointer.x - radius) / 12) * 12);
+  const right = Math.min(width, Math.ceil((pointer.x + radius) / 12) * 12);
+  const top = Math.max(0, Math.floor((pointer.y - radius) / 12) * 12);
+  const bottom = Math.min(height, Math.ceil((pointer.y + radius) / 12) * 12);
+  function point(x: number, y: number) {
+    const dx = x - pointer.x, dy = y - pointer.y;
+    const weight = Math.max(0, 1 - (dx * dx + dy * dy) / (radius * radius));
+    const force = weight * weight * weight * .36 * pointer.strength;
+    path.lineTo(x + dx * force, y + dy * force);
+  }
+  for (let x = 0; x <= width; x += spacing) {
+    path.moveTo(x, 0);
+    if (deformed && Math.abs(x - pointer.x) < radius) {
+      path.lineTo(x, top);
+      for (let y = top; y <= bottom; y += 12) point(x, y);
+      point(x, bottom);
+    }
+    path.lineTo(x, height);
+  }
+  for (let y = 0; y <= height; y += spacing) {
+    path.moveTo(0, y);
+    if (deformed && Math.abs(y - pointer.y) < radius) {
+      path.lineTo(left, y);
+      for (let x = left; x <= right; x += 12) point(x, y);
+      point(right, y);
+    }
+    path.lineTo(width, y);
+  }
+  return path;
+}
 
 function draw(now = performance.now()) {
   frame = 0;
@@ -118,35 +163,19 @@ function draw(now = performance.now()) {
   pointer.y += (pointer.targetY - pointer.y) * follow;
   pointer.strength += ((active && !reduced.matches ? 1 : 0) - pointer.strength) * settle;
   ctx.clearRect(0, 0, width, height);
-  const spacing = 40;
-  function point(x: number, y: number) {
-    if (mode !== 'elastic') return [x, y];
-    const dx = x - pointer.x, dy = y - pointer.y;
-    // A continuous displacement field avoids a kink at the cursor's center.
-    const force = Math.exp(-(dx * dx + dy * dy) / 38000) * .24 * pointer.strength;
-    return [x + dx * force, y + dy * force];
-  }
+  // Reuse the straight grid while idle. Only subdivide lines near the finger
+  // when elastic movement is visible; distant lines remain single segments.
+  const gridPath = mode === 'elastic' && pointer.strength > .005 ? makeGrid(true) : restingGrid;
   ctx.lineWidth = .7;
   ctx.strokeStyle = 'rgba(139,226,239,.10)';
-  ctx.beginPath();
-  for (let x = 0; x <= width; x += spacing) {
-    for (let y = 0; y <= height + 10; y += 10) {
-      const [px, py] = point(x, y); if (!y) ctx.moveTo(px, py); else ctx.lineTo(px, py);
-    }
-  }
-  for (let y = 0; y <= height; y += spacing) {
-    for (let x = 0; x <= width + 10; x += 10) {
-      const [px, py] = point(x, y); if (!x) ctx.moveTo(px, py); else ctx.lineTo(px, py);
-    }
-  }
-  ctx.stroke();
+  ctx.stroke(gridPath);
   if (pointer.strength > .005) {
     const sx = mode === 'snap' ? Math.round(pointer.x / spacing) * spacing : pointer.x;
     const sy = mode === 'snap' ? Math.round(pointer.y / spacing) * spacing : pointer.y;
     const light = ctx.createRadialGradient(sx, sy, 0, sx, sy, 210);
     light.addColorStop(0, `rgba(139,226,239,${.38 * pointer.strength})`);
     light.addColorStop(1, 'rgba(139,226,239,0)');
-    ctx.strokeStyle = light; ctx.stroke();
+    ctx.strokeStyle = light; ctx.stroke(gridPath);
     if (mode === 'snap') {
       ctx.strokeStyle = `rgba(139,226,239,${.7 * pointer.strength})`;
       ctx.beginPath(); ctx.moveTo(sx - 12, sy); ctx.lineTo(sx + 12, sy);
@@ -157,37 +186,40 @@ function draw(now = performance.now()) {
     }
   }
   if (Math.abs(pointer.targetX - pointer.x) + Math.abs(pointer.targetY - pointer.y) > .1 || Math.abs(pointer.strength - (active && !reduced.matches ? 1 : 0)) > .005) schedule();
+  else previousFrame = 0;
 }
 function schedule() { if (!frame && visible && !document.hidden) frame = requestAnimationFrame(draw); }
 function resizeCanvas() {
-  const bounds = scene.getBoundingClientRect();
-  width = globalGrid ? document.documentElement.clientWidth : bounds.width;
-  height = globalGrid ? innerHeight : bounds.height;
+  resizeFrame = 0;
+  const bounds = globalGrid ? null : scene.getBoundingClientRect();
+  const nextWidth = globalGrid ? document.documentElement.clientWidth : bounds!.width;
+  // Browser bars can resize the viewport repeatedly during a swipe. A small
+  // overscan keeps the grid at 1:1 scale without reallocating on every pixel.
+  const nextHeight = globalGrid ? Math.ceil(innerHeight / 64) * 64 : bounds!.height;
   const ratio = Math.min(devicePixelRatio || 1, 2);
+  if (width === nextWidth && height === nextHeight && pixelRatio === ratio) return;
+  width = nextWidth; height = nextHeight; pixelRatio = ratio;
+  if (globalGrid) canvas.style.height = `${height}px`;
   canvas.width = Math.round(width * ratio); canvas.height = Math.round(height * ratio);
   ctx?.setTransform(ratio, 0, 0, ratio, 0, 0);
+  restingGrid = makeGrid(false);
   // Resizing clears the backing bitmap. Repaint immediately, including when
   // a browser suspends a previously queued frame during viewport changes.
   cancelAnimationFrame(frame); frame = 0; draw();
 }
-const resize = new ResizeObserver(resizeCanvas);
+function queueResize() { if (!resizeFrame) resizeFrame = requestAnimationFrame(resizeCanvas); }
+const resize = new ResizeObserver(queueResize);
 resize.observe(scene);
-window.addEventListener('resize', resizeCanvas);
-let touchTimer: ReturnType<typeof setTimeout>;
-function move(event: PointerEvent) {
-  if (reduced.matches) return;
-  const bounds = scene.getBoundingClientRect();
-  pointer.targetX = event.clientX - (globalGrid ? 0 : bounds.left);
-  pointer.targetY = event.clientY - (globalGrid ? 0 : bounds.top);
+window.addEventListener('resize', queueResize);
+function move(x: number, y: number) {
+  const bounds = globalGrid ? null : scene.getBoundingClientRect();
+  pointer.targetX = x - (bounds?.left ?? 0);
+  pointer.targetY = y - (bounds?.top ?? 0);
   if (pointer.strength < .01) { pointer.x = pointer.targetX; pointer.y = pointer.targetY; }
   active = true; schedule();
-  if (event.pointerType !== 'mouse') {
-    clearTimeout(touchTimer); touchTimer = setTimeout(() => { active = false; schedule(); }, 900);
-  }
 }
-scene.addEventListener('pointermove', move, { passive: true });
-scene.addEventListener('pointerdown', move, { passive: true });
-scene.addEventListener('pointerleave', () => { active = false; schedule(); });
+const release = () => { active = false; schedule(); };
+bindElasticInput(scene, { enabled: () => !reduced.matches && !document.hidden, move, release });
 const descriptions: Record<string, string> = {
   light: 'Las líneas se iluminan cerca del cursor.',
   elastic: 'La retícula acompaña el movimiento y recupera su forma suavemente.',
@@ -201,7 +233,7 @@ document.querySelectorAll<HTMLButtonElement>('[data-grid-mode]').forEach(button 
   });
 });
 function syncPlayback() {
-  if (document.hidden || !visible) { timeline.pause(); cancelAnimationFrame(frame); frame = 0; }
+  if (document.hidden || !visible) { timeline.pause(); cancelAnimationFrame(frame); frame = 0; previousFrame = 0; active = false; }
   else {
     if (!manuallyPaused && !reduced.matches && blueprintVisible && (!story || story.dataset.active === '0')) timeline.play();
     else timeline.pause();
@@ -220,5 +252,5 @@ reduced.addEventListener('change', () => {
   if (reduced.matches) { manuallyPaused = true; timeline.progress(1).pause(); active = false; }
   schedule();
 });
-window.addEventListener('pagehide', () => { timeline.pause(); cancelAnimationFrame(frame); frame = 0; clearTimeout(touchTimer); });
-window.addEventListener('pageshow', syncPlayback);
+window.addEventListener('pagehide', () => { timeline.pause(); cancelAnimationFrame(frame); cancelAnimationFrame(resizeFrame); frame = 0; resizeFrame = 0; active = false; });
+window.addEventListener('pageshow', () => { queueResize(); syncPlayback(); });

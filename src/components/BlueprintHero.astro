@@ -22,5 +22,6 @@ import BlueprintReality from './BlueprintReality.astro';
   #build-play:hover { background: #123248; }
   #build-play:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
   .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  @media (max-width: 760px) { #build-play { left: 0; right: auto; } }
   [hidden] { display: none !important; }
 </style>
