@@ -78,6 +78,18 @@ Después de publicar, verificar la propiedad en Search Console, enviar `https://
 
 ## Publicación en GitHub Pages
 
+La portada original (`/`) y la v2 (`/v2/`) se conservan. La nueva experiencia con construcción automática del blueprint y fondo elástico está en `/v3/` y `/en/v3/`. Ambas variantes de prueba tienen `noindex` y quedan fuera del sitemap. La demo de exploración se conserva como fuente en `src/labs/MotionLab.astro`, sin publicarse como ruta.
+
+Para publicar únicamente v3, preservando byte por byte las páginas y los recursos existentes:
+
+```sh
+npm run validate
+node scripts/sync-pages-root.mjs --preview=v3
+npm run verify:root
+```
+
+Este modo agrega las dos páginas v3 y sus recursos con nombres versionados. No retira recursos anteriores ni reemplaza las páginas originales o v2. Si encuentra un recurso existente con el mismo nombre pero contenido distinto, se detiene antes de copiar.
+
 El repositorio conserva el origen actual de Pages: rama `master`, carpeta `/(root)`. La versión publicada se guarda en la raíz y GitHub Pages la actualiza al mergear o hacer push a `master`. No se requiere cambiar Pages a GitHub Actions.
 
 Antes de preparar un cambio para el PR, ejecutar:

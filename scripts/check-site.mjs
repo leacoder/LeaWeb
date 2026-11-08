@@ -69,7 +69,7 @@ for (const [file, html] of pageCache) {
   }
   const legacy = route === '/tablet/';
   const errorPage = /\/(?:404\.html|404\/)$/.test(route);
-  const previewPage = /^(?:\/en)?\/v2\/$/.test(route);
+  const previewPage = /^(?:\/en)?\/v[23]\/$/.test(route);
   const label = path.relative(dist, file);
   const english = route.startsWith('/en/');
   assert(new RegExp(`<html\\b[^>]*\\blang=["']${english ? 'en' : 'es(?:-AR)?'}["']`, 'i').test(html), `${label}: idioma incorrecto.`);
@@ -193,7 +193,7 @@ const sitemapFiles = files.filter((file) => /sitemap[^/\\]*\.xml$/.test(file));
 assert(sitemapFiles.some((file) => path.basename(file) === 'sitemap-index.xml'), 'Falta sitemap-index.xml.');
 for (const sitemapFile of sitemapFiles) {
   const xml = await readFile(sitemapFile, 'utf8');
-  assert(!/<loc>https:\/\/lgdesign\.com\.ar\/(?:en\/)?v2(?:\/|<)/.test(xml), 'El sitemap no debe incluir las vistas previas /v2.');
+  assert(!/<loc>https:\/\/lgdesign\.com\.ar\/(?:en\/)?v[23](?:\/|<)/.test(xml), 'El sitemap no debe incluir las vistas previas /v2 o /v3.');
   assert(!/\/(?:tablet|404)(?:[/.<]|$)/.test(xml), 'El sitemap contiene una página de compatibilidad o de error.');
   for (const match of xml.matchAll(/<loc>([^<]+)<\/loc>/g)) {
     const url = new URL(decode(match[1]));

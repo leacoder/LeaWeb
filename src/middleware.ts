@@ -6,7 +6,7 @@ import { v2English } from './lib/i18n/v2';
 export const onRequest = defineMiddleware(async ({ url }, next) => {
   const response = await next();
   if (!url.pathname.startsWith('/en/') || !response.headers.get('content-type')?.includes('text/html')) return response;
-  return new Response(translateHTML(await response.text(), url.pathname.startsWith('/en/v2/') ? v2English : {}), {
+  return new Response(translateHTML(await response.text(), /^\/en\/v[23]\//.test(url.pathname) ? v2English : {}), {
     status: response.status,
     headers: response.headers,
   });

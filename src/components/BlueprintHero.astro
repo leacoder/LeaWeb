@@ -1,0 +1,26 @@
+---
+import Blueprint from './AnimatedBlueprint.astro';
+import BlueprintReality from './BlueprintReality.astro';
+---
+<div class="blueprint-hero" data-blueprint-autoplay>
+  <Blueprint><BlueprintReality /></Blueprint>
+  <button id="build-play" type="button" hidden>Ver construcción</button>
+  <input id="build-progress" type="range" min="0" max="100" value="0" hidden aria-label="Avance de la construcción" />
+  <output id="build-step" class="sr-only">Construcción del plano</output>
+</div>
+<script src="../scripts/motion-lab.ts"></script>
+<style>
+  .blueprint-hero { position: relative; height: 100%; min-width: 0; --text: #edf3f8; }
+  .blueprint-hero :global(.blueprint) { color: var(--accent); height: 100%; width: 100%; margin: 0; }
+  .blueprint-hero :global(.blueprint-top), .blueprint-hero :global(.blueprint-bottom), .blueprint-hero :global(.blueprint-controls) { display: none; }
+  .blueprint-hero :global(.blueprint-stage) { height: 100%; background: transparent; }
+  .blueprint-hero :global(.blueprint-plane) { height: 100%; }
+  .blueprint-hero :global(.blueprint-drawing) { display: block; width: 100%; height: 100%; aspect-ratio: auto; }
+  .blueprint-hero :global(.blueprint-drawing > rect:first-of-type) { fill: transparent; }
+  .blueprint-hero :global(.plan-trace), .blueprint-hero :global(.plan-copy), .blueprint-hero :global(.plan-measurements), .blueprint-hero :global(.plan-scan), .blueprint-hero :global(.plan-beacon) { animation: none; }
+  #build-play { position: absolute; right: 0; bottom: 0; min-height: 44px; padding: 8px 12px; border: 1px solid var(--line); background: #071a2e; color: var(--accent); font: 11px var(--font); cursor: pointer; pointer-events: auto; }
+  #build-play:hover { background: #123248; }
+  #build-play:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  [hidden] { display: none !important; }
+</style>
